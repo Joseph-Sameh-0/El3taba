@@ -36,6 +36,11 @@ android {
 }
 
 dependencies {
+    implementation(project(":auth"))
+    implementation(project(":customer"))
+    implementation(project(":seller"))
+    implementation(project(":admin"))
+    implementation(project(":core"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

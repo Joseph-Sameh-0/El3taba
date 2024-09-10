@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "El 3taba - العتبة"
 include(":app")
 include(":auth")
+include(":customer")

@@ -12,6 +12,7 @@
             <option value="$PROJECT_DIR$/admin" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/auth" />
+            <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/customer" />
             <option value="$PROJECT_DIR$/seller" />
           </set>

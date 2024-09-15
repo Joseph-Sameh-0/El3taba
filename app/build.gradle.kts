@@ -4,12 +4,12 @@ plugins {
 }
 
 android {
+    namespace = "com.example.el3taba"
+    compileSdk = 34
+
     buildFeatures {
         viewBinding = true
     }
-
-    namespace = "com.example.el3taba"
-    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.el3taba"
@@ -40,17 +40,15 @@ android {
 }
 
 dependencies {
-    implementation(project(":auth"))
-    implementation(project(":customer"))
-    implementation(project(":seller"))
-    implementation(project(":admin"))
-    implementation(project(":core"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

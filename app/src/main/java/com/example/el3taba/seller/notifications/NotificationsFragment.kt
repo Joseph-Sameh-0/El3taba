@@ -1,4 +1,4 @@
-package com.example.el3taba.seller.ui.notifications
+package com.example.el3taba.seller.notifications
 
 import android.os.Bundle
 import android.view.LayoutInflater

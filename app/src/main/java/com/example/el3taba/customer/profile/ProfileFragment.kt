@@ -1,4 +1,4 @@
-package com.example.el3taba.customer.ui.profile
+package com.example.el3taba.customer.profile
 
 import android.os.Bundle
 import android.view.LayoutInflater

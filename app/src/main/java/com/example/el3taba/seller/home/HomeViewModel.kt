@@ -1,4 +1,4 @@
-package com.example.el3taba.seller.ui.home
+package com.example.el3taba.seller.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

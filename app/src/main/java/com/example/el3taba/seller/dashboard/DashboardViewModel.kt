@@ -1,4 +1,4 @@
-package com.example.el3taba.seller.ui.dashboard
+package com.example.el3taba.seller.dashboard
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

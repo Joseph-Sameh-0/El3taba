@@ -32,16 +32,6 @@ class MainActivity : AppCompatActivity() {
         var graphId = R.navigation.auth_navigation
         var menuId = R.menu.auth_bottom_nav_menu
 
-        navView.menu.clear()
-        navView.inflateMenu(menuId)
-
-        navController.graph = navController.navInflater.inflate(graphId)
-
-        var appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.welcomeFragment, R.id.loginFragment, R.id.signupFragment
-            )
-        )
 
         Log.d("MainActivity", "isUserLoggedIn is $isUserLoggedIn")
         if (isUserLoggedIn) {
@@ -50,81 +40,105 @@ class MainActivity : AppCompatActivity() {
             when (userRole) {
                 "customer" -> {
                     Log.d("MainActivity", "user is customer")
-
                     graphId = R.navigation.customer_navigation
                     menuId = R.menu.customer_bottom_nav_menu
-
-                    navView.menu.clear()
-                    navView.inflateMenu(menuId)
-
-                    navController.graph = navController.navInflater.inflate(graphId)
-
-                    appBarConfiguration = AppBarConfiguration(
-                        setOf(
-                            R.id.customer_navigation_home,
-                            R.id.customer_navigation_shop,
-                            R.id.customer_navigation_bag,
-                            R.id.customer_navigation_favorites,
-                            R.id.customer_navigation_profile
-                        )
-                    )
                 }
 
                 "seller" -> {
                     Log.d("MainActivity", "user is seller")
                     graphId = R.navigation.seller_navigation
                     menuId = R.menu.seller_bottom_nav_menu
-
-                    navView.menu.clear()
-                    navView.inflateMenu(menuId)
-
-                    navController.graph = navController.navInflater.inflate(graphId)
-
-                    appBarConfiguration = AppBarConfiguration(
-                        setOf(
-                            R.id.seller_navigation_home,
-                            R.id.seller_navigation_dashboard,
-                            R.id.seller_navigation_notifications
-                        )
-                    )
                 }
 
                 "admin" -> {
                     Log.d("MainActivity", "user is admin")
                     // Redirect to AdminActivity
-//                    binding.welcome.visibility = View.GONE
                     graphId = R.navigation.admin_navigation
                     menuId = R.menu.admin_bottom_nav_menu
-
-                    navView.menu.clear()
-                    navView.inflateMenu(menuId)
-
-                    navController.graph = navController.navInflater.inflate(graphId)
-
-                    appBarConfiguration = AppBarConfiguration(
-                        setOf(
-                            R.id.admin_navigation_home,
-                            R.id.admin_navigation_dashboard,
-                            R.id.admin_navigation_notifications
-                        )
-                    )
                 }
-
                 else -> {
                     Log.d("MainActivity", "user is Unknown")
                     // Unknown role, log out or show error
                     showErrorMessage("Unknown role!")
                     logout()
+
+//                    navController.navigate(
+//                        R.id.loginFragment, null, NavOptions.Builder().setPopUpTo(
+//                            navController.graph.startDestinationId,
+//                            true
+//                        ).build()
+//                    )
+//                    return
                 }
             }
         } else {
             Log.d("MainActivity", "user is not logged in")
 
-            findNavController(R.id.nav_host_fragment_activity_main).navigate(R.id.loginFragment, null, NavOptions.Builder()
-                .setPopUpTo(findNavController(R.id.nav_host_fragment_activity_main).graph.startDestinationId, true).build())
+            findNavController(R.id.nav_host_fragment_activity_main).navigate(
+                R.id.loginFragment, null, NavOptions.Builder().setPopUpTo(
+                    findNavController(R.id.nav_host_fragment_activity_main).graph.startDestinationId,
+                    true
+                ).build()
+            )
         }
+
+        navView.menu.clear()
+        navView.inflateMenu(menuId)
+
+        try {
+            // 2. Set the navigation graph
+            navController.graph = navController.navInflater.inflate(graphId)
+        } catch (e: Exception) {
+            Log.e("MainActivity", "Error inflating navigation graph: ${e.message}")
+            showErrorMessage("Failed to load the navigation graph.")
+            logout()
+            return // Stop further execution
+        }
+
+//        navController.graph = navController.navInflater.inflate(graphId) // this line causes an error
+
+        val appBarConfiguration = when (graphId) {
+            R.navigation.auth_navigation -> AppBarConfiguration(
+                setOf(
+                    R.id.welcomeFragment, R.id.loginFragment, R.id.signupFragment
+                )
+            )
+
+            R.navigation.customer_navigation -> AppBarConfiguration(
+                setOf(
+                    R.id.customer_navigation_home,
+                    R.id.customer_navigation_shop,
+                    R.id.customer_navigation_bag,
+                    R.id.customer_navigation_favorites,
+                    R.id.customer_navigation_profile
+                )
+            )
+
+            R.navigation.seller_navigation -> AppBarConfiguration(
+                setOf(
+                    R.id.seller_navigation_home,
+                    R.id.seller_navigation_dashboard,
+                    R.id.seller_navigation_notifications
+                )
+            )
+
+            R.navigation.admin_navigation -> AppBarConfiguration(
+                setOf(
+                    R.id.admin_navigation_home,
+                    R.id.admin_navigation_dashboard,
+                    R.id.admin_navigation_notifications
+                )
+            )
+            else -> AppBarConfiguration(
+                setOf(
+                    R.id.welcomeFragment, R.id.loginFragment, R.id.signupFragment
+                )
+            )
+        }
+
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        binding.navView.visibility = View.GONE
     }
 
     // This function checks if the user is logged in
@@ -152,6 +166,7 @@ class MainActivity : AppCompatActivity() {
         // Clear session and redirect to login
         val sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE)
         sharedPreferences.edit().clear().apply()
+        this.recreate()
         // go to login
     }
 }

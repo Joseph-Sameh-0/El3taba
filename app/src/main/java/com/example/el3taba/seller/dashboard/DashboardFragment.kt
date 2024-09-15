@@ -1,4 +1,4 @@
-package com.example.el3taba.seller.ui.dashboard
+package com.example.el3taba.seller.dashboard
 
 import android.os.Bundle
 import android.view.LayoutInflater

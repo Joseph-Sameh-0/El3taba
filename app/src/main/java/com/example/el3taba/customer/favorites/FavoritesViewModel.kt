@@ -1,4 +1,4 @@
-package com.example.el3taba.customer.ui.favorites
+package com.example.el3taba.customer.favorites
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

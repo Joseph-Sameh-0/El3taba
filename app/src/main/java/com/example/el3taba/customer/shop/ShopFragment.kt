@@ -1,4 +1,4 @@
-package com.example.el3taba.customer.ui.shop
+package com.example.el3taba.customer.shop
 
 import android.os.Bundle
 import android.view.LayoutInflater

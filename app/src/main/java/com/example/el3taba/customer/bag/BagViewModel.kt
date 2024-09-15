@@ -1,4 +1,4 @@
-package com.example.el3taba.customer.ui.bag
+package com.example.el3taba.customer.bag
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

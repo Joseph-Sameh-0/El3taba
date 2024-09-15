@@ -1,4 +1,4 @@
-package com.example.el3taba.seller.ui.notifications
+package com.example.el3taba.seller.notifications
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

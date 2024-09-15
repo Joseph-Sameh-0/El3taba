@@ -10,12 +10,11 @@ import com.example.el3taba.R
 class WelcomeFragment : Fragment() {
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.auth_fragment_welcome, container, false)
     }
-
+    //navigate to login
 
 }

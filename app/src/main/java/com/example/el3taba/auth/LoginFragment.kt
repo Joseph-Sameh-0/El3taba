@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.example.el3taba.R
 import com.example.el3taba.databinding.AuthFragmentLoginBinding
 
 class LoginFragment : Fragment() {
@@ -42,6 +44,9 @@ class LoginFragment : Fragment() {
                 ).show()
             }
         }
+        binding.signupButton.setOnClickListener {
+            findNavController().navigate(R.id.signupFragment)
+        }
     }
 
     private fun performLogin(email: String, password: String) {
@@ -58,9 +63,8 @@ class LoginFragment : Fragment() {
 
         // Instead of starting an activity, communicate with the host activity
         // using an interface or by sending data through the arguments
-        val intent = Intent(requireContext(), Class.forName("com.example.MainActivity"))
-        startActivity(intent)
-        activity?.finish()
+
+        activity?.recreate()
     }
 
     private fun getRoleFromBackend(email: String): String {

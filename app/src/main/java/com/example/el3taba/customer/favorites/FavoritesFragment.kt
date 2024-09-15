@@ -1,4 +1,4 @@
-package com.example.el3taba.customer.ui.favorites
+package com.example.el3taba.customer.favorites
 
 import android.os.Bundle
 import android.view.LayoutInflater

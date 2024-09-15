@@ -9,6 +9,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
@@ -25,7 +26,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val navView: BottomNavigationView = binding.navView
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
+//        val navController = findNavController(R.id.nav_host_fragment_activity_main)
+
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
+        val navController = navHostFragment.navController
+
 
         val isUserLoggedIn = checkUserLoggedIn()
 
@@ -74,12 +79,14 @@ class MainActivity : AppCompatActivity() {
         } else {
             Log.d("MainActivity", "user is not logged in")
 
-            findNavController(R.id.nav_host_fragment_activity_main).navigate(
+            navController.navigate(
                 R.id.loginFragment, null, NavOptions.Builder().setPopUpTo(
-                    findNavController(R.id.nav_host_fragment_activity_main).graph.startDestinationId,
+                    navController.graph.startDestinationId,
                     true
                 ).build()
             )
+            binding.navView.visibility = View.GONE
+            return ///
         }
 
         navView.menu.clear()
@@ -87,7 +94,7 @@ class MainActivity : AppCompatActivity() {
 
         try {
             // 2. Set the navigation graph
-            navController.graph = navController.navInflater.inflate(graphId)
+            navController.setGraph(graphId)
         } catch (e: Exception) {
             Log.e("MainActivity", "Error inflating navigation graph: ${e.message}")
             showErrorMessage("Failed to load the navigation graph.")
@@ -138,7 +145,6 @@ class MainActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-        binding.navView.visibility = View.GONE
     }
 
     // This function checks if the user is logged in

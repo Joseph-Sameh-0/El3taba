@@ -8,28 +8,28 @@
 
     <fragment
         android:id="@+id/customer_navigation_home"
-        android:name="com.example.el3taba.customer.ui.home.HomeFragment"
+        android:name="com.example.el3taba.customer.home.HomeFragment"
         android:label="customer_fragment_home"
         tools:layout="@layout/customer_fragment_home" />
     <fragment
         android:id="@+id/customer_navigation_shop"
-        android:name="com.example.el3taba.customer.ui.shop.ShopFragment"
+        android:name="com.example.el3taba.customer.shop.ShopFragment"
         android:label="customer_fragment_shop"
         tools:layout="@layout/customer_fragment_shop" />
     <fragment
         android:id="@+id/customer_navigation_bag"
-        android:name="com.example.el3taba.customer.ui.bag.BagFragment"
+        android:name="com.example.el3taba.customer.bag.BagFragment"
         android:label="BagFragment"
         tools:layout="@layout/customer_fragment_bag"
         />
     <fragment
         android:id="@+id/customer_navigation_favorites"
-        android:name="com.example.el3taba.customer.ui.favorites.FavoritesFragment"
+        android:name="com.example.el3taba.customer.favorites.FavoritesFragment"
         android:label="customer_fragment_favorites"
         tools:layout="@layout/customer_fragment_favorites" />
     <fragment
         android:id="@+id/customer_navigation_profile"
-        android:name="com.example.el3taba.customer.ui.profile.ProfileFragment"
+        android:name="com.example.el3taba.customer.profile.ProfileFragment"
         android:label="customer_fragment_profile"
         tools:layout="@layout/customer_fragment_profile" />
 </navigation>

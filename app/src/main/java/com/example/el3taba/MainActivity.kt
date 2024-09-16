@@ -28,7 +28,8 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = binding.navView
 //        val navController = findNavController(R.id.nav_host_fragment_activity_main)
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
         val navController = navHostFragment.navController
 
 
@@ -61,6 +62,7 @@ class MainActivity : AppCompatActivity() {
                     graphId = R.navigation.admin_navigation
                     menuId = R.menu.admin_bottom_nav_menu
                 }
+
                 else -> {
                     Log.d("MainActivity", "user is Unknown")
                     // Unknown role, log out or show error
@@ -136,6 +138,7 @@ class MainActivity : AppCompatActivity() {
                     R.id.admin_navigation_notifications
                 )
             )
+
             else -> AppBarConfiguration(
                 setOf(
                     R.id.welcomeFragment, R.id.loginFragment, R.id.signupFragment

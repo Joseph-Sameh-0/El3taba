@@ -40,7 +40,10 @@ class HomeFragment : Fragment() {
         binding.logoutButton.setOnClickListener{
             val sharedPreferences = requireActivity().getSharedPreferences("user_session", MODE_PRIVATE)
             sharedPreferences.edit().clear().apply()
-            activity?.recreate()
+
+            val intent = requireActivity().intent
+            requireActivity().finish()
+            startActivity(intent)
         }
     }
     override fun onDestroyView() {

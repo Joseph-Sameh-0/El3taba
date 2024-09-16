@@ -41,7 +41,10 @@ class HomeFragment : Fragment() {
         binding.logoutButton.setOnClickListener{
             val sharedPreferences = requireActivity().getSharedPreferences("user_session", MODE_PRIVATE)
             sharedPreferences.edit().clear().apply()
-            activity?.recreate()/////////////////////////////////////////error
+
+            val intent = requireActivity().intent
+            requireActivity().finish()
+            startActivity(intent)
         }
 
     }

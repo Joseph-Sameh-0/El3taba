@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".customer.shop.ShopFragment">
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_shop"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/nav_shop"
+        />
+
     <TextView
         android:id="@+id/text_shop"
         android:layout_width="match_parent"
@@ -17,8 +30,11 @@
         android:text="@string/shop"
         android:textAlignment="center"
         android:textSize="20sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:startDestination="@id/shopCategoryFragment">
+
+    <!-- Shop Category Fragment -->
+    <fragment
+        android:id="@+id/shopCategoryFragment"
+        android:name="com.example.el3taba.customer.shop.fragments.ShopCategoryFragment"
+        android:label="Categories">
+        <action
+            android:id="@+id/action_category_to_subCategory"
+            app:destination="@id/shopSubCategoryFragment" />
+    </fragment>
+
+    <!-- Shop Subcategory Fragment -->
+    <fragment
+        android:id="@+id/shopSubCategoryFragment"
+        android:name="com.example.el3taba.customer.shop.fragments.ShopSubCategoryFragment"
+        android:label="Subcategories">
+        <action
+            android:id="@+id/action_subCategory_to_items"
+            app:destination="@id/shopItemListFragment" />
+    </fragment>
+
+    <!-- Shop Item List Fragment -->
+    <fragment
+        android:id="@+id/shopItemListFragment"
+        android:name="com.example.el3taba.customer.shop.fragments.ShopItemListFragment"
+        android:label="Items">
+        <action
+            android:id="@+id/action_items_to_product"
+            app:destination="@id/productItemFragment" />
+    </fragment>
+
+    <!-- Product Item Fragment -->
+    <fragment
+        android:id="@+id/productItemFragment"
+        android:name="com.example.el3taba.customer.shop.fragments.ProductItemFragment"
+        android:label="Product Details">
+        <action
+            android:id="@+id/action_product_to_reviews"
+            app:destination="@id/ratingsReviewsFragment" />
+    </fragment>
+
+    <!-- Ratings and Reviews Fragment -->
+    <fragment
+        android:id="@+id/ratingsReviewsFragment"
+        android:name="com.example.el3taba.customer.shop.fragments.RatingsReviewsFragment"
+        android:label="Ratings and Reviews" />
+</navigation>

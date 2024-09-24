@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
+import com.example.el3taba.R
 import com.example.el3taba.databinding.CustomerFragmentShopBinding
 
 class ShopFragment : Fragment() {
@@ -31,6 +33,11 @@ private var _binding: CustomerFragmentShopBinding? = null
     shopViewModel.text.observe(viewLifecycleOwner) {
       textView.text = it
     }
+      val navHostFragment = childFragmentManager.findFragmentById(R.id.nav_host_shop) as NavHostFragment
+      val navController = navHostFragment.navController
+      val navGraph = navController.navInflater.inflate(R.navigation.nav_shop)
+      navController.graph = navGraph
+
     return root
   }
 

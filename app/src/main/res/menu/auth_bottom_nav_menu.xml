@@ -14,4 +14,11 @@
         android:id="@+id/signupFragment"
         android:icon="@drawable/ic_dashboard_black_24dp"
         android:title="@string/signup" />
+
+    <item
+        android:id="@+id/forgetPasswordFragment"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="@string/forget_password" />
+
+
 </menu>

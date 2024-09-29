@@ -1,19 +1,20 @@
 package com.example.el3taba
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.el3taba.databinding.ActivityMainBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.FirebaseApp
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,10 +22,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        FirebaseApp.initializeApp(this)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         val navView: BottomNavigationView = binding.navView
 //        val navController = findNavController(R.id.nav_host_fragment_activity_main)
 
@@ -81,12 +81,15 @@ class MainActivity : AppCompatActivity() {
         } else {
             Log.d("MainActivity", "user is not logged in")
 
-            navController.navigate(
-                R.id.loginFragment, null, NavOptions.Builder().setPopUpTo(
-                    navController.graph.startDestinationId,
-                    true
-                ).build()
-            )
+            lifecycleScope.launch {
+                kotlinx.coroutines.delay(2000)
+                navController.navigate(
+                    R.id.loginFragment, null, NavOptions.Builder().setPopUpTo(
+                        navController.graph.startDestinationId,
+                        true
+                    ).build()
+                )
+            }
             binding.navView.visibility = View.GONE
             return ///
         }

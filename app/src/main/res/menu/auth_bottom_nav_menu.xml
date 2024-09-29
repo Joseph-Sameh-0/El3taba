@@ -3,8 +3,7 @@
     <item
         android:id="@+id/welcomeFragment"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/welcome"
-        android:visible="false" />
+        android:title="@string/welcome" />
 
     <item
         android:id="@+id/loginFragment"

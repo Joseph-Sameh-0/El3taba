@@ -1,5 +1,6 @@
 [versions]
 agp = "8.5.1"
+appcompatV7 = "28.0.0"
 firebaseAuth = "23.0.0"
 firebaseBom = "33.3.0"
 firebaseConfig = "22.0.0"
@@ -24,6 +25,7 @@ navigationUiKtx = "2.8.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+appcompat-v7 = { module = "com.android.support:appcompat-v7", version.ref = "appcompatV7" }
 firebase-auth = { module = "com.google.firebase:firebase-auth", version.ref = "firebaseAuth" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 firebase-config = { module = "com.google.firebase:firebase-config", version.ref = "firebaseConfig" }

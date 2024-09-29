@@ -1,7 +1,6 @@
 package com.example.el3taba.auth
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -44,7 +43,10 @@ class LoginFragment : Fragment() {
                 ).show()
             }
         }
-        binding.signupButton.setOnClickListener {
+        binding.signupButton1.setOnClickListener {
+            findNavController().navigate(R.id.signupFragment)
+        }
+        binding.signupButton2.setOnClickListener {
             findNavController().navigate(R.id.signupFragment)
         }
     }

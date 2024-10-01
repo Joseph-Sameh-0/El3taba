@@ -22,4 +22,9 @@
     <string name="forget_password">Forget Password ?</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="splash_icon_desc">Logo</string>
+    <string name="submit">Submit</string>
+    <string name="new_password">New password</string>
+    <string name="old_password">Old password</string>
+    <string name="must_be_at_least_8_characters">Must be at least 8 characters</string>
+    <string name="set_a_new_password">Set a new password</string>
 </resources>

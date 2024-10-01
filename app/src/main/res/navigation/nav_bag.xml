@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_bag"
+    app:startDestination="@id/bagListItemsFragment">
+
+    <fragment
+        android:id="@+id/bagListItemsFragment"
+        android:name="com.example.el3taba.customer.bag.fragments.BagListItemsFragment"
+        android:label="bag_fragment_bag_list_items"
+        tools:layout="@layout/bag_fragment_bag_list_items" />
+    <fragment
+        android:id="@+id/checkOutFragment"
+        android:name="com.example.el3taba.customer.bag.fragments.CheckOutFragment"
+        android:label="bag_fragment_check_out"
+        tools:layout="@layout/bag_fragment_check_out" />
+    <fragment
+        android:id="@+id/shippingAddressesFragment"
+        android:name="com.example.el3taba.customer.bag.fragments.ShippingAddressesFragment"
+        android:label="bag_fragment_shipping_addresses"
+        tools:layout="@layout/bag_fragment_shipping_addresses" />
+</navigation>

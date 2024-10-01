@@ -20,4 +20,9 @@
         android:name="com.example.el3taba.customer.bag.fragments.ShippingAddressesFragment"
         android:label="bag_fragment_shipping_addresses"
         tools:layout="@layout/bag_fragment_shipping_addresses" />
+    <fragment
+        android:id="@+id/successFragment"
+        android:name="com.example.el3taba.customer.bag.fragments.SuccessFragment"
+        android:label="bag_fragment_success"
+        tools:layout="@layout/bag_fragment_success" />
 </navigation>

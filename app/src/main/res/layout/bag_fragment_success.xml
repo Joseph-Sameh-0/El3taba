@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".customer.bag.fragments.CheckOutFragment">
+    tools:context=".customer.bag.fragments.SuccessFragment">
 
     <TextView
-        android:id="@+id/CheckoutTextView"
+        android:id="@+id/SuccessTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Checkout Fragment"
+        android:text="Success Fragment"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,22 +24,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/buy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="buy"
-        app:layout_constraintBottom_toTopOf="@id/shippingAddresses"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/shippingAddresses"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Go to shipping Addresses"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

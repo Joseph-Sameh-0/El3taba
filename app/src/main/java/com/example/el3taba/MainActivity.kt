@@ -110,49 +110,113 @@ class MainActivity : AppCompatActivity() {
         }
 
 //        navController.graph = navController.navInflater.inflate(graphId) // this line causes an error
-
-        val appBarConfiguration = when (graphId) {
-            R.navigation.auth_navigation -> AppBarConfiguration(
-                setOf(
-                    R.id.welcomeFragment, R.id.loginFragment, R.id.signupFragment
+        binding.navView.visibility = View.GONE
+        val appBarConfiguration: AppBarConfiguration
+        when (graphId) {
+            R.navigation.auth_navigation -> {
+                appBarConfiguration = AppBarConfiguration(
+                    setOf(
+                        R.id.loginFragment, R.id.signupFragment, R.id.forgetPasswordFragment
+                    )
                 )
-            )
+                lifecycleScope.launch {
+                    kotlinx.coroutines.delay(2000)
+                    navController.navigate(
+                        R.id.action_welcomeFragment_to_loginFragment2, null, NavOptions.Builder().setPopUpTo(
+                            navController.graph.startDestinationId,
+                            true
+                        ).build()
+                    )
+                    binding.navView.visibility = View.VISIBLE
+                }
+            }
 
-            R.navigation.customer_navigation -> AppBarConfiguration(
-                setOf(
-                    R.id.customer_navigation_home,
-                    R.id.customer_navigation_shop,
-                    R.id.customer_navigation_bag,
-                    R.id.customer_navigation_favorites,
-                    R.id.customer_navigation_profile
+            R.navigation.customer_navigation -> {
+                appBarConfiguration = AppBarConfiguration(
+                    setOf(
+                        R.id.customer_navigation_home,
+                        R.id.customer_navigation_shop,
+                        R.id.customer_navigation_bag,
+                        R.id.customer_navigation_favorites,
+                        R.id.customer_navigation_profile
+                    )
                 )
-            )
+                lifecycleScope.launch {
+                    kotlinx.coroutines.delay(2000)
+                    navController.navigate(
+                        R.id.customer_navigation_home, null, NavOptions.Builder().setPopUpTo(
+                            navController.graph.startDestinationId,
+                            true
+                        ).build()
+                    )
+                    binding.navView.visibility = View.VISIBLE
 
-            R.navigation.seller_navigation -> AppBarConfiguration(
-                setOf(
-                    R.id.seller_navigation_home,
-                    R.id.seller_navigation_dashboard,
-                    R.id.seller_navigation_notifications
-                )
-            )
+                }
+            }
 
-            R.navigation.admin_navigation -> AppBarConfiguration(
-                setOf(
-                    R.id.admin_navigation_home,
-                    R.id.admin_navigation_dashboard,
-                    R.id.admin_navigation_notifications
+            R.navigation.seller_navigation -> {
+                appBarConfiguration = AppBarConfiguration(
+                    setOf(
+                        R.id.seller_navigation_home,
+                        R.id.seller_navigation_dashboard,
+                        R.id.seller_navigation_notifications
+                    )
                 )
-            )
+                lifecycleScope.launch {
+                    kotlinx.coroutines.delay(2000)
+                    navController.navigate(
+                        R.id.seller_navigation_home, null, NavOptions.Builder().setPopUpTo(
+                            navController.graph.startDestinationId,
+                            true
+                        ).build()
+                    )
+                    binding.navView.visibility = View.VISIBLE
 
-            else -> AppBarConfiguration(
-                setOf(
-                    R.id.welcomeFragment, R.id.loginFragment, R.id.signupFragment
+                }
+            }
+
+            R.navigation.admin_navigation -> {
+                appBarConfiguration = AppBarConfiguration(
+                    setOf(
+                        R.id.admin_navigation_home,
+                        R.id.admin_navigation_dashboard,
+                        R.id.admin_navigation_notifications
+                    )
                 )
-            )
+                lifecycleScope.launch {
+                    kotlinx.coroutines.delay(2000)
+                    navController.navigate(
+                        R.id.admin_navigation_home, null, NavOptions.Builder().setPopUpTo(
+                            navController.graph.startDestinationId,
+                            true
+                        ).build()
+                    )
+                    binding.navView.visibility = View.VISIBLE
+                }
+            }
+
+            else -> {
+                appBarConfiguration = AppBarConfiguration(
+                    setOf(
+                        R.id.loginFragment, R.id.signupFragment, R.id.forgetPasswordFragment
+                    )
+                )
+                lifecycleScope.launch {
+                    kotlinx.coroutines.delay(2000)
+                    navController.navigate(
+                        R.id.action_welcomeFragment_to_loginFragment2, null, NavOptions.Builder().setPopUpTo(
+                            navController.graph.startDestinationId,
+                            true
+                        ).build()
+                    )
+                    binding.navView.visibility = View.VISIBLE
+                }
+            }
         }
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
     }
 
     // This function checks if the user is logged in

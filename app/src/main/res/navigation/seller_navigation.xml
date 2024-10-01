@@ -3,8 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation2"
-    app:startDestination="@+id/seller_navigation_home">
+    app:startDestination="@+id/sellerSplashScreen">
 
+    <fragment
+        android:id="@+id/sellerSplashScreen"
+        android:name="com.example.el3taba.auth.WelcomeFragment"
+        android:label="auth_fragment_welcome"
+        tools:layout="@layout/auth_fragment_welcome" />
     <fragment
         android:id="@+id/seller_navigation_home"
         android:name="com.example.el3taba.seller.home.HomeFragment"

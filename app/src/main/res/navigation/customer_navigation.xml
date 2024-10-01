@@ -3,9 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/customer_navigation_home">
+    app:startDestination="@+id/customerSplashScreen">
 
-
+    <fragment
+        android:id="@+id/customerSplashScreen"
+        android:name="com.example.el3taba.auth.WelcomeFragment"
+        android:label="auth_fragment_welcome"
+        tools:layout="@layout/auth_fragment_welcome" />
     <fragment
         android:id="@+id/customer_navigation_home"
         android:name="com.example.el3taba.customer.home.HomeFragment"
@@ -32,4 +36,5 @@
         android:name="com.example.el3taba.customer.profile.ProfileFragment"
         android:label="customer_fragment_profile"
         tools:layout="@layout/customer_fragment_profile" />
+
 </navigation>

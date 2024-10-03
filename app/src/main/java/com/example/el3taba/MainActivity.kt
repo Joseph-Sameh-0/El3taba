@@ -116,13 +116,18 @@ class MainActivity : AppCompatActivity() {
             R.navigation.auth_navigation -> {
                 appBarConfiguration = AppBarConfiguration(
                     setOf(
-                        R.id.loginFragment, R.id.signupFragment, R.id.forgetPasswordFragment
+                        R.id.loginFragment,
+                        R.id.signupFragment,
+                        R.id.forgetPasswordFragment,
+                        R.id.setNewPasswordFragment
                     )
                 )
                 lifecycleScope.launch {
                     kotlinx.coroutines.delay(2000)
                     navController.navigate(
-                        R.id.action_welcomeFragment_to_loginFragment2, null, NavOptions.Builder().setPopUpTo(
+                        R.id.action_welcomeFragment_to_loginFragment2,
+                        null,
+                        NavOptions.Builder().setPopUpTo(
                             navController.graph.startDestinationId,
                             true
                         ).build()
@@ -198,13 +203,18 @@ class MainActivity : AppCompatActivity() {
             else -> {
                 appBarConfiguration = AppBarConfiguration(
                     setOf(
-                        R.id.loginFragment, R.id.signupFragment, R.id.forgetPasswordFragment
+                        R.id.loginFragment,
+                        R.id.signupFragment,
+                        R.id.forgetPasswordFragment,
+                        R.id.setNewPasswordFragment
                     )
                 )
                 lifecycleScope.launch {
                     kotlinx.coroutines.delay(2000)
                     navController.navigate(
-                        R.id.action_welcomeFragment_to_loginFragment2, null, NavOptions.Builder().setPopUpTo(
+                        R.id.action_welcomeFragment_to_loginFragment2,
+                        null,
+                        NavOptions.Builder().setPopUpTo(
                             navController.graph.startDestinationId,
                             true
                         ).build()

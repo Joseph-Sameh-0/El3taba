@@ -14,6 +14,7 @@ import com.example.el3taba.databinding.AuthFragmentSetNewPasswordBinding
 class SetNewPasswordFragment : Fragment() {
     private var _binding: AuthFragmentSetNewPasswordBinding? = null
     private val binding get() = _binding!!
+    private var tempPassword: String? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,56 +28,76 @@ class SetNewPasswordFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Get the temporary password from the arguments
+        tempPassword = arguments?.getString("tempPassword")
+
         binding.SubmitButton.setOnClickListener {
             // Retrieve the text from input fields
-            val tempPassword = binding.tempPasswordEditText.text.toString()
+            val enteredTempPassword = binding.tempPasswordEditText.text.toString()
             val newPassword = binding.newPasswordEditText.text.toString()
             val confirmPassword = binding.confirmPasswordEditText.text.toString()
 
             // Validate the inputs and check if passwords match
-            if (validateInputs(tempPassword, newPassword, confirmPassword)) {
+            if (validateInputs(enteredTempPassword, newPassword, confirmPassword)) {
                 // Proceed with password reset
                 resetPassword(newPassword)
                 findNavController().popBackStack(R.id.loginFragment, false)
-            }
-            else{
-                Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }
+
     // Function to validate the inputs
-    private fun validateInputs(tempPassword: String, newPassword: String, confirmPassword: String): Boolean {
+    private fun validateInputs(
+        enteredTempPassword: String,
+        newPassword: String,
+        confirmPassword: String
+    ): Boolean {
         return when {
-            tempPassword.isEmpty() -> {
+            enteredTempPassword.isEmpty() -> {
                 binding.newPasswordEditTextLayout.error = null
                 binding.confirmPasswordEditTextLayout.error = null
                 binding.tempPasswordEditTextLayout.error = "Temporary password is required"
                 false
             }
+
             newPassword.isEmpty() -> {
                 binding.tempPasswordEditTextLayout.error = null
                 binding.confirmPasswordEditTextLayout.error = null
                 binding.newPasswordEditTextLayout.error = "New password is required"
                 false
             }
+
             confirmPassword.isEmpty() -> {
                 binding.tempPasswordEditTextLayout.error = null
                 binding.newPasswordEditTextLayout.error = null
                 binding.confirmPasswordEditTextLayout.error = "Confirm password is required"
                 false
             }
+
             newPassword.length < 8 -> {
                 binding.tempPasswordEditTextLayout.error = null
                 binding.confirmPasswordEditTextLayout.error = null
                 binding.newPasswordEditTextLayout.error = "Password must be at least 8 characters"
                 false
             }
+
             newPassword != confirmPassword -> {
                 binding.tempPasswordEditTextLayout.error = null
                 binding.newPasswordEditTextLayout.error = null
                 binding.confirmPasswordEditTextLayout.error = "Passwords do not match"
                 false
             }
+
+            (enteredTempPassword != tempPassword) -> {
+                binding.newPasswordEditTextLayout.error = null
+                binding.confirmPasswordEditTextLayout.error = null
+                binding.tempPasswordEditTextLayout.error = "Incorrect temporary password"
+                false
+            }
+
             else -> {
                 // Clear any previous error messages
                 binding.tempPasswordEditTextLayout.error = null

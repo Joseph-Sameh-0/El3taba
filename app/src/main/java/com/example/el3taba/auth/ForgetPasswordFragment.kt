@@ -12,6 +12,7 @@ import com.example.el3taba.R
 import com.example.el3taba.databinding.AuthFragmentForgetPasswordBinding
 import com.google.android.material.textfield.TextInputLayout
 
+
 class ForgetPasswordFragment : Fragment() {
     private var _binding: AuthFragmentForgetPasswordBinding? = null
     private val binding get() = _binding!!
@@ -63,14 +64,28 @@ class ForgetPasswordFragment : Fragment() {
     // Function to send the temporary password (logic here to send email)
     private fun sendTemporaryPassword(email: String) {
         // Logic for sending the email with the temporary password
-
-        // For now, show a Toast to simulate the process
-        Toast.makeText(requireContext(), "Temporary password sent to $email", Toast.LENGTH_LONG)
-            .show()
+        val tempPassword = generateTemporaryPassword()
+        sendGeneratedPasswordEmail(email, tempPassword)
 
         // You may want to navigate to the "Set New Password" screen here after sending the email
-        findNavController().navigate(R.id.setNewPasswordFragment)
+        val action = ForgetPasswordFragmentDirections.actionForgotPasswordFragmentToSetNewPasswordFragment(tempPassword)
+        findNavController().navigate(action)
 
+    }
+
+    // Function to generate a random temporary password
+    private fun generateTemporaryPassword(): String {
+        val chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+        return (1..8)
+            .map { chars.random() }
+            .joinToString("")
+    }
+
+    // Function to send the generated password to the user's email
+    private fun sendGeneratedPasswordEmail(email: String, tempPassword: String) {
+        // You need to use an email service (like SendGrid, Mailgun, or your own backend)
+        // Example: Using your backend API to send the email
+        Toast.makeText(requireContext(), "Temporary password sent to $email", Toast.LENGTH_SHORT).show()
     }
 
 }

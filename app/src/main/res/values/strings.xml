@@ -27,4 +27,10 @@
     <string name="old_password">Old password</string>
     <string name="must_be_at_least_8_characters">Must be at least 8 characters</string>
     <string name="set_a_new_password">Set a new password</string>
+    <string name="or_signup_with">Or signup with</string>
+    <string name="don_t_have_an_account">"Don’t have an account? "</string>
+    <string name="sign_in">Sign in</string>
+    <string name="have_an_account">"Have an account? "</string>
+    <string name="send">Send</string>
+    <string name="password_sent_to_you">Password Sent to you</string>
 </resources>

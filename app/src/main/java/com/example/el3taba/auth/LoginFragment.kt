@@ -43,13 +43,13 @@ class LoginFragment : Fragment() {
                 ).show()
             }
         }
-        binding.signupButton1.setOnClickListener {
+        binding.signUpButton.setOnClickListener {
             findNavController().navigate(R.id.signupFragment)
         }
         binding.signupButton2.setOnClickListener {
             findNavController().navigate(R.id.signupFragment)
         }
-        binding.forgetPasswordButton.setOnClickListener {
+        binding.forgotPassword.setOnClickListener {
             findNavController().navigate(R.id.forgetPasswordFragment)
         }
     }
@@ -64,6 +64,7 @@ class LoginFragment : Fragment() {
             putBoolean("isLoggedIn", true)
             putString("userRole", userRole)
             apply()
+            Toast.makeText(requireContext(), "Login Successful", Toast.LENGTH_SHORT).show()
         }
 
         // Instead of starting an activity, communicate with the host activity

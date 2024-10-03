@@ -6,8 +6,14 @@ plugins {
 }
 
 buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
     dependencies {
         // Add the Google services classpath for Firebase
         classpath(libs.google.services)
+        classpath(libs.androidx.navigation.safe.args.gradle.plugin)
+        classpath(libs.hilt.android.gradle.plugin)
     }
 }

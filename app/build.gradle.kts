@@ -3,6 +3,9 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     // Add the Google services Gradle plugin
     id("com.google.gms.google-services")
+    id("androidx.navigation.safeargs.kotlin")
+    id("org.jetbrains.kotlin.kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -71,6 +74,17 @@ dependencies {
 
     // for svg files
 //    implementation(libs.appcompat.v7)
+
+    implementation(libs.dagger) // Use the latest version
+    kapt(libs.dagger.compiler)
+
+    implementation(libs.hilt.android) // Use the latest version
+    kapt(libs.hilt.android.compiler)
+    // For instrumentation tests
+    androidTestImplementation(libs.hilt.android.testing)
+    kaptAndroidTest(libs.hilt.android.compiler)
+    // For local unit teststestImplementation("com.google.dagger:hilt-android-testing:2.44")
+    kaptTest(libs.hilt.android.compiler)
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {

@@ -16,5 +16,10 @@
         android:icon="@drawable/ic_dashboard_black_24dp"
         android:title="@string/forget_password" />
 
+    <item
+        android:id="@+id/setNewPasswordFragment"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="@string/set_a_new_password" />
+
 
 </menu>

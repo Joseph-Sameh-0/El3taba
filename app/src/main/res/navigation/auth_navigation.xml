@@ -36,4 +36,10 @@
         android:name="com.example.el3taba.auth.ForgetPasswordFragment"
         android:label="fragment_forget_password"
         tools:layout="@layout/auth_fragment_forget_password" />
+
+    <fragment
+        android:id="@+id/setNewPasswordFragment"
+        android:name="com.example.el3taba.auth.SetNewPasswordFragment"
+        android:label="fragment_forget_password"
+        tools:layout="@layout/auth_fragment_set_new_password" />
 </navigation>

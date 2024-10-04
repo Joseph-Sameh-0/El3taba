@@ -85,6 +85,7 @@ dependencies {
     kaptAndroidTest(libs.hilt.android.compiler)
     // For local unit teststestImplementation("com.google.dagger:hilt-android-testing:2.44")
     kaptTest(libs.hilt.android.compiler)
+    implementation(libs.google.firebase.firestore)
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {

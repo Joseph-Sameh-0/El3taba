@@ -40,6 +40,7 @@ firebase-database = { module = "com.google.firebase:firebase-database", version.
 firebase-firestore = { module = "com.google.firebase:firebase-firestore", version.ref = "firebaseFirestore" }
 firebase-messaging = { module = "com.google.firebase:firebase-messaging", version.ref = "firebaseMessaging" }
 firebase-storage = { module = "com.google.firebase:firebase-storage", version.ref = "firebaseStorage" }
+google-firebase-firestore = { module = "com.google.firebase:firebase-firestore" }
 google-services = { module = "com.google.gms:google-services", version.ref = "googleServices" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "dagger" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "daggerCompiler" }

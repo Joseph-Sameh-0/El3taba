@@ -1,5 +1,6 @@
 package com.example.el3taba
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -13,7 +14,10 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.el3taba.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.FirebaseApp
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.UserDataWriter
+import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -24,7 +28,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
 
-        FirebaseApp.initializeApp(this)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val navView: BottomNavigationView = binding.navView

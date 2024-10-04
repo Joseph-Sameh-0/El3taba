@@ -57,52 +57,52 @@ class SetNewPasswordFragment : Fragment() {
     ): Boolean {
         return when {
             enteredTempPassword.isEmpty() -> {
-                binding.newPasswordEditTextLayout.error = null
-                binding.confirmPasswordEditTextLayout.error = null
+                binding.newPasswordEditTextLayout.isErrorEnabled = false
+                binding.confirmPasswordEditTextLayout.isErrorEnabled = false
                 binding.tempPasswordEditTextLayout.error = "Temporary password is required"
                 false
             }
 
             newPassword.isEmpty() -> {
-                binding.tempPasswordEditTextLayout.error = null
-                binding.confirmPasswordEditTextLayout.error = null
+                binding.tempPasswordEditTextLayout.isErrorEnabled = false
+                binding.confirmPasswordEditTextLayout.isErrorEnabled = false
                 binding.newPasswordEditTextLayout.error = "New password is required"
                 false
             }
 
             confirmPassword.isEmpty() -> {
-                binding.tempPasswordEditTextLayout.error = null
-                binding.newPasswordEditTextLayout.error = null
+                binding.tempPasswordEditTextLayout.isErrorEnabled = false
+                binding.newPasswordEditTextLayout.isErrorEnabled = false
                 binding.confirmPasswordEditTextLayout.error = "Confirm password is required"
                 false
             }
 
             newPassword.length < 8 -> {
-                binding.tempPasswordEditTextLayout.error = null
-                binding.confirmPasswordEditTextLayout.error = null
+                binding.tempPasswordEditTextLayout.isErrorEnabled = false
+                binding.confirmPasswordEditTextLayout.isErrorEnabled = false
                 binding.newPasswordEditTextLayout.error = "Password must be at least 8 characters"
                 false
             }
 
             newPassword != confirmPassword -> {
-                binding.tempPasswordEditTextLayout.error = null
-                binding.newPasswordEditTextLayout.error = null
+                binding.tempPasswordEditTextLayout.isErrorEnabled = false
+                binding.newPasswordEditTextLayout.isErrorEnabled = false
                 binding.confirmPasswordEditTextLayout.error = "Passwords do not match"
                 false
             }
 
             (enteredTempPassword != tempPassword) -> {
-                binding.newPasswordEditTextLayout.error = null
-                binding.confirmPasswordEditTextLayout.error = null
+                binding.newPasswordEditTextLayout.isErrorEnabled = false
+                binding.confirmPasswordEditTextLayout.isErrorEnabled = false
                 binding.tempPasswordEditTextLayout.error = "Incorrect temporary password"
                 false
             }
 
             else -> {
                 // Clear any previous error messages
-                binding.tempPasswordEditTextLayout.error = null
-                binding.newPasswordEditTextLayout.error = null
-                binding.confirmPasswordEditTextLayout.error = null
+                binding.tempPasswordEditTextLayout.isErrorEnabled = false
+                binding.newPasswordEditTextLayout.isErrorEnabled = false
+                binding.confirmPasswordEditTextLayout.isErrorEnabled = false
                 true
             }
         }

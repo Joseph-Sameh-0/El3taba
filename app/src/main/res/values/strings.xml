@@ -33,4 +33,7 @@
     <string name="have_an_account">"Have an account? "</string>
     <string name="send">Send</string>
     <string name="password_sent_to_you">Password Sent to you</string>
+    <string name="seller">Seller</string>
+    <string name="customer">Customer</string>
+    <string name="or">Or</string>
 </resources>

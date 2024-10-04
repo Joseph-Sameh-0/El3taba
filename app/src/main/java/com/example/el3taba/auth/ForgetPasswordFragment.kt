@@ -38,10 +38,7 @@ class ForgetPasswordFragment : Fragment() {
                 sendTemporaryPassword(email)
             } else {
                 // Show email error
-                showEmailError(
-                    binding.emailInputLayout,
-                    "Not a valid email address. Should be your@email.com"
-                )
+                    binding.emailInputLayout.error = "Not a valid email address. Should be your@email.com"
             }
         }
     }
@@ -55,11 +52,6 @@ class ForgetPasswordFragment : Fragment() {
         }
     }
 
-    // Function to show email validation error
-    private fun showEmailError(inputLayout: TextInputLayout, message: String) {
-        inputLayout.isErrorEnabled = true
-        inputLayout.error = message
-    }
 
     // Function to send the temporary password (logic here to send email)
     private fun sendTemporaryPassword(email: String) {

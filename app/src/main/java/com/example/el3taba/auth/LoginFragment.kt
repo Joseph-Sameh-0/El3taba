@@ -3,6 +3,7 @@ package com.example.el3taba.auth
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,7 +35,25 @@ class LoginFragment : Fragment() {
             val password = binding.passwordEditText.text.toString().trim()
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
-                performLogin(email, password)
+
+                if (validateEmail(email)) {
+                    binding.emailEditTextLayout.isErrorEnabled = false
+                    binding.emailEditTextLayout.error
+
+                    if (password.length < 8) {
+                        binding.passwordEditTextLayout.error =
+                            "Password must be at least 8 characters"
+                    } else {
+                        binding.passwordEditTextLayout.isErrorEnabled = false
+                        // Here you would login the user with Firebase or your sign-up logic
+                        performLogin(email, password)
+                    }
+                } else {
+                    // Show email error
+                    binding.emailEditTextLayout.error =
+                        "Not a valid email address. Should be your@email.com"
+                }
+
             } else {
                 Toast.makeText(
                     requireContext(),
@@ -80,6 +99,14 @@ class LoginFragment : Fragment() {
             "seller@example.com" -> "seller"
             "admin@example.com" -> "admin"
             else -> "customer"
+        }
+    }
+
+    private fun validateEmail(email: String): Boolean {
+        return if (email.isEmpty()) {
+            false
+        } else {
+            Patterns.EMAIL_ADDRESS.matcher(email).matches()
         }
     }
 

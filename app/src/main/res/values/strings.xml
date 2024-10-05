@@ -36,4 +36,5 @@
     <string name="seller">Seller</string>
     <string name="customer">Customer</string>
     <string name="or">Or</string>
+    <string name="category_image">Category Image</string>
 </resources>

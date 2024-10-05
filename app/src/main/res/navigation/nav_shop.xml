@@ -6,7 +6,7 @@
     <!-- Shop Category Fragment -->
     <fragment
         android:id="@+id/shopCategoryFragment"
-        android:name="com.example.el3taba.customer.shop.fragments.ShopCategoryFragment"
+        android:name="com.example.el3taba.customer.shop.fragments.category.ShopCategoryFragment"
         android:label="Categories">
         <action
             android:id="@+id/action_category_to_subCategory"

@@ -1,4 +1,4 @@
-package com.example.el3taba.customer.shop.fragments.category
+package com.example.el3taba.customer.shop.fragments.categories
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -38,18 +38,16 @@ class ShopCategoryFragment : Fragment() {
 
         // Setup RecyclerView
         categoryAdapter = ShopCategoryAdapter(categories) { category ->
-            findNavController().navigate(R.id.action_category_to_subCategory)
+            val action = ShopCategoryFragmentDirections
+                .actionCategoryToSubCategory(category.name)
+            findNavController().navigate(action)
+//            findNavController().navigate(R.id.action_category_to_subCategory)
             // Handle category click event here
             Toast.makeText(requireContext(), "Clicked: ${category.name}", Toast.LENGTH_SHORT).show()
         }
         binding.categoryRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = categoryAdapter
-        }
-
-        // Navigate to SubCategoryFragment when the category button is clicked
-        binding.subCategories.setOnClickListener {
-            findNavController().navigate(R.id.action_category_to_subCategory)
         }
     }
 

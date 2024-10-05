@@ -37,4 +37,5 @@
     <string name="customer">Customer</string>
     <string name="or">Or</string>
     <string name="category_image">Category Image</string>
+    <string name="back_button">Back Button</string>
 </resources>

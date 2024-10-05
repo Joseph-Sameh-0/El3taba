@@ -2,16 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/seller_navigation_home"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_home" />
-    <item
         android:id="@+id/seller_navigation_dashboard"
         android:icon="@drawable/ic_dashboard_black_24dp"
         android:title="@string/title_dashboard" />
     <item
-        android:id="@+id/seller_navigation_notifications"
+        android:id="@+id/seller_navigation_my_products"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/my_products" />
+    <item
+        android:id="@+id/seller_navigation_add_product"
         android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/title_notifications" />
+        android:title="@string/add_product" />
+    <item
+        android:id="@+id/seller_navigation_profile"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="@string/profile" />
 
 </menu>

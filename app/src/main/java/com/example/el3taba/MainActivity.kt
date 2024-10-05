@@ -16,7 +16,6 @@ import com.example.el3taba.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.UserDataWriter
 import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.launch
 
@@ -165,15 +164,16 @@ class MainActivity : AppCompatActivity() {
             R.navigation.seller_navigation -> {
                 appBarConfiguration = AppBarConfiguration(
                     setOf(
-                        R.id.seller_navigation_home,
                         R.id.seller_navigation_dashboard,
-                        R.id.seller_navigation_notifications
+                        R.id.seller_navigation_my_products,
+                        R.id.seller_navigation_add_product,
+                        R.id.seller_navigation_profile,
                     )
                 )
                 lifecycleScope.launch {
                     kotlinx.coroutines.delay(2000)
                     navController.navigate(
-                        R.id.seller_navigation_home, null, NavOptions.Builder().setPopUpTo(
+                        R.id.seller_navigation_dashboard, null, NavOptions.Builder().setPopUpTo(
                             navController.graph.startDestinationId,
                             true
                         ).build()

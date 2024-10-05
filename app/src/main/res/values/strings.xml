@@ -38,4 +38,6 @@
     <string name="or">Or</string>
     <string name="category_image">Category Image</string>
     <string name="back_button">Back Button</string>
+    <string name="my_products">My Products</string>
+    <string name="add_product">Add Product</string>
 </resources>

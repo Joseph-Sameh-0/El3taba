@@ -1,18 +1,32 @@
 package com.example.el3taba.customer.shop.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.el3taba.R
+import com.example.el3taba.core.dataClasses.Product
 import com.example.el3taba.databinding.FragmentShopItemListBinding
 
 class ShopItemListFragment : Fragment() {
 
     private var _binding: FragmentShopItemListBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var shopItemAdapter: ShopItemAdapter
+
+    private val sampleProducts = listOf(
+        Product("Laptop 1", "14$", "21$", R.drawable.phones_image),
+        Product("Laptop 2", "14$", "21$", R.drawable.phones_image),
+        Product("Laptop 3", "14$", "21$", R.drawable.phones_image),
+        Product("Laptop 4 Laptop 4 Laptop 4 Laptop 4 Laptop 4 Laptop 4 Laptop 4 Laptop 4 Laptop 4 ", "14$", "21$", R.drawable.phones_image),
+        Product("Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 ", "14$", "21$", R.drawable.phones_image),
+        // Add more products...
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,6 +39,8 @@ class ShopItemListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupRecyclerView()
+
         // Navigate to ProductItemFragment when an item is clicked
         binding.product.setOnClickListener {
             findNavController().navigate(R.id.action_items_to_product)
@@ -32,6 +48,19 @@ class ShopItemListFragment : Fragment() {
         binding.backButton.setOnClickListener {
             findNavController().popBackStack()
         }
+    }
+
+    private fun setupRecyclerView() {
+        shopItemAdapter = ShopItemAdapter(sampleProducts)
+
+        binding.shopItemRecyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = shopItemAdapter
+        }
+//        binding.shopItemRecyclerView.apply {
+//            layoutManager = GridLayoutManager(requireContext(), 2)
+//            adapter = shopItemAdapter
+//        }
     }
 
 

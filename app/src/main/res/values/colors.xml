@@ -10,4 +10,5 @@
     <color name="transparent">#00000000</color>
     <color name="logo_background">#7CB8FF</color>
     <color name="auth_button_color">#758ECD</color>
+    <color name="light_blue">#ADD8E6</color> <!-- Light blue color -->
 </resources>

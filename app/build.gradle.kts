@@ -58,6 +58,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    // Firebase Firestore
 
     // Import the Firebase BoM
     implementation(platform(libs.firebase.bom))
@@ -91,6 +92,7 @@ dependencies {
 
     implementation(libs.glide)
     kapt(libs.compiler)
+
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {

@@ -20,7 +20,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="Welcome to your Dashboard!" />
+        android:text="" />
 
     <TextView
         android:id="@+id/text_product_count"
@@ -31,7 +31,7 @@
         android:layout_marginEnd="16dp"
         android:textAlignment="center"
         android:textSize="24sp"
-        android:textColor="@android:color/holo_blue_dark"
+        android:textColor="@android:color/black"
         android:background="@drawable/product_count_background"
         android:padding="16dp"
         app:layout_constraintBottom_toTopOf="@id/text_dashboard"

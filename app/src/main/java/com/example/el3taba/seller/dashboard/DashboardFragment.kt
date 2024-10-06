@@ -47,9 +47,9 @@ class DashboardFragment : Fragment() {
             if (documentSnapshot.exists()) {
                 val productCount = documentSnapshot.getLong("count") ?: 0
                 // Update the TextView with the product count
-                binding.textProductCount.text = "Total Products: $productCount"
+                binding.textProductCount.text = "Total Number Of Products: $productCount"
             } else {
-                binding.textProductCount.text = "Total Products: 0"
+                binding.textProductCount.text = "Total Number Of Products: 0"
             }
         }.addOnFailureListener { exception ->
             Toast.makeText(requireContext(), "Error fetching product count: ${exception.message}", Toast.LENGTH_SHORT).show()

@@ -101,7 +101,7 @@
     <ImageView
         android:id="@+id/addPictures"
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="300dp"
         android:scaleType="centerCrop"
         android:contentDescription="Add pictures"
         android:layout_marginTop="16dp"

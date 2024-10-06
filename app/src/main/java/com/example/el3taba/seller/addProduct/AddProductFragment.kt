@@ -51,7 +51,7 @@ class AddProductFragment : Fragment() {
 
         val root: View = binding.root
 
-        val categories = listOf("Electronics", "Clothing", "Food", "Books", "Home Appliances")
+        val categories = listOf("Electronics", "Clothing", "Food", "Books", "Pets", "Home Appliances")
         val adapter = ArrayAdapter(requireContext(), R.layout.simple_spinner_dropdown_item, categories)
         binding.categorySpinner.adapter = adapter
 
@@ -108,22 +108,6 @@ class AddProductFragment : Fragment() {
         }
     }
 
-/*
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == AppCompatActivity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
-            // Save the selected image URI
-            val imageUri = data?.data
-            if (imageUri != null) {
-                // Display the selected image in the ImageView
-                binding.addPictures.setImageURI(imageUri)
-                // Store the URI for later use
-                binding.addPictures.tag = imageUri
-            }
-        }
-    }
-*/
-
     private fun updateProductCount() {
         val dashboardDoc = db.collection("dashboard").document("productCount")
 
@@ -177,20 +161,6 @@ class AddProductFragment : Fragment() {
             Toast.makeText(requireContext(), "Please select an image", Toast.LENGTH_SHORT).show()
         }
     }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        when (requestCode) {
-            PERMISSION_CODE -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // Permission granted, pick the image
-                    pickImageFromGallery()
-                } else {
-                    Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-    }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

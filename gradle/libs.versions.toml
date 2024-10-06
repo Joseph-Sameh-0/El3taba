@@ -1,6 +1,7 @@
 [versions]
 agp = "8.5.1"
 appcompatV7 = "28.0.0"
+circleindicator = "2.1.6"
 dagger = "2.52"
 daggerCompiler = "2.51.1"
 firebaseAuth = "23.0.0"
@@ -9,6 +10,7 @@ firebaseConfig = "22.0.0"
 firebaseFirestore = "25.1.0"
 firebaseMessaging = "24.0.1"
 firebaseStorage = "21.0.0"
+glide = "4.16.0"
 googleServices = "4.4.2"
 hiltAndroidTesting = "2.44.2"
 kotlin = "1.9.0"
@@ -31,6 +33,8 @@ navigationUiKtx = "2.8.0"
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-navigation-safe-args-gradle-plugin = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigationSafeArgsGradlePlugin" }
 appcompat-v7 = { module = "com.android.support:appcompat-v7", version.ref = "appcompatV7" }
+circleindicator = { module = "me.relex:circleindicator", version.ref = "circleindicator" }
+compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
 dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
 dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "daggerCompiler" }
 firebase-auth = { module = "com.google.firebase:firebase-auth", version.ref = "firebaseAuth" }
@@ -40,6 +44,7 @@ firebase-database = { module = "com.google.firebase:firebase-database", version.
 firebase-firestore = { module = "com.google.firebase:firebase-firestore", version.ref = "firebaseFirestore" }
 firebase-messaging = { module = "com.google.firebase:firebase-messaging", version.ref = "firebaseMessaging" }
 firebase-storage = { module = "com.google.firebase:firebase-storage", version.ref = "firebaseStorage" }
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 google-firebase-firestore = { module = "com.google.firebase:firebase-firestore" }
 google-services = { module = "com.google.gms:google-services", version.ref = "googleServices" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "dagger" }

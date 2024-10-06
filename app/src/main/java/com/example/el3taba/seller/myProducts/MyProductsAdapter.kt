@@ -22,6 +22,7 @@ class MyProductsAdapter(
         val productName: TextView = view.findViewById(R.id.productName)
         val productDescription: TextView = view.findViewById(R.id.productDescription)
         val productPrice: TextView = view.findViewById(R.id.productPrice)
+        val productStock: TextView = view.findViewById(R.id.productStock) // New TextView for stock count
         val editButton: Button = view.findViewById(R.id.editButton)
         val deleteButton: Button = view.findViewById(R.id.deleteButton)
 
@@ -29,10 +30,11 @@ class MyProductsAdapter(
             productName.text = product.name
             productDescription.text = product.description
             productPrice.text = "$${product.price}"
+            productStock.text = "Stock: ${product.stock}" // Bind the stock count
 
             Glide.with(itemView.context)
                 .load(product.imageUrl)
-                .placeholder(R.drawable.placeholder_image) // Add a placeholder image resource in your drawable folder
+                .placeholder(R.drawable.placeholder_image)
                 .into(productImage)
 
             editButton.setOnClickListener { onEdit(product) }

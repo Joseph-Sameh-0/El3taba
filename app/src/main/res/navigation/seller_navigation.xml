@@ -15,19 +15,19 @@
         android:id="@+id/seller_navigation_dashboard"
         android:name="com.example.el3taba.seller.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/admin_fragment_dashboard" />
+        tools:layout="@layout/seller_fragment_dashboard" />
 
     <fragment
         android:id="@+id/seller_navigation_my_products"
         android:name="com.example.el3taba.seller.myProducts.MyProductsFragment"
         android:label="@string/my_products"
-        tools:layout="@layout/admin_fragment_home" />
+        tools:layout="@layout/seller_fragment_my_products" />
 
     <fragment
         android:id="@+id/seller_navigation_add_product"
         android:name="com.example.el3taba.seller.addProduct.AddProductFragment"
         android:label="@string/add_product"
-        tools:layout="@layout/admin_fragment_notifications" />
+        tools:layout="@layout/seller_fragment_add_product" />
 
     <fragment
         android:id="@+id/seller_navigation_profile"

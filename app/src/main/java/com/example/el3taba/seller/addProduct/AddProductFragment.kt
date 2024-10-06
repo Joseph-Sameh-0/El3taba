@@ -124,6 +124,23 @@ class AddProductFragment : Fragment() {
     }
 */
 
+    private fun updateProductCount() {
+        val dashboardDoc = db.collection("dashboard").document("productCount")
+
+        dashboardDoc.get().addOnSuccessListener { documentSnapshot ->
+            if (documentSnapshot.exists()) {
+                // Increment the product count
+                val currentCount = documentSnapshot.getLong("count") ?: 0
+                dashboardDoc.update("count", currentCount + 1)
+            } else {
+                // If the document doesn't exist, create one with count = 1
+                dashboardDoc.set(hashMapOf("count" to 1))
+            }
+        }.addOnFailureListener { exception ->
+            Toast.makeText(requireContext(), "Error updating product count: ${exception.message}", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 
     private fun uploadProductToFirestore(name: String, description: String, stock: Int, price: Float, category: String) {
         val imageUri = binding.addPictures.tag as? Uri  // Assuming you saved the image URI earlier
@@ -146,6 +163,7 @@ class AddProductFragment : Fragment() {
                         db.collection("products").add(productData)
                             .addOnSuccessListener {
                                 Toast.makeText(requireContext(), "Product added successfully", Toast.LENGTH_SHORT).show()
+                                updateProductCount()
                             }
                             .addOnFailureListener { e ->
                                 Toast.makeText(requireContext(), "Error adding product: ${e.message}", Toast.LENGTH_SHORT).show()

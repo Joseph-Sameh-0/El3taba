@@ -58,6 +58,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    // Firebase Firestore
 
     // Import the Firebase BoM
     implementation(platform(libs.firebase.bom))
@@ -86,6 +87,8 @@ dependencies {
     // For local unit teststestImplementation("com.google.dagger:hilt-android-testing:2.44")
     kaptTest(libs.hilt.android.compiler)
     implementation(libs.google.firebase.firestore)
+
+
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {

@@ -46,8 +46,6 @@ class ShopItemListFragment : Fragment() {
         subCategoryName = arguments?.getString("subCategoryName").orEmpty()
         binding.subCategoryTitle.text = subCategoryName
 
-//        setupRecyclerView()
-
         shopItemAdapter = ShopItemAdapter(sampleProducts) { product ->
             val action = ShopItemListFragmentDirections
                 .actionItemsToProduct(product.name)
@@ -58,33 +56,10 @@ class ShopItemListFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = shopItemAdapter
         }
-        // Navigate to ProductItemFragment when an item is clicked
-        binding.product.setOnClickListener {
-            findNavController().navigate(R.id.action_items_to_product)
-        }
         binding.backButton.setOnClickListener {
             findNavController().popBackStack()
         }
     }
-
-//    private fun setupRecyclerView() {
-//
-////        shopItemAdapter = ShopItemAdapter(sampleProducts)
-//        shopItemAdapter = ShopItemAdapter(sampleProducts) { product ->
-//            val action = ShopItemListFragmentDirections
-//                .actionItemsToProduct(product.name)
-//            findNavController().navigate(action)
-//        }
-//
-//        binding.shopItemRecyclerView.apply {
-//            layoutManager = LinearLayoutManager(requireContext())
-//            adapter = shopItemAdapter
-//        }
-////        binding.shopItemRecyclerView.apply {
-////            layoutManager = GridLayoutManager(requireContext(), 2)
-////            adapter = shopItemAdapter
-////        }
-//    }
 
 
     override fun onDestroyView() {

@@ -23,18 +23,19 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:gravity="center"
-        tools:text="Category Name"
         android:textAppearance="?attr/textAppearanceHeadline6"
         android:textColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Category Name" />
 
     <ImageView
         android:id="@+id/search_icon"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginEnd="20dp"
+        android:contentDescription="@string/search_icon"
         android:src="@drawable/ic_search"
         app:layout_constraintBottom_toBottomOf="@+id/sub_category_title"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,11 +46,11 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginEnd="20dp"
+        android:contentDescription="@string/sort_icon"
         android:src="@drawable/ic_sort"
         app:layout_constraintBottom_toBottomOf="@+id/search_icon"
-        app:layout_constraintTop_toTopOf="@+id/search_icon"
         app:layout_constraintEnd_toStartOf="@id/search_icon"
- />
+        app:layout_constraintTop_toTopOf="@+id/search_icon" />
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -60,15 +61,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/sub_category_title"
         tools:listitem="@layout/item_shop_product" />
-
-
-    <Button
-        android:id="@+id/product"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Go to product"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,7 +22,7 @@
 
     <!-- Product Name -->
     <EditText
-        android:id="@+id/productName"
+        android:id="@+id/name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Product Name"

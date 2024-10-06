@@ -68,7 +68,7 @@ class AddProductFragment : Fragment() {
 
 
         binding.submitButton.setOnClickListener {
-            val productName = binding.productName.text.toString()
+            val productName = binding.name.text.toString()
             val description = binding.description.text.toString()
             val stock = binding.stock.text.toString().toIntOrNull() ?: 0
             val price = binding.price.text.toString().toFloatOrNull() ?: 0f

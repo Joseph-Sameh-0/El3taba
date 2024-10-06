@@ -7,12 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.el3taba.R
+import com.example.el3taba.core.dataClasses.Product
 import com.example.el3taba.databinding.FragmentProductItemBinding
 
 class ProductItemFragment : Fragment() {
 
     private var _binding: FragmentProductItemBinding? = null
     private val binding get() = _binding!!
+    private lateinit var Product: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,6 +26,10 @@ class ProductItemFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+//        categoryName = arguments?.getString("categoryName").orEmpty()
+
+        Product = arguments?.getString("productName") ?: ""
 
         // Navigate to RatingsReviewsFragment when the reviews button is clicked
         binding.reviews.setOnClickListener {

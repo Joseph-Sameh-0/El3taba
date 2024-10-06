@@ -19,7 +19,7 @@ class ShopSubCategoryFragment : Fragment() {
     private var _binding: FragmentShopSubCategoryBinding? = null
     private val binding get() = _binding!!
     private lateinit var subCategoryAdapter: ShopCategoryAdapter
-    private lateinit var categoryName: String
+    private lateinit var subCategoryName: String
 
 
     private val categories = listOf(
@@ -43,20 +43,20 @@ class ShopSubCategoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Get the category name passed from ShopCategoryFragment
-        categoryName = arguments?.getString("categoryName").orEmpty()
+        subCategoryName = arguments?.getString("categoryName").orEmpty()
 
         // Display the category name or load relevant subcategories
-        binding.subcategoryTitle.text = categoryName
+        binding.subcategoryTitle.text = subCategoryName
 
         // Setup RecyclerView
         subCategoryAdapter = ShopCategoryAdapter(categories) { category ->
-//            val action = ShopCategoryFragmentDirections
-//                .actionCategoryToSubCategory(category.name)
-//            findNavController().navigate(action)
-            findNavController().navigate(R.id.action_subCategory_to_items)
+            val action = ShopSubCategoryFragmentDirections
+                .actionSubCategoryToItems(category.name)
+            findNavController().navigate(action)
+//            findNavController().navigate(R.id.action_subCategory_to_items)
 
             // Handle category click event here
-            Toast.makeText(requireContext(), "Clicked: ${category.name}", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(requireContext(), "Clicked: ${category.name}", Toast.LENGTH_SHORT).show()
         }
 
 // Adding spacing between items using GridSpacingItemDecoration

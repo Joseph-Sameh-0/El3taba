@@ -8,20 +8,30 @@ import com.example.el3taba.core.dataClasses.Product
 import com.example.el3taba.databinding.ItemShopProductBinding
 
 class ShopItemAdapter(
-    private val products: List<Product>
+    private val products: List<Product>,
+    private val onItemClick: (Product) -> Unit
 ) : RecyclerView.Adapter<ShopItemAdapter.ShopItemViewHolder>() {
 
     inner class ShopItemViewHolder(val binding: ItemShopProductBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(product: Product) {
             binding.productName.text = product.name
+            binding.sellerName.text = product.sellerName
             binding.productPrice.text = product.price
             binding.productOldPrice.text = product.oldPrice
             binding.productRating.rating = product.rating
             binding.productImage.setImageResource(product.imageResId)
             val textView = binding.productOldPrice
             textView.paintFlags = textView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            binding.root.setOnClickListener {
+                onItemClick(product)
+            }
 
             // Handle favorite icon click if necessary
+            binding.favoriteIcon.setOnClickListener {
+//                binding.favoriteIcon.isSelected = !binding.favoriteIcon.isSelected
+                //
+
+            }
         }
     }
 

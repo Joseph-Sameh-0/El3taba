@@ -44,7 +44,7 @@ class ShopCategoryFragment : Fragment() {
             findNavController().navigate(action)
 //            findNavController().navigate(R.id.action_category_to_subCategory)
             // Handle category click event here
-            Toast.makeText(requireContext(), "Clicked: ${category.name}", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(requireContext(), "Clicked: ${category.name}", Toast.LENGTH_SHORT).show()
         }
         binding.categoryRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())

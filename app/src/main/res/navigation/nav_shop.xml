@@ -25,7 +25,11 @@
         android:label="Subcategories">
         <action
             android:id="@+id/action_subCategory_to_items"
-            app:destination="@id/shopItemListFragment" />
+            app:destination="@id/shopItemListFragment" >
+            <argument
+                android:name="subCategoryName"
+                app:argType="string" />
+        </action>
     </fragment>
 
     <!-- Shop Item List Fragment -->
@@ -35,7 +39,11 @@
         android:label="Items">
         <action
             android:id="@+id/action_items_to_product"
-            app:destination="@id/productItemFragment" />
+            app:destination="@id/productItemFragment" >
+            <argument
+                android:name="productName"
+                app:argType="string" />
+        </action>
     </fragment>
 
     <!-- Product Item Fragment -->

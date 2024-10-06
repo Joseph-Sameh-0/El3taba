@@ -1,4 +1,4 @@
-package com.example.el3taba.customer.shop.fragments
+package com.example.el3taba.core.adapters
 
 import android.graphics.Paint
 import android.view.LayoutInflater
@@ -16,6 +16,7 @@ class ShopItemAdapter(
             binding.productName.text = product.name
             binding.productPrice.text = product.price
             binding.productOldPrice.text = product.oldPrice
+            binding.productRating.rating = product.rating
             binding.productImage.setImageResource(product.imageResId)
             val textView = binding.productOldPrice
             textView.paintFlags = textView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG

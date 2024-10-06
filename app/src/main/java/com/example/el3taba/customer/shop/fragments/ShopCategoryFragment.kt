@@ -1,4 +1,4 @@
-package com.example.el3taba.customer.shop.fragments.categories
+package com.example.el3taba.customer.shop.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.el3taba.R
+import com.example.el3taba.core.adapters.ShopCategoryAdapter
 import com.example.el3taba.core.dataClasses.Category
 import com.example.el3taba.databinding.FragmentShopCategoryBinding
 

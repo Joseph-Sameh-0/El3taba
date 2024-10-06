@@ -6,7 +6,7 @@
     <!-- Shop Category Fragment -->
     <fragment
         android:id="@+id/shopCategoryFragment"
-        android:name="com.example.el3taba.customer.shop.fragments.categories.ShopCategoryFragment"
+        android:name="com.example.el3taba.customer.shop.fragments.ShopCategoryFragment"
         android:label="Categories">
         <action
             android:id="@+id/action_category_to_subCategory"
@@ -21,7 +21,7 @@
     <!-- Shop Subcategory Fragment -->
     <fragment
         android:id="@+id/shopSubCategoryFragment"
-        android:name="com.example.el3taba.customer.shop.fragments.categories.ShopSubCategoryFragment"
+        android:name="com.example.el3taba.customer.shop.fragments.ShopSubCategoryFragment"
         android:label="Subcategories">
         <action
             android:id="@+id/action_subCategory_to_items"

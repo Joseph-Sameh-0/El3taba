@@ -1,4 +1,4 @@
-package com.example.el3taba.customer.shop.fragments.categories
+package com.example.el3taba.core.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

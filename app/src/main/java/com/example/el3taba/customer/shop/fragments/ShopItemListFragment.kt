@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.el3taba.R
+import com.example.el3taba.core.adapters.ShopItemAdapter
 import com.example.el3taba.core.dataClasses.Product
 import com.example.el3taba.databinding.FragmentShopItemListBinding
 
@@ -20,11 +20,12 @@ class ShopItemListFragment : Fragment() {
     private lateinit var shopItemAdapter: ShopItemAdapter
 
     private val sampleProducts = listOf(
-        Product("Laptop 1", "14$", "21$", R.drawable.phones_image),
-        Product("Laptop 2", "14$", "21$", R.drawable.phones_image),
-        Product("Laptop 3", "14$", "21$", R.drawable.phones_image),
-        Product("Laptop 4 Laptop 4 Laptop 4 Laptop 4 Laptop 4 Laptop 4 Laptop 4 Laptop 4 Laptop 4 ", "14$", "21$", R.drawable.phones_image),
-        Product("Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 ", "14$", "21$", R.drawable.phones_image),
+        Product("Laptop 1", "12$", "21$", 1F,R.drawable.phones_image),
+        Product("Laptop 2", "20$", "40$", 2.5F,R.drawable.phones_image),
+        Product("Laptop 3", "40$", "60$", 3.5F,R.drawable.phones_image),
+        Product("Laptop 4 Laptop 4 Laptop 4 Laptop 4 Laptop 4 Laptop 4 Laptop 4 Laptop 4 Laptop 4 ", "14$", "21$", 5F,R.drawable.phones_image),
+        Product("Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 ", "14$", "21$", 2.5F,R.drawable.phones_image),
+        Product("Laptop 6", "15$", null, 4.5F,R.drawable.phones_image),
         // Add more products...
     )
 

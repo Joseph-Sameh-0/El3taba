@@ -1,5 +1,9 @@
 package com.example.el3taba.seller.myProducts
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Product(
     var id: String = "",
     var name: String = "",
@@ -8,4 +12,4 @@ data class Product(
     var price: Float = 0f,
     var category: String = "",
     var imageUrl: String = ""
-)
+) : Parcelable

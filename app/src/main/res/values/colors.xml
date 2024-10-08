@@ -10,5 +10,13 @@
     <color name="transparent">#00000000</color>
     <color name="logo_background">#7CB8FF</color>
     <color name="auth_button_color">#758ECD</color>
-    <color name="light_blue">#ADD8E6</color> <!-- Light blue color -->
+    <color name="light_blue">#ADD8E6</color>
+    <color name="boxColor1">#FF5733</color>
+    <color name="boxColor2">#33FF57</color>
+    <color name="boxColor3">#3357FF</color>
+    <color name="boxColor4">#FFC300</color>
+    <color name="boxColor5">#C70039</color>
+    <color name="boxColor6">#900C3F</color>
+    <color name="boxColor7">#581845</color>
+    <color name="boxColor8">#FFC300</color>
 </resources>

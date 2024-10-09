@@ -34,4 +34,15 @@
         android:name="com.example.el3taba.seller.profile.ProfileFragment"
         android:label="seller_fragment_profile"
         tools:layout="@layout/seller_fragment_profile" />
+
+    <action
+        android:id="@+id/action_myProductsFragment_to_editProductFragment"
+        app:destination="@id/editProductFragment" />
+
+    <fragment
+        android:id="@+id/editProductFragment"
+        android:name="com.example.el3taba.seller.editProduct.EditProductFragment"
+        android:label="Edit Product"
+        tools:layout="@layout/seller_fragment_edit_product" />
+
 </navigation>

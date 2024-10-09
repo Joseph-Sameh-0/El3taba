@@ -43,7 +43,7 @@
 
     <ImageView
         android:contentDescription="@string/back_button"
-        android:src="@drawable/ic_back_button"
+        android:src="@drawable/ic_back_arrow"
         android:id="@+id/back_button"
         android:layout_width="wrap_content"
         android:layout_marginStart="20dp"

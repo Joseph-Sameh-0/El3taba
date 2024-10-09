@@ -46,4 +46,11 @@
     <string name="search_icon">Search icon</string>
     <string name="sort_icon">Sort icon</string>
     <string name="add_to_fav_button">Add to fav button</string>
+    <string name="five_stars">"★★★★★"</string>
+    <string name="four_stars">"★★★★"</string>
+    <string name="three_stars">"★★★"</string>
+    <string name="two_stars">"★★"</string>
+    <string name="one_star">"★"</string>
+    <string name="rating_reviews"><![CDATA[Rating & Reviews]]></string>
+    <string name="write_a_review">Write a Review</string>
 </resources>

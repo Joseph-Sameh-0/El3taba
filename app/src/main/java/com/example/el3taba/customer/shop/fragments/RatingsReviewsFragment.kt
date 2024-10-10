@@ -17,15 +17,23 @@ class RatingsReviewsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentRatingsReviewsBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        // Navigate back when the back button is clicked
+        // Back button logic
         binding.backButton.setOnClickListener {
             findNavController().popBackStack()
         }
+
+        // Write review button logic
+        binding.writeReviewButton.setOnClickListener {
+            showReviewBottomSheet("")
+        }
+
+        return binding.root
+    }
+
+    private fun showReviewBottomSheet(productID: String) {
+        val bottomSheetFragment = ReviewBottomSheetFragment.newInstance(productID)
+        bottomSheetFragment.show(childFragmentManager, "ReviewBottomSheet")
     }
 
     override fun onDestroyView() {

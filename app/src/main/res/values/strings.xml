@@ -53,4 +53,8 @@
     <string name="one_star">"★"</string>
     <string name="rating_reviews"><![CDATA[Rating & Reviews]]></string>
     <string name="write_a_review">Write a Review</string>
+    <string name="what_is_your_rate">What is your rate?</string>
+    <string name="please_share_your_opinion_about_the_product">Please share your opinion about the product</string>
+    <string name="your_review">Your review</string>
+    <string name="send_review">Send Review</string>
 </resources>

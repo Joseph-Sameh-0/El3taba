@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">El 3taba - العتبة</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
@@ -68,4 +68,9 @@
     <string name="cancelled">Cancelled</string>
     <string name="processing">Processing</string>
     <string name="details">Details</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="sign_in_with_microsoft">Sign in with Microsoft</string>
+    <string name="sign_in_with_facebook">Sign in with Facebook</string>
+    <string name="clien_id" tools:ignore="TypographyDashes">532709606045-js19nh1dc8q63497i1evrkclso70etcb.apps.googleusercontent.com</string>
+    
 </resources>

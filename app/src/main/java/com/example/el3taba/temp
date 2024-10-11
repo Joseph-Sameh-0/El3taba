@@ -1,0 +1,53 @@
+    val productViewModel: MyProductsViewModel by viewModels()
+
+//// Adding a category
+//        val category = Category(
+//            name = "jooo"
+//        )
+//        val categoryImageUri: Uri? = null // Your category image Uri
+//        val addCategoryResult: LiveData<Boolean> = productViewModel.addCategory(category, categoryImageUri)
+
+// Adding a subcategory
+//        val subcategory = Subcategory(
+//            name = "jooo sub"
+//        )
+//        val subcategoryImageUri: Uri? = null // Your subcategory image Uri
+//        val categoryId = "NR4Y8i2wkzQd3vvpwp8r" // Your category ID
+//        val addSubcategoryResult: LiveData<Boolean> = productViewModel.addSubcategory(subcategory, categoryId, subcategoryImageUri)
+
+// Adding a product
+//        val product = Product(
+//            name = "Product joooo",
+//            description = "joooo Description",
+//            stock = 156750,
+//            price = 99.99454
+//        )
+//        val productImageUri: Uri? = null // Your product image Uri
+//        val subcategoryId = "mGgba9WSYl2xY7TNUzEk" // Your subcategory ID
+//        val addProductResult: LiveData<Boolean> = productViewModel.addProduct(product, productImageUri, categoryId, subcategoryId)
+//
+
+// get allcategories
+//        productViewModel.getAllCategories().observe(this) { categories ->
+//            // Update your UI with the list of categories
+//            categories.forEach { category ->
+//                Log.d("Category", "ID: ${category.id}, Name: ${category.name}, Image URL: ${category.imageUrl}")
+//            }
+//        }
+
+// get allsubcategories
+//        productViewModel.getSubcategories(categoryId).observe(this) { subcategories ->
+//            // Update your UI with the list of subcategories
+//            subcategories.forEach { subcategory ->
+//                Log.d("Subcategory", "ID: ${subcategory.id}, Name: ${subcategory.name}, Image URL: ${subcategory.imageUrl}")
+//            }
+//        }
+
+// get allproducts
+//        productViewModel.getProducts(subcategoryId, categoryId).observe(this) { products ->
+//            // Update your UI with the list of products
+//            products.forEach { product ->
+//                Log.d("Producttttt", "ID: ${product.id}, Name: ${product.name}, Price: ${product.price}, Stock: ${product.stock}, Image URL: ${product.imageUrl}")
+//            }
+//        }
+        /////////////////////////////////

@@ -15,7 +15,6 @@
                 android:name="categoryName"
                 app:argType="string" />
         </action>
-
     </fragment>
 
     <!-- Shop Subcategory Fragment -->

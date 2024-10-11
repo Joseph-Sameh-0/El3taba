@@ -64,4 +64,8 @@
     <string name="contact_us">Contact us</string>
     <string name="notifications_password">Notifications, password</string>
     <string name="send_us_a_message_if_you_have_a_problem">Send us a message if you have a problem</string>
+    <string name="delivered">Delivered</string>
+    <string name="cancelled">Cancelled</string>
+    <string name="processing">Processing</string>
+    <string name="details">Details</string>
 </resources>

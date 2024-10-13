@@ -79,5 +79,6 @@
     <string name="cancelled">Cancelled</string>
     <string name="processing">Processing</string>
     <string name="details">Details</string>
+    <string name="categories">Categories</string>
 
 </resources>

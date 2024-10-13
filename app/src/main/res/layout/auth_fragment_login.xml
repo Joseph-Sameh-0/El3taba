@@ -153,33 +153,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/sign_up_button">
 
-        <!-- Google Sign-in Icon -->
+        <!-- Social Media Icons -->
         <ImageView
-            android:id="@+id/googlebtn"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginEnd="20dp"
-            android:src="@drawable/ic_google_signin"
-            android:contentDescription="@string/sign_in_with_google" />
+            android:src="@drawable/splash_icon" />
 
-        <!-- Microsoft Sign-in Icon -->
         <ImageView
-            android:id="@+id/Microsoftlebtn"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginEnd="20dp"
-            android:src="@drawable/ic_microsoft_signin"
-            android:contentDescription="@string/sign_in_with_microsoft" />
+            android:src="@drawable/splash_icon" />
 
-        <!-- Facebook Sign-in Icon -->
         <ImageView
-            android:id="@+id/Facebooklebtn"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@drawable/ic_facebook_signin"
-            android:contentDescription="@string/sign_in_with_facebook" />
+            android:src="@drawable/splash_icon" />
     </LinearLayout>
-
 
     <TextView
         android:id="@+id/textView3"

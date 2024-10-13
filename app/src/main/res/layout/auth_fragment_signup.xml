@@ -189,6 +189,53 @@
         app:layout_constraintTop_toBottomOf="@id/confirm_password_edit_text_layout"
         app:layout_constraintWidth_percent="0.85" />
 
+    <ImageView
+        android:id="@+id/two_lines"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/two_lines"
+        app:layout_constraintBottom_toTopOf="@+id/social_media_buttons" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/or_signup_with"
+        app:layout_constraintBottom_toBottomOf="@id/two_lines"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/two_lines" />
+
+    <!-- Social Media Sign-in Options -->
+    <LinearLayout
+        android:id="@+id/social_media_buttons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/SignupButton">
+
+        <!-- Social Media Icons -->
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/splash_icon" />
+
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/splash_icon" />
+
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/splash_icon" />
+    </LinearLayout>
 
 
     <TextView

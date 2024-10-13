@@ -3,9 +3,8 @@ package com.example.el3taba.core.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import com.example.el3taba.core.dataClasses.Category
 import com.example.el3taba.databinding.ItemCategoryBinding
-import com.example.el3taba.seller.myProducts.Category
 
 class ShopCategoryAdapter(
     private val categories: List<Category>,
@@ -16,6 +15,7 @@ class ShopCategoryAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(category: Category) {
             binding.categoryTitle.text = category.name
+            binding.categoryImage.setImageResource(category.imageResId)
             binding.root.setOnClickListener {
                 onItemClick(category)
             }
@@ -30,10 +30,6 @@ class ShopCategoryAdapter(
 
     override fun onBindViewHolder(holder: ShopCategoryViewHolder, position: Int) {
         holder.bind(categories[position])
-
-        Glide.with(holder.itemView.context)
-            .load(categories[position].imageUrl)
-            .into(holder.binding.categoryImage)
     }
 
     override fun getItemCount(): Int = categories.size

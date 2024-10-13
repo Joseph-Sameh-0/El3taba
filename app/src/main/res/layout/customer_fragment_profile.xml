@@ -6,29 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".customer.profile.ProfileFragment">
 
-    <TextView
-        android:id="@+id/text_profile"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_profile"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:gravity="center"
-        android:text="@string/profile"
-        android:textAlignment="center"
-        android:textSize="20sp"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/customer_profile_nav" />
 
-    <Button
-        android:id="@+id/logoutButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/logout"
-        app:layout_constraintEnd_toEndOf="parent"
-        style="?android:attr/buttonBarStyle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_profile" />
 </androidx.constraintlayout.widget.ConstraintLayout>

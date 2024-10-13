@@ -23,16 +23,11 @@ private var _binding: CustomerFragmentShopBinding? = null
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
-    val shopViewModel =
-            ViewModelProvider(this).get(ShopViewModel::class.java)
+
 
     _binding = CustomerFragmentShopBinding.inflate(inflater, container, false)
     val root: View = binding.root
 
-    val textView: TextView = binding.textShop
-    shopViewModel.text.observe(viewLifecycleOwner) {
-      textView.text = it
-    }
       val navHostFragment = childFragmentManager.findFragmentById(R.id.nav_host_shop) as NavHostFragment
       val navController = navHostFragment.navController
       val navGraph = navController.navInflater.inflate(R.navigation.nav_shop)

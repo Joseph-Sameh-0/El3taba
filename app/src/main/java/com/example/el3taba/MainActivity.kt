@@ -1,10 +1,11 @@
 package com.example.el3taba
 
-import android.content.ContentValues.TAG
+import com.example.el3taba.core.FirestoreRepository
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
@@ -13,11 +14,10 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.el3taba.databinding.ActivityMainBinding
+import com.example.el3taba.seller.myProducts.MyProductsViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.Firebase
-import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.launch
+import com.google.firebase.FirebaseApp
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,37 +27,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
 
-//////////////////////////////////////////////////////////////////
-        val db = Firebase.firestore
-
-        // Create a new user with a first and last name
-//        val user = hashMapOf(
-//            "id" to 1,
-//            "first" to "Joseph",
-//            "middle" to "Sameh",
-//        )
-//
-//        db.collection("users").add(user).addOnSuccessListener { documentReference ->
-//            Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
-//        }.addOnFailureListener { e ->
-//            Log.w(TAG, "Error adding document", e)
-//        }
-//
-//        db.collection("users")
-//            .orderBy("id", Query.Direction.ASCENDING)
-//            .get()
-//            .addOnSuccessListener { result ->
-//                for (document in result) {
-//                    Log.d(TAG, "${document.id} => ${document.data}")
-//                    for (data in document.data){
-//                    Log.d(TAG, "last => ${data.key} => ${data.value}")
-//                    }
-//                }
-//            }
-//            .addOnFailureListener { exception ->
-//                Log.w(TAG, "Error getting documents.", exception)
-//            }
-//////////////////////////////////////////////////////////////////
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

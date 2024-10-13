@@ -46,12 +46,12 @@ class MyProductsFragment : Fragment() {
         val db = Firebase.firestore
         db.collection("products").get()
             .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    val product = document.toObject(Product::class.java).apply {
-                        id = document.id
-                    }
-                    productList.add(product)
-                }
+//                for (document in documents) {
+//                    val product = document.toObject(Product::class.java).apply {
+//                        id = document.id
+//                    }
+//                    productList.add(product)
+//                }
                 adapter.notifyDataSetChanged()
             }
             .addOnFailureListener { e ->

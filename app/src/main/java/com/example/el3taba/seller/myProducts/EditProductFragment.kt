@@ -52,7 +52,7 @@ class EditProductFragment : Fragment() {
             binding.description.setText(product.description)
             binding.stock.setText(product.stock.toString())
             binding.price.setText(product.price.toString())
-            binding.categorySpinner.setSelection(categories.indexOf(product.category))
+           // binding.categorySpinner.setSelection(categories.indexOf(product.category))
             // Load the image
             Glide.with(this).load(product.imageUrl).into(binding.addPictures)
         }

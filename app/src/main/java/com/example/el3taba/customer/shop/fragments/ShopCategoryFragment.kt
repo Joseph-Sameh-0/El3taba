@@ -1,17 +1,18 @@
 package com.example.el3taba.customer.shop.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.el3taba.R
 import com.example.el3taba.core.adapters.ShopCategoryAdapter
-import com.example.el3taba.core.dataClasses.Category
 import com.example.el3taba.databinding.FragmentShopCategoryBinding
+import com.example.el3taba.seller.myProducts.Category
+import com.example.el3taba.seller.myProducts.MyProductsViewModel
 
 class ShopCategoryFragment : Fragment() {
 
@@ -19,18 +20,17 @@ class ShopCategoryFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var categoryAdapter: ShopCategoryAdapter
 
-    private val categories = listOf(
-        Category("Electronics", R.drawable.electronics_image),
-        Category("Supermarket", R.drawable.electronics_image),
-        Category("Clothes", R.drawable.electronics_image),
-        Category("Pets", R.drawable.electronics_image)
-    )
+    private lateinit var categories: List<Category>
+    val productViewModel: MyProductsViewModel by viewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentShopCategoryBinding.inflate(inflater, container, false)
+        categories = productViewModel.getAllCategories().value ?: emptyList()
+        Log.d("Categories", categories.toString())
         return binding.root
     }
 

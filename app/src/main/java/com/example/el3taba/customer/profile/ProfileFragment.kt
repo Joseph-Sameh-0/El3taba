@@ -4,51 +4,40 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
+import com.example.el3taba.R
 import com.example.el3taba.databinding.CustomerFragmentProfileBinding
 
 class ProfileFragment : Fragment() {
 
-private var _binding: CustomerFragmentProfileBinding? = null
-  // This property is only valid between onCreateView and
-  // onDestroyView.
-  private val binding get() = _binding!!
+    private var _binding: CustomerFragmentProfileBinding? = null
 
-  override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
-  ): View {
-    val profileViewModel =
-            ViewModelProvider(this).get(ProfileViewModel::class.java)
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
 
-    _binding = CustomerFragmentProfileBinding.inflate(inflater, container, false)
-    val root: View = binding.root
-
-    val textView: TextView = binding.textProfile
-    profileViewModel.text.observe(viewLifecycleOwner) {
-      textView.text = it
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = CustomerFragmentProfileBinding.inflate(inflater, container, false)
+        return binding.root
     }
-    return root
-  }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.logoutButton.setOnClickListener{
-            val sharedPreferences = requireActivity().getSharedPreferences("user_session", MODE_PRIVATE)
-            sharedPreferences.edit().clear().apply()
-
-            val intent = requireActivity().intent
-            requireActivity().finish()
-            startActivity(intent)
-        }
-
+        val navHostFragment = childFragmentManager.findFragmentById(R.id.nav_host_profile) as NavHostFragment
+        val navController = navHostFragment.navController
+        val navGraph = navController.navInflater.inflate(R.navigation.customer_profile_nav)
+        navController.graph = navGraph
     }
 
-override fun onDestroyView() {
+
+    override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }

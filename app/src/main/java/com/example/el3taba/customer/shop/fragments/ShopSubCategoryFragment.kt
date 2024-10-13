@@ -4,15 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.el3taba.R
 import com.example.el3taba.core.GridSpacingItemDecoration
 import com.example.el3taba.core.adapters.ShopCategoryAdapter
-import com.example.el3taba.core.dataClasses.Category
 import com.example.el3taba.databinding.FragmentShopSubCategoryBinding
+import com.example.el3taba.seller.myProducts.Category
 
 class ShopSubCategoryFragment : Fragment() {
 
@@ -23,12 +21,12 @@ class ShopSubCategoryFragment : Fragment() {
 
 
     private val categories = listOf(
-        Category("Laptops", R.drawable.phones_image),
-        Category("Phones", R.drawable.phones_image),
-        Category("Cameras", R.drawable.phones_image),
-        Category("Tablets", R.drawable.phones_image),
-        Category("Airpods", R.drawable.phones_image),
-        Category("Smart Watches", R.drawable.phones_image)
+        Category("", "Laptops", ""),
+        Category("", "Phones", ""),
+        Category("", "Cameras", ""),
+        Category("", "Tablets", ""),
+        Category("", "Airpods", ""),
+        Category("", "Smart Watches", "")
     )
 
     override fun onCreateView(

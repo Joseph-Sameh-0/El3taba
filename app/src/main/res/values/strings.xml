@@ -13,6 +13,7 @@
     <string name="password">Password</string>
     <string name="email">Email</string>
     <string name="logout">Logout</string>
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="logo">Logo</string>
     <string name="logo_background">Logo Background</string>
@@ -22,7 +23,7 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="splash_icon_desc">Logo</string>
     <string name="submit">Submit</string>
-    <string name="new_password" translatable="false">New password</string>
+    <string name="new_password">New password</string>
     <string name="old_password">Old password</string>
     <string name="must_be_at_least_8_characters">Must be at least 8 characters</string>
     <string name="set_a_new_password">Set a new password</string>
@@ -56,11 +57,4 @@
     <string name="please_share_your_opinion_about_the_product">Please share your opinion about the product</string>
     <string name="your_review">Your review</string>
     <string name="send_review">Send Review</string>
-    <string name="product_name">Product Name</string>
-    <string name="product_image">Product Image</string>
-    <string name="_100">$100</string>
-    <string name="recommended">Recommended</string>
-    <string name="New">New</string>
-    <string name="app_logo">app_logo</string>
-
 </resources>

@@ -12,7 +12,12 @@
           "package_name": "com.example.el3taba"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "532709606045-js19nh1dc8q63497i1evrkclso70etcb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCvf3jLYDLwSmD1ZwBTmoWRW2m3j7wvc2A"
@@ -20,7 +25,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "532709606045-js19nh1dc8q63497i1evrkclso70etcb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

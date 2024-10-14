@@ -16,4 +16,9 @@
         android:name="com.example.el3taba.customer.profile.fragments.MyOrdersFragment"
         android:label="fragment_my_orders"
         tools:layout="@layout/fragment_my_orders" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.el3taba.customer.profile.fragments.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

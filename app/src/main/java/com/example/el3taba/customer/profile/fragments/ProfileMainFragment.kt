@@ -1,5 +1,6 @@
 package com.example.el3taba.customer.profile.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
 import androidx.navigation.fragment.findNavController
 import com.example.el3taba.R
 import com.example.el3taba.databinding.FragmentProfileMainBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class ProfileMainFragment : Fragment() {
     //binding
@@ -48,14 +50,26 @@ class ProfileMainFragment : Fragment() {
         binding.logoutButton.setOnClickListener {
             performLogout()
         }
+
     }
 
+    @SuppressLint("SetTextI18n")
     private fun loadUserData() {
         // Fetch user data from Firebase
         // Set user's name, email, number of orders, shipping addresses count, etc.
         // Example:
         // binding.profileName.text = firebaseUser.displayName
         // binding.profileEmail.text = firebaseUser.email
+
+        val firebaseAuth = FirebaseAuth.getInstance()
+        val currentUser = firebaseAuth.currentUser
+        val email = currentUser!!.email.toString()
+        val name = currentUser.displayName.toString()
+        binding.profileName.text = name   /////////////////////////////////////////////////////////////////////
+        binding.profileEmail.text = email
+
+        binding.myOrdersDescription.text = "You have 0 orders"
+        binding.shippingAddressesDescription.text = "0 addresses"
     }
 
     private fun navigateToOrders() {
@@ -69,6 +83,7 @@ class ProfileMainFragment : Fragment() {
 
     private fun navigateToSettings() {
         // Navigate to Settings fragment
+        findNavController().navigate(R.id.settingsFragment)
     }
 
     private fun navigateToContactUs() {

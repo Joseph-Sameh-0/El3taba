@@ -5,9 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.el3taba.databinding.FragmentSubHomeBinding
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.el3taba.R
+import com.example.el3taba.databinding.FragmentSubHomeBinding
 
 class SubHomeFragment : Fragment() {
 
@@ -27,14 +28,22 @@ class SubHomeFragment : Fragment() {
 
     private fun setupRecyclerViews() {
         // Setup Recommended RecyclerView
-        recommendedAdapter = ProductAdapter(10.getDummyProducts()) // 10 items
+        recommendedAdapter = ProductAdapter(10.getDummyProducts()) { product ->
+            val action = SubHomeFragmentDirections
+                .actionSubHomeFragmentToProductItemFragment2(product.id)
+            findNavController().navigate(action)
+        } // 10 items
         binding.recommendedRecyclerview.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = recommendedAdapter
         }
 
         // Setup New Items RecyclerView
-        newItemsAdapter = ProductAdapter(10.getDummyProducts()) // 10 items
+        newItemsAdapter = ProductAdapter(10.getDummyProducts()) { product ->
+            val action = SubHomeFragmentDirections
+                .actionSubHomeFragmentToProductItemFragment2(product.id)
+            findNavController().navigate(action)
+        } // 10 items
         binding.newRecyclerview.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = newItemsAdapter
@@ -44,7 +53,7 @@ class SubHomeFragment : Fragment() {
     private fun Int.getDummyProducts(): List<Product> {
         val products = mutableListOf<Product>()
         for (i in 1..this) {
-            products.add(Product("Product $i", "$${i * 10}", R.drawable.phones_image))
+            products.add(Product(i.toString(), "Product $i", "$${i * 10}", R.drawable.phones_image))
         }
         return products
     }

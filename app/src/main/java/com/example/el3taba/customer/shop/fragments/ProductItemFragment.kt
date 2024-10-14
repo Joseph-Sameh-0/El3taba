@@ -17,7 +17,7 @@ class ProductItemFragment : Fragment() {
 
     private var _binding: FragmentProductItemBinding? = null
     private val binding get() = _binding!!
-    private lateinit var Product: String
+    private lateinit var ProductID: String
     private lateinit var viewPagerAdapter: ImagePagerAdapter
     private val imageUrls = mutableListOf<String>(
         "https://m.media-amazon.com/images/I/71QmKIgj+BL._AC_SL1500_.jpg",
@@ -40,7 +40,8 @@ class ProductItemFragment : Fragment() {
 
 //        categoryName = arguments?.getString("categoryName").orEmpty()
 
-        Product = arguments?.getString("productName") ?: ""
+        ProductID = arguments?.getString("productID") ?: ""
+        val from = arguments?.getString("from") ?: ""
 
         // Initialize ViewPager2 and its adapter
         viewPagerAdapter = ImagePagerAdapter(imageUrls)
@@ -57,6 +58,11 @@ class ProductItemFragment : Fragment() {
 
         // Navigate to RatingsReviewsFragment when the reviews button is clicked
         binding.ratingAndReviews.setOnClickListener {
+            if (from == "home")
+            {
+            findNavController().navigate(R.id.ratingsReviewsFragment2)
+            }
+            else
             findNavController().navigate(R.id.action_product_to_reviews)
         }
 

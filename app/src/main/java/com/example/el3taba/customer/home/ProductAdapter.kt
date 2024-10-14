@@ -5,7 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.el3taba.databinding.FragmentItemProductBinding
 
-class ProductAdapter(private val productList: List<Product>) :
+class ProductAdapter(
+    private val productList: List<Product>,
+    private val onItemClick: (Product) -> Unit
+) :
     RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
@@ -32,6 +35,9 @@ class ProductAdapter(private val productList: List<Product>) :
             binding.productName.text = product.name
             binding.productPrice.text = product.price
             binding.productImage.setImageResource(product.imageResId)
+            binding.root.setOnClickListener {
+                onItemClick(product)
+            }
         }
     }
 }

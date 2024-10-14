@@ -9,7 +9,19 @@
         android:id="@+id/subHomeFragment"
         android:name="com.example.el3taba.customer.home.SubHomeFragment"
         android:label="fragment_sub_home"
-        tools:layout="@layout/fragment_sub_home" />
+        tools:layout="@layout/fragment_sub_home">
+        <action
+            android:id="@+id/action_subHomeFragment_to_productItemFragment2"
+            app:destination="@id/productItemFragment2">
+            <argument
+                android:name="ProductID"
+                app:argType="string" />
+            <argument
+                android:name="from"
+                android:defaultValue="home"
+                app:argType="string" />
+        </action>
+    </fragment>
     <fragment
         android:id="@+id/productItemFragment2"
         android:name="com.example.el3taba.customer.shop.fragments.ProductItemFragment"

@@ -242,8 +242,8 @@ class FirestoreRepository {
         return categoryList
     }
 
-    fun getSubcategoriesByCategoryId(categoryId: String): LiveData<List<Subcategory>> {
-        val subcategoryList = MutableLiveData<List<Subcategory>>()
+    fun getSubcategoriesByCategoryId(categoryId: String): LiveData<List<Category>> {
+        val subcategoryList = MutableLiveData<List<Category>>()
 
         db.collection("categories")
             .document(categoryId)
@@ -257,7 +257,7 @@ class FirestoreRepository {
 
                 val subcategories = snapshot?.documents?.map { document ->
                     // Create a Subcategory object from the document
-                    Subcategory(
+                    Category(
                         id = document.id, // Firestore auto-generated ID
                         name = document.getString("name") ?: "",
                         imageUrl = document.getString("imageUrl") ?: ""

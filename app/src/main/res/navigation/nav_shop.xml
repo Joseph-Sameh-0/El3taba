@@ -12,8 +12,8 @@
             android:id="@+id/action_category_to_subCategory"
             app:destination="@id/shopSubCategoryFragment">
             <argument
-                android:name="categoryName"
-                app:argType="string" />
+                android:name="category"
+                app:argType="com.example.el3taba.seller.myProducts.Category" />
         </action>
     </fragment>
 

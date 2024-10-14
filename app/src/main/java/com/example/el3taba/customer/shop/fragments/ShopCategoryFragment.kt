@@ -47,7 +47,7 @@ class ShopCategoryFragment : Fragment() {
             categories = _categories
             categoryAdapter = ShopCategoryAdapter(categories ?: listOf()) { category ->
                 val action = ShopCategoryFragmentDirections
-                    .actionCategoryToSubCategory(category.name)
+                    .actionCategoryToSubCategory(category)
                 findNavController().navigate(action)
 //            findNavController().navigate(R.id.action_category_to_subCategory)
                 // Handle category click event here

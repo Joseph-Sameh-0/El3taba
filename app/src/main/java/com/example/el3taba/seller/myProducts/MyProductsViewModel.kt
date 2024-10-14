@@ -54,7 +54,7 @@ class MyProductsViewModel : ViewModel() {
     fun getAllCategories(): LiveData<List<Category>> {
         return repository.getAllCategories()
     }
-    fun getSubcategories(categoryId: String): LiveData<List<Subcategory>> {
+    fun getSubcategories(categoryId: String): LiveData<List<Category>> {
         return repository.getSubcategoriesByCategoryId(categoryId)
     }
     // Function to retrieve products by subcategory ID

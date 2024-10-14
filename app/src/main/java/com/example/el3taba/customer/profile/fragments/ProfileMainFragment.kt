@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
 import androidx.navigation.fragment.findNavController
 import com.example.el3taba.R
 import com.example.el3taba.databinding.FragmentProfileMainBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class ProfileMainFragment : Fragment() {
     //binding
@@ -48,6 +49,7 @@ class ProfileMainFragment : Fragment() {
         binding.logoutButton.setOnClickListener {
             performLogout()
         }
+
     }
 
     private fun loadUserData() {
@@ -56,6 +58,13 @@ class ProfileMainFragment : Fragment() {
         // Example:
         // binding.profileName.text = firebaseUser.displayName
         // binding.profileEmail.text = firebaseUser.email
+
+        val firebaseAuth = FirebaseAuth.getInstance()
+        val currentUser = firebaseAuth.currentUser
+        val email = currentUser!!.email.toString()
+        val name = currentUser.displayName.toString()
+        binding.profileName.text = name   /////////////////////////////////////////////////////////////////////
+        binding.profileEmail.text = email
     }
 
     private fun navigateToOrders() {
@@ -69,6 +78,7 @@ class ProfileMainFragment : Fragment() {
 
     private fun navigateToSettings() {
         // Navigate to Settings fragment
+        findNavController().navigate(R.id.settingsFragment)
     }
 
     private fun navigateToContactUs() {

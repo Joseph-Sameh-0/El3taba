@@ -1,20 +1,17 @@
 package com.example.el3taba.customer.shop.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.el3taba.core.adapters.ShopCategoryAdapter
 import com.example.el3taba.databinding.FragmentShopCategoryBinding
 import com.example.el3taba.seller.myProducts.Category
 import com.example.el3taba.seller.myProducts.MyProductsViewModel
-import kotlinx.coroutines.launch
 
 class ShopCategoryFragment : Fragment() {
 
@@ -31,14 +28,14 @@ class ShopCategoryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentShopCategoryBinding.inflate(inflater, container, false)
-        lifecycleScope.launch {
-            productViewModel.getAllCategories().observe(viewLifecycleOwner) { _categories ->
-                categories = _categories
-                Log.d("Categories 3", categories.toString())
-            }
-            Log.d("Categories 2", categories.toString())
-        }
-        Log.d("Categories", categories.toString())
+//        lifecycleScope.launch {
+//            productViewModel.getAllCategories().observe(viewLifecycleOwner) { _categories ->
+//                categories = _categories
+//                Log.d("Categories 3", categories.toString())
+//            }
+//            Log.d("Categories 2", categories.toString())
+//        }
+//        Log.d("Categories", categories.toString())
         return binding.root
     }
 
@@ -46,17 +43,20 @@ class ShopCategoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Setup RecyclerView
-        categoryAdapter = ShopCategoryAdapter(categories ?: listOf()) { category ->
-            val action = ShopCategoryFragmentDirections
-                .actionCategoryToSubCategory(category.name)
-            findNavController().navigate(action)
+        productViewModel.getAllCategories().observe(viewLifecycleOwner) { _categories ->
+            categories = _categories
+            categoryAdapter = ShopCategoryAdapter(categories ?: listOf()) { category ->
+                val action = ShopCategoryFragmentDirections
+                    .actionCategoryToSubCategory(category.name)
+                findNavController().navigate(action)
 //            findNavController().navigate(R.id.action_category_to_subCategory)
-            // Handle category click event here
+                // Handle category click event here
 //            Toast.makeText(requireContext(), "Clicked: ${category.name}", Toast.LENGTH_SHORT).show()
-        }
-        binding.categoryRecyclerView.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = categoryAdapter
+            }
+            binding.categoryRecyclerView.apply {
+                layoutManager = LinearLayoutManager(requireContext())
+                adapter = categoryAdapter
+            }
         }
     }
 

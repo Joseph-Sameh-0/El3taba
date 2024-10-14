@@ -1,5 +1,6 @@
 package com.example.el3taba.customer.profile.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -52,6 +53,7 @@ class ProfileMainFragment : Fragment() {
 
     }
 
+    @SuppressLint("SetTextI18n")
     private fun loadUserData() {
         // Fetch user data from Firebase
         // Set user's name, email, number of orders, shipping addresses count, etc.
@@ -65,6 +67,9 @@ class ProfileMainFragment : Fragment() {
         val name = currentUser.displayName.toString()
         binding.profileName.text = name   /////////////////////////////////////////////////////////////////////
         binding.profileEmail.text = email
+
+        binding.myOrdersDescription.text = "You have 0 orders"
+        binding.shippingAddressesDescription.text = "0 addresses"
     }
 
     private fun navigateToOrders() {

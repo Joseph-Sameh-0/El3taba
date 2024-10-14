@@ -106,7 +106,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="14sp"
-                tools:text="Already have 12 orders" />
+                tools:text="You have 12 orders" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

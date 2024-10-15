@@ -5,10 +5,27 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.el3taba.core.dataClasses.User
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 
 class AuthViewModel : ViewModel() {
     private val repository = AuthRepository()
+    private val userDataRef: DatabaseReference = FirebaseDatabase.getInstance().getReference("users")
+
+    private val _userData = MutableLiveData<User?>()
+    val userData: LiveData<User?> get() = _userData
+
+    fun getUserData(userId: String) {
+        userDataRef.child(userId).get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val user = task.result?.getValue(User::class.java)
+                _userData.value = user
+            } else {
+                _userData.value = null
+            }
+        }
+    }
 
     fun login(email: String, password: String) = repository.login(email, password)
     fun resetPassword(email: String) = repository.resetPassword(email)

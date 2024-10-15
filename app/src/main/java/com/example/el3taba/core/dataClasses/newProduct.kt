@@ -1,11 +1,10 @@
-package com.example.el3taba.seller.myProducts
+package com.example.el3taba.core.dataClasses
 
 import android.os.Parcelable
-import com.example.el3taba.core.dataClasses.Review
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Product(
+data class newProduct(
     val id: String = "",
     val title: String = "",         // New field for product title
     val name: String = "",

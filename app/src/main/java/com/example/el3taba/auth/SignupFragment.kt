@@ -39,8 +39,11 @@ class SignupFragment : Fragment() {
             val email = binding.emailEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
             val confirmPassword = binding.confirmPasswordEditText.text.toString()
+            val fullName = binding.fullNameEditText.text.toString() // New field
+            val phoneNumber = binding.phoneNumberEditText.text.toString() // New field
 
-            if (email.isNotEmpty() && password.isNotEmpty() && confirmPassword.isNotEmpty()) {
+            if (email.isNotEmpty() && password.isNotEmpty() && confirmPassword.isNotEmpty() &&
+                fullName.isNotEmpty() && phoneNumber.isNotEmpty()) { // Check if fields are filled
                 if (validateEmail(email)) {
                     binding.emailEditTextLayout.isErrorEnabled = false
                     if (password.length < 8) {
@@ -50,8 +53,9 @@ class SignupFragment : Fragment() {
                     } else {
                         binding.passwordEditTextLayout.isErrorEnabled = false
                         binding.confirmPasswordEditTextLayout.isErrorEnabled = false
+
                         // Directly sign up the user as a customer without showing the role selection dialog
-                        signUpUser(email, password, "customer")
+                        signUpUser(email, password, "customer", fullName, phoneNumber) // Pass new data
                     }
                 } else {
                     binding.emailEditTextLayout.error = "Not a valid email address. Should be your@email.com"
@@ -66,7 +70,7 @@ class SignupFragment : Fragment() {
         }
     }
 
-    private fun signUpUser(email: String, password: String, role: String?) {
+    private fun signUpUser(email: String, password: String, role: String?, fullName: String, phoneNumber: String) {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -82,8 +86,8 @@ class SignupFragment : Fragment() {
                                         Toast.LENGTH_LONG
                                     ).show()
 
-                                    // Save user role in the database
-                                    val newUser = User(email = email, role = role ?: "")
+                                    // Save user data in the database
+                                    val newUser = User(email = email, role = role ?: "", fullName = fullName, phoneNumber = phoneNumber) // Create user with new data
                                     authViewModel.saveUserRole(newUser).observe(viewLifecycleOwner, { saveSuccess ->
                                         if (saveSuccess) {
                                             Toast.makeText(

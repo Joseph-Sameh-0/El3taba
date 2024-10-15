@@ -9,6 +9,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.el3taba.databinding.FragmentSettingsBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class SettingsFragment : Fragment() {
     private var _binding: FragmentSettingsBinding? = null
@@ -50,11 +52,37 @@ class SettingsFragment : Fragment() {
         Toast.makeText(requireContext(), "Settings saved!", Toast.LENGTH_SHORT).show()
         findNavController().navigateUp()
     }
+    private fun getUserData(userId: String) {
+        val db = FirebaseFirestore.getInstance()
 
+        // Reference to the user document in Firestore
+        val userRef = db.collection("users").document(userId)
+
+        userRef.get()
+            .addOnSuccessListener { document ->
+                if (document != null) {
+                    // Retrieve user data from the document
+                    val name = document.getString("fullName") ?: "No name available"
+                    binding.fullNameInput.setText(name)
+                                  } else {
+                    // Document does not exist
+                    binding.fullNameInput.setText("User data not found")
+                }
+            }.addOnFailureListener {
+
+            }
+
+    }
     @SuppressLint("SetTextI18n")
     private fun getUserDataFromFirebase() {
-        // Fetch user data from Firebase and populate the UI
-        binding.fullNameInput.setText("Sample User")
+        val firebaseAuth = FirebaseAuth.getInstance()
+        val currentUser = firebaseAuth.currentUser
+
+        if (currentUser != null) {
+            // User is logged in, fetch user data
+            getUserData(currentUser.uid)
+        }        // Fetch user data from Firebase and populate the UI
+        //binding.fullNameInput.setText("Sample User")
         binding.dateOfBirthInput.setText("12/12/1989")
         binding.passwordInput.setText("********")
         // Load notification preferences...

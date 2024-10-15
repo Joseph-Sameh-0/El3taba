@@ -90,5 +90,6 @@
     <string name="notifications">Notifications</string>
     <string name="full_name">Full Name</string>
     <string name="change">Change</string>
+    <string name="phone_number">Phone Number</string>
 
 </resources>

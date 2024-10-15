@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.el3taba.R
 import com.example.el3taba.databinding.AuthFragmentLoginBinding
-import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -42,7 +41,6 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         // Initialize FirebaseAuth
         auth = FirebaseAuth.getInstance()
 
@@ -65,7 +63,11 @@ class LoginFragment : Fragment() {
                     binding.emailEditTextLayout.error = "Not a valid email address."
                 }
             } else {
-                Toast.makeText(requireContext(), "Please enter email and password", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Please enter email and password",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
         binding.imageButton.setOnClickListener {
@@ -83,6 +85,7 @@ class LoginFragment : Fragment() {
             signInWithGoogle()
         }
     }
+
     private fun togglePasswordVisibility() {
         // Toggle the password visibility state
         isPasswordVisible = !isPasswordVisible
@@ -91,13 +94,15 @@ class LoginFragment : Fragment() {
             binding.passwordEditText.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
             binding.imageButton.setImageResource(R.drawable.ic_eye) // Show the password icon
         } else {
-            binding.passwordEditText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+            binding.passwordEditText.inputType =
+                InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
             binding.imageButton.setImageResource(R.drawable.ic_eye_slash) // Hide the password icon
         }
 
         // Move the cursor to the end of the password text
         binding.passwordEditText.text?.let { binding.passwordEditText.setSelection(it.length) }
     }
+
     private fun performLogin(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
@@ -113,24 +118,41 @@ class LoginFragment : Fragment() {
                                     if (document != null && document.exists()) {
                                         val userRole = document.getString("role")
                                         saveUserSession(userRole.toString() ?: "")
-                                        Toast.makeText(requireContext(), "Login Successful", Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(
+                                            requireContext(),
+                                            "Login Successful",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
 
                                         // Reload the activity
                                         requireActivity().recreate()
                                     } else {
-                                        Toast.makeText(requireContext(), "Failed to retrieve user role", Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(
+                                            requireContext(),
+                                            "Failed to retrieve user role",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
                                     }
                                 }
                                 .addOnFailureListener {
-                                    Toast.makeText(requireContext(), "Error getting user role", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(
+                                        requireContext(),
+                                        "Error getting user role",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                 }
                         } else {
                             // Email is not verified, prompt the user
-                            Toast.makeText(requireContext(), "Please verify your email before logging in", Toast.LENGTH_LONG).show()
+                            Toast.makeText(
+                                requireContext(),
+                                "Please verify your email before logging in",
+                                Toast.LENGTH_LONG
+                            ).show()
                             showResendVerificationDialog() // Show option to resend verification email
                         }
                     }
                 } else {
+                    binding.passwordEditTextLayout.error = "Invalid email or password"
                     Toast.makeText(requireContext(), "Login Failed", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -142,15 +164,16 @@ class LoginFragment : Fragment() {
         googleSignInLauncher.launch(signInIntent)
     }
 
-    private val googleSignInLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
-        try {
-            val account = task.getResult(ApiException::class.java)
-            firebaseAuthWithGoogle(account)
-        } catch (e: ApiException) {
-            Log.w("LoginFragment", "Google sign in failed", e)
+    private val googleSignInLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+            try {
+                val account = task.getResult(ApiException::class.java)
+                firebaseAuthWithGoogle(account)
+            } catch (e: ApiException) {
+                Log.w("LoginFragment", "Google sign in failed", e)
+            }
         }
-    }
 
     private fun firebaseAuthWithGoogle(account: GoogleSignInAccount?) {
         val credential = GoogleAuthProvider.getCredential(account?.idToken, null)
@@ -163,7 +186,8 @@ class LoginFragment : Fragment() {
                         val email = it.email ?: ""  // Fetch user email if needed
 
                         // Reference to Firestore collection
-                        val userDocRef = FirebaseFirestore.getInstance().collection("users").document(uid)
+                        val userDocRef =
+                            FirebaseFirestore.getInstance().collection("users").document(uid)
 
                         // Check if the user role exists in Firestore
                         userDocRef.get()
@@ -176,7 +200,11 @@ class LoginFragment : Fragment() {
                                     } else {
                                         // Role exists, save it in session
                                         saveUserSession(userRole)
-                                        Toast.makeText(requireContext(), "Login Successful", Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(
+                                            requireContext(),
+                                            "Login Successful",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
                                     }
                                 } else {
                                     // Document doesn't exist, save user with role "customer"
@@ -185,13 +213,22 @@ class LoginFragment : Fragment() {
                                 requireActivity().recreate()
                             }
                             .addOnFailureListener { exception ->
-                                Log.w("firebaseAuthWithGoogle", "Error fetching user role", exception)
-                                Toast.makeText(requireContext(), "Error fetching user role", Toast.LENGTH_SHORT).show()
+                                Log.w(
+                                    "firebaseAuthWithGoogle",
+                                    "Error fetching user role",
+                                    exception
+                                )
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Error fetching user role",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                     }
                 } else {
                     Log.w("firebaseAuthWithGoogle", "signInWithCredential:failure", task.exception)
-                    Toast.makeText(requireContext(), "Google sign-in failed", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Google sign-in failed", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
     }
@@ -206,20 +243,23 @@ class LoginFragment : Fragment() {
             .set(user)
             .addOnSuccessListener {
                 saveUserSession(role)
-                Toast.makeText(requireContext(), "User role saved as $role", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "User role saved as $role", Toast.LENGTH_SHORT)
+                    .show()
 
                 // Optionally, reload the activity or navigate
                 requireActivity().recreate()
             }
             .addOnFailureListener { exception ->
                 Log.w("saveUserRole", "Error saving user role", exception)
-                Toast.makeText(requireContext(), "Failed to save user role", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Failed to save user role", Toast.LENGTH_SHORT)
+                    .show()
             }
     }
 
 
     private fun saveUserSession(userRole: String) {
-        val sharedPreferences = requireActivity().getSharedPreferences("user_session", Context.MODE_PRIVATE)
+        val sharedPreferences =
+            requireActivity().getSharedPreferences("user_session", Context.MODE_PRIVATE)
         with(sharedPreferences.edit()) {
             putBoolean("isLoggedIn", true)
             putString("userRole", userRole)
@@ -253,12 +293,20 @@ class LoginFragment : Fragment() {
             it.sendEmailVerification()
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        Toast.makeText(requireContext(), "Verification email sent", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            "Verification email sent",
+                            Toast.LENGTH_SHORT
+                        ).show()
 
                         // After sending the verification email, sign out the user
                         auth.signOut()
                     } else {
-                        Toast.makeText(requireContext(), "Failed to send verification email", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            "Failed to send verification email",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
         }

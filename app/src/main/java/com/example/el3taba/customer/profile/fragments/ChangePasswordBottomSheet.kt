@@ -1,10 +1,13 @@
 package com.example.el3taba.customer.profile.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
+import com.example.el3taba.core.AuthViewModel
 import com.example.el3taba.databinding.BottomSheetChangePasswordBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.auth.FirebaseAuth
@@ -39,8 +42,31 @@ class ChangePasswordBottomSheet : BottomSheetDialogFragment() {
 
     private fun saveNewPassword() {
         // Firebase password change logic goes here
+        val authViewModel: AuthViewModel by viewModels()
 
-        dismiss()
+        val currentPassword = binding.oldPasswordEditText.text.toString()
+        val newPassword = binding.newPasswordEditText.text.toString()
+        val confirmPassword = binding.confirmPasswordEditText.text.toString()
+
+        if (newPassword.length < 8) {
+            binding.newPasswordLayout.error = "Password must be at least 8 characters"
+        } else if (newPassword != confirmPassword) {
+            binding.confirmPasswordLayout.error = "Passwords do not match"
+            return
+        } else {
+            binding.confirmPasswordLayout.isErrorEnabled = false
+            authViewModel.changePassword(currentPassword, newPassword)
+                .observe(this) { success ->
+                    if (success) {
+                        Log.d("MainActivity", "Password changed successfully")
+                        dismiss()
+                    } else {
+                        binding.oldPasswordLayout.error = "The old password is incorrect"
+                        Log.d("MainActivity", "Failed to change password")
+                    }
+                }
+        }
+
     }
 
     // Function to send password reset email using Firebase

@@ -2,11 +2,11 @@ package com.example.el3taba.customer.profile.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.el3taba.R
 import com.example.el3taba.databinding.FragmentProfileMainBinding
@@ -65,7 +65,8 @@ class ProfileMainFragment : Fragment() {
         val currentUser = firebaseAuth.currentUser
         val email = currentUser!!.email.toString()
         val name = currentUser.displayName.toString()
-        binding.profileName.text = name   /////////////////////////////////////////////////////////////////////
+        binding.profileName.text =
+            name   /////////////////////////////////////////////////////////////////////
         binding.profileEmail.text = email
 
         binding.myOrdersDescription.text = "You have 0 orders"
@@ -88,6 +89,7 @@ class ProfileMainFragment : Fragment() {
 
     private fun navigateToContactUs() {
         // Navigate to Contact Us fragment
+        findNavController().navigate(R.id.contactUsFragment)
     }
 
     private fun performLogout() {

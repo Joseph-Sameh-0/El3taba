@@ -5,6 +5,7 @@ import com.google.firebase.auth.FirebaseUser
 import androidx.lifecycle.MutableLiveData
 import com.example.el3taba.core.dataClasses.User
 import com.google.firebase.Firebase
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.firestore.firestore
 
 class AuthRepository {
@@ -73,6 +74,31 @@ class AuthRepository {
     // Function to sign out the user
     fun signOut() {
         auth.signOut()
+    }
+
+    fun changePassword(currentPassword: String, newPassword: String): MutableLiveData<Boolean> {
+        val result = MutableLiveData<Boolean>()
+        val user = auth.currentUser
+
+        user?.let {
+            val credential = EmailAuthProvider.getCredential(user.email!!, currentPassword)
+            // Re-authenticate the user
+            user.reauthenticate(credential).addOnCompleteListener { reauthTask ->
+                if (reauthTask.isSuccessful) {
+                    // Re-authentication successful, now update the password
+                    user.updatePassword(newPassword).addOnCompleteListener { updateTask ->
+                        result.value = updateTask.isSuccessful
+                    }
+                } else {
+                    // Re-authentication failed
+                    result.value = false
+                }
+            }
+        } ?: run {
+            result.value = false
+        }
+
+        return result
     }
 
 }

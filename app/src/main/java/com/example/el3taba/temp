@@ -51,3 +51,13 @@
 //            }
 //        }
         /////////////////////////////////
+//change password
+//    private val authViewModel: AuthViewModel by viewModels()
+
+//        authViewModel.changePassword(currentPassword, newPassword).observe(this, Observer { success ->
+//            if (success) {
+//                Log.d("MainActivity", "Password changed successfully")
+//            } else {
+//                Log.d("MainActivity", "Failed to change password")
+//            }
+//        })

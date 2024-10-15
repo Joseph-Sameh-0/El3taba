@@ -41,6 +41,9 @@ class AuthViewModel : ViewModel() {
         return result
     }
 
+    fun changePassword(currentPassword: String, newPassword: String): MutableLiveData<Boolean> {
+        return repository.changePassword(currentPassword, newPassword)
+    }
 
 
 }

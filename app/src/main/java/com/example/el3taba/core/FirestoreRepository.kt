@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.el3taba.seller.myProducts.Category
 import com.example.el3taba.seller.myProducts.Product
-import com.example.el3taba.seller.myProducts.Subcategory
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.QuerySnapshot
@@ -165,7 +164,7 @@ class FirestoreRepository {
             }
     }
 
-    fun addSubcategory(subcategory: Subcategory, categoryId: String, imageUri: Uri?): LiveData<Boolean> {
+    fun addSubcategory(subcategory: Category, categoryId: String, imageUri: Uri?): LiveData<Boolean> {
         val result = MutableLiveData<Boolean>()
 
         if (imageUri != null) {
@@ -177,7 +176,7 @@ class FirestoreRepository {
         return result
     }
 
-    private fun uploadImageAndSaveSubcategory(subcategory: Subcategory, categoryId: String, imageUri: Uri, result: MutableLiveData<Boolean>) {
+    private fun uploadImageAndSaveSubcategory(subcategory: Category, categoryId: String, imageUri: Uri, result: MutableLiveData<Boolean>) {
         val fileReference = storageRef.child("subcategories/${System.currentTimeMillis()}.jpg")
 
         fileReference.putFile(imageUri)
@@ -192,7 +191,7 @@ class FirestoreRepository {
             }
     }
 
-    private fun saveSubcategoryToFirestore(subcategory: Subcategory, categoryId: String, result: MutableLiveData<Boolean>) {
+    private fun saveSubcategoryToFirestore(subcategory: Category, categoryId: String, result: MutableLiveData<Boolean>) {
         db.collection("categories")
             .document(categoryId)
             .collection("subcategories")

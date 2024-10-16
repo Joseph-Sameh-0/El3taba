@@ -93,5 +93,9 @@
     <string name="contact_number">Contact number</string>
     <string name="your_message">Your message</string>
     <string name="separator">", "</string>
+    <string name="filters">Filters</string>
+    <string name="price_lowest_to_high">Price: lowest to high</string>
+    <string name="color_blue_size_l">Color: Blue, Size: L</string>
+    <string name="_10">10$</string>
 
 </resources>

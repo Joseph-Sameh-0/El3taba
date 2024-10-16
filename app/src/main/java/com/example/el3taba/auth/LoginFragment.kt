@@ -1,5 +1,6 @@
 package com.example.el3taba.auth
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.text.InputType
@@ -8,6 +9,8 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
@@ -186,51 +189,85 @@ class LoginFragment : Fragment() {
                         val email = it.email ?: ""  // Fetch user email if needed
 
                         // Reference to Firestore collection
-                        val userDocRef =
-                            FirebaseFirestore.getInstance().collection("users").document(uid)
+                        val userDocRef = FirebaseFirestore.getInstance().collection("users").document(uid)
 
-                        // Check if the user role exists in Firestore
+                        // Check if fullName and phoneNumber exist
                         userDocRef.get()
                             .addOnSuccessListener { document ->
                                 if (document != null && document.exists()) {
-                                    val userRole = document.getString("role")
-                                    if (userRole.isNullOrEmpty()) {
-                                        // Role does not exist, set it to "customer"
-                                        saveUserRole(uid, email, "customer")
+                                    val fullName = document.getString("fullName")
+                                    val phoneNumber = document.getString("phoneNumber")
+
+                                    if (fullName.isNullOrEmpty() || phoneNumber.isNullOrEmpty()) {
+                                        // Show dialog to get fullName and phoneNumber if they are missing
+                                        showAddInfoDialog(uid, email)
                                     } else {
-                                        // Role exists, save it in session
-                                        saveUserSession(userRole)
-                                        Toast.makeText(
-                                            requireContext(),
-                                            "Login Successful",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
+                                        // FullName and phoneNumber exist, proceed with login
+                                        saveUserSession(document.getString("role") ?: "customer")
+                                        Toast.makeText(requireContext(), "Login Successful", Toast.LENGTH_SHORT).show()
+                                        requireActivity().recreate()
                                     }
                                 } else {
-                                    // Document doesn't exist, save user with role "customer"
-                                    saveUserRole(uid, email, "customer")
+                                    // Document doesn't exist, save default user with missing info
+                                    showAddInfoDialog(uid, email)
                                 }
-                                requireActivity().recreate()
                             }
                             .addOnFailureListener { exception ->
-                                Log.w(
-                                    "firebaseAuthWithGoogle",
-                                    "Error fetching user role",
-                                    exception
-                                )
-                                Toast.makeText(
-                                    requireContext(),
-                                    "Error fetching user role",
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                                Log.w("firebaseAuthWithGoogle", "Error fetching user role", exception)
+                                Toast.makeText(requireContext(), "Error fetching user data", Toast.LENGTH_SHORT).show()
                             }
                     }
                 } else {
                     Log.w("firebaseAuthWithGoogle", "signInWithCredential:failure", task.exception)
-                    Toast.makeText(requireContext(), "Google sign-in failed", Toast.LENGTH_SHORT)
-                        .show()
+                    Toast.makeText(requireContext(), "Google sign-in failed", Toast.LENGTH_SHORT).show()
                 }
             }
+    }
+
+    @SuppressLint("MissingInflatedId")
+    private fun showAddInfoDialog(uid: String, email: String) {
+        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_add_info, null)
+        val fullNameEditText = dialogView.findViewById<EditText>(R.id.fullNameEditText)
+        val phoneNumberEditText = dialogView.findViewById<EditText>(R.id.phoneNumberEditText)
+
+        val dialog = androidx.appcompat.app.AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+
+        dialogView.findViewById<Button>(R.id.saveButton).setOnClickListener {
+            val fullName = fullNameEditText.text.toString().trim()
+            val phoneNumber = phoneNumberEditText.text.toString().trim()
+
+            if (fullName.isNotEmpty() && phoneNumber.isNotEmpty()) {
+                // Save fullName and phoneNumber in Firestore
+                val user = hashMapOf(
+                    "email" to email,
+                    "fullName" to fullName,
+                    "phoneNumber" to phoneNumber,
+                    "role" to "customer" // Default role
+                )
+
+                FirebaseFirestore.getInstance().collection("users").document(uid)
+                    .set(user)
+                    .addOnSuccessListener {
+                        saveUserSession("customer") // Save session after successful save
+                        Toast.makeText(requireContext(), "Profile completed", Toast.LENGTH_SHORT).show()
+                        dialog.dismiss()
+
+                        // Optionally, reload the activity or navigate to home screen
+                        requireActivity().recreate()
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.w("saveUserRole", "Error saving user info", exception)
+                        Toast.makeText(requireContext(), "Failed to save user info", Toast.LENGTH_SHORT).show()
+                    }
+            } else {
+                Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        dialog.show()
     }
 
     private fun saveUserRole(uid: String, email: String, role: String) {

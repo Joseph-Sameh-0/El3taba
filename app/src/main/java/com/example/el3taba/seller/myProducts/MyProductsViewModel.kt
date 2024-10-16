@@ -48,7 +48,7 @@ class MyProductsViewModel : ViewModel() {
         return repository.addCategory(category, imageUri)
     }
 
-    fun addSubcategory(subcategory: Subcategory, categoryId: String, imageUri: Uri?): LiveData<Boolean> {
+    fun addSubcategory(subcategory: Category, categoryId: String, imageUri: Uri?): LiveData<Boolean> {
         return repository.addSubcategory(subcategory, categoryId, imageUri)
     }
     fun getAllCategories(): LiveData<List<Category>> {

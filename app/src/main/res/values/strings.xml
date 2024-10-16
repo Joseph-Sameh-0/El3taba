@@ -97,5 +97,6 @@
     <string name="price_lowest_to_high">Price: lowest to high</string>
     <string name="color_blue_size_l">Color: Blue, Size: L</string>
     <string name="_10">10$</string>
+    <string name="phone_number">Phone Number</string>
 
 </resources>

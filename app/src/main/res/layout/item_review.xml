@@ -53,7 +53,7 @@
                     android:id="@+id/review_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="June 5, 2019"
+                    tools:text="June 5, 2019"
                     android:textColor="@android:color/darker_gray"
                     android:textSize="14sp" />
             </LinearLayout>

@@ -14,7 +14,6 @@ import com.example.el3taba.core.adapters.ShopCategoryAdapter
 import com.example.el3taba.databinding.FragmentShopSubCategoryBinding
 import com.example.el3taba.seller.myProducts.Category
 import com.example.el3taba.seller.myProducts.MyProductsViewModel
-import com.example.el3taba.seller.myProducts.Subcategory
 
 class ShopSubCategoryFragment : Fragment() {
 

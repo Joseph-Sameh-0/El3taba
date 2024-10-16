@@ -63,10 +63,15 @@ class SettingsFragment : Fragment() {
                 if (document != null) {
                     // Retrieve user data from the document
                     val name = document.getString("fullName") ?: "No name available"
+                    val phone = document.getString("phoneNumber") ?: "No name available"
                     binding.fullNameInput.setText(name)
-                                  } else {
+                    binding.phoneNumberInput.setText(phone)
+
+                } else {
                     // Document does not exist
                     binding.fullNameInput.setText("User data not found")
+                    binding.phoneNumberInput.setText("User data not found")
+
                 }
             }.addOnFailureListener {
 
@@ -83,7 +88,6 @@ class SettingsFragment : Fragment() {
             getUserData(currentUser.uid)
         }        // Fetch user data from Firebase and populate the UI
         //binding.fullNameInput.setText("Sample User")
-        binding.dateOfBirthInput.setText("12/12/1989")
         binding.passwordInput.setText("********")
         // Load notification preferences...
     }

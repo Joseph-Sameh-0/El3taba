@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class newProduct(
+data class FinalProduct(
     val id: String = "",
     val title: String = "",         // New field for product title
     val name: String = "",

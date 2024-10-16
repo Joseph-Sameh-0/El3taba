@@ -48,10 +48,45 @@ class SettingsFragment : Fragment() {
     }
 
     private fun saveUserSettings() {
-        // Implement saving logic to Firebase here
-        Toast.makeText(requireContext(), "Settings saved!", Toast.LENGTH_SHORT).show()
-        findNavController().navigateUp()
+        // Get the current user ID from FirebaseAuth
+        val firebaseAuth = FirebaseAuth.getInstance()
+        val currentUser = firebaseAuth.currentUser
+
+        if (currentUser != null) {
+            val userId = currentUser.uid
+
+            // Get the Firestore instance and reference to the user document
+            val db = FirebaseFirestore.getInstance()
+            val userRef = db.collection("users").document(userId)
+
+            // Fetch the new fullName and phoneNumber entered by the user
+            val newFullName = binding.fullNameInput.text.toString().trim()
+            val newPhoneNumber = binding.phoneNumberInput.text.toString().trim()
+
+            // Create a map to hold the updated user data
+            val updatedUserData = mapOf(
+                "fullName" to newFullName,
+                "phoneNumber" to newPhoneNumber
+            )
+
+            // Update the Firestore document with the new data
+            userRef.update(updatedUserData)
+                .addOnSuccessListener {
+                    // Data successfully updated
+                    Toast.makeText(requireContext(), "Settings updated successfully!", Toast.LENGTH_SHORT).show()
+                    // Navigate back after saving
+                    findNavController().navigateUp()
+                }
+                .addOnFailureListener { e ->
+                    // Error occurred while updating data
+                    Toast.makeText(requireContext(), "Failed to update settings: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+        } else {
+            // If the user is not logged in or null
+            Toast.makeText(requireContext(), "User is not logged in!", Toast.LENGTH_SHORT).show()
+        }
     }
+
     private fun getUserData(userId: String) {
         val db = FirebaseFirestore.getInstance()
 

@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.el3taba.core.adapters.ReviewAdapter
 import com.example.el3taba.core.dataClasses.Review
 import com.example.el3taba.databinding.FragmentRatingsReviewsBinding
-import com.google.type.Date
 import java.text.DecimalFormat
 import java.time.LocalDate
+import java.util.Date
 import kotlin.math.ceil
 
 class RatingsReviewsFragment : Fragment() {
@@ -45,11 +45,7 @@ class RatingsReviewsFragment : Fragment() {
                 "productA",
                 4.5f,
                 "Great product!",
-                Date.newBuilder()
-                    .setYear(currentDate.year)
-                    .setMonth(currentDate.monthValue)
-                    .setDay(currentDate.dayOfMonth)
-                    .build()
+                Date()
             ),
             Review(
                 "review2",
@@ -57,11 +53,7 @@ class RatingsReviewsFragment : Fragment() {
                 "productB",
                 3.0f,
                 "Decent but could be better.",
-                Date.newBuilder()
-                    .setYear(currentDate.year)
-                    .setMonth(currentDate.monthValue)
-                    .setDay(currentDate.dayOfMonth)
-                    .build()
+                Date()
 
             ),
             Review(
@@ -70,11 +62,7 @@ class RatingsReviewsFragment : Fragment() {
                 "productA",
                 5.0f,
                 "Excellent!",
-                Date.newBuilder()
-                    .setYear(currentDate.year)
-                    .setMonth(currentDate.monthValue)
-                    .setDay(currentDate.dayOfMonth)
-                    .build()
+                Date()
 
             ),
             Review(
@@ -83,11 +71,7 @@ class RatingsReviewsFragment : Fragment() {
                 "productC",
                 2.5f,
                 "Not impressed.",
-                Date.newBuilder()
-                    .setYear(currentDate.year)
-                    .setMonth(currentDate.monthValue)
-                    .setDay(currentDate.dayOfMonth)
-                    .build()
+                Date()
 
             ),
             Review(
@@ -96,11 +80,7 @@ class RatingsReviewsFragment : Fragment() {
                 "productB",
                 4.0f,
                 "Good value for money.",
-                Date.newBuilder()
-                    .setYear(currentDate.year)
-                    .setMonth(currentDate.monthValue)
-                    .setDay(currentDate.dayOfMonth)
-                    .build()
+                Date()
 
             ),
             Review(
@@ -109,11 +89,7 @@ class RatingsReviewsFragment : Fragment() {
                 "productC",
                 3.5f,
                 "Average.",
-                Date.newBuilder()
-                    .setYear(currentDate.year)
-                    .setMonth(currentDate.monthValue)
-                    .setDay(currentDate.dayOfMonth)
-                    .build()
+                Date()
             ),
             Review(
                 "review7",
@@ -121,11 +97,7 @@ class RatingsReviewsFragment : Fragment() {
                 "productA",
                 4.5f,
                 "Highly recommended.\ngggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
-                Date.newBuilder()
-                    .setYear(currentDate.year)
-                    .setMonth(currentDate.monthValue)
-                    .setDay(currentDate.dayOfMonth)
-                    .build()
+                Date()
 
             )
         )

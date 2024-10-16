@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.el3taba.R
 import com.example.el3taba.core.dataClasses.Review
 import com.example.el3taba.databinding.ItemReviewBinding
+import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 class ReviewAdapter (private val reviews: List<Review>):RecyclerView.Adapter<ReviewAdapter.ReviewItemViewHolder>()
     {
@@ -18,8 +20,9 @@ class ReviewAdapter (private val reviews: List<Review>):RecyclerView.Adapter<Rev
             fun bind(review: Review) {
                 binding.reviewerImage.setImageResource(R.drawable.phones_image)
                 binding.reviewerName.text = review.reviewerID ////////
-                val date = review.reviewDate
-                binding.reviewDate.text =  "${date.day}/${date.month}/${date.year}"
+                val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                val dateString = formatter.format(review.reviewDate)
+                binding.reviewDate.text = dateString
                 binding.productRating.rating = review.rating
                 binding.reviewText.text = review.reviewText
 

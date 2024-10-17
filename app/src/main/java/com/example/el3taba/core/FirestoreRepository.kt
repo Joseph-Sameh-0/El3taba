@@ -29,7 +29,7 @@ class FirestoreRepository {
     }
 
     fun addProduct(
-        product: Product,
+        product: FinalProduct,
         imageUri: Uri?,
         categoryId: String,
         subcategoryId: String
@@ -46,7 +46,7 @@ class FirestoreRepository {
     }
 
     private fun uploadImageAndSaveProduct(
-        product: Product,
+        product: FinalProduct,
         imageUri: Uri,
         categoryId: String,
         subcategoryId: String,
@@ -67,7 +67,7 @@ class FirestoreRepository {
     }
 
     private fun saveProductToFirestore(
-        product: Product,
+        product: FinalProduct,
         categoryId: String,
         subcategoryId: String,
         result: MutableLiveData<Boolean>

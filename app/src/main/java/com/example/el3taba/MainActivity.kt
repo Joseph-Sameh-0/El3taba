@@ -16,6 +16,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.el3taba.core.dataClasses.FinalProduct
 import com.example.el3taba.databinding.ActivityMainBinding
 import com.example.el3taba.seller.myProducts.MyProductsViewModel
 import com.example.el3taba.seller.myProducts.Product
@@ -32,8 +33,58 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
-
-
+////////////////////////////////////////////////////////////////////////////////////
+//    val productViewModel: MyProductsViewModel by viewModels()
+//
+//    // Prepare static data for a Product
+//    val product = FinalProduct(
+//        title = "Dell Laptop",
+//        name = "very good Dell laptop for gaming",
+//        description = "Description Description Description Description Description Description Description Description Description Description Description ",
+//        stock = 100,
+//        price = 199.99,
+//        mfgDate = "2023-01-01",
+//        expDate = "N/A",
+//        state = "New",  // State of the product (new or used)
+//        sellerID = "csyCB5rGbfYoSEMvHuAFN9qaYwE2",  // Name of the seller
+//        sellerName = "Seller Name",  // Name of the seller
+//        categoryID = "Electronics",  // Product category
+//        subcategoryID = "Rr2Ce7NQzXkmwNzrcyDY",  // Product subcategory
+//        imageUrl = "https://m.media-amazon.com/images/I/71QmKIgj+BL._AC_SL1500_.jpg",
+//
+////        imageUrls = mutableListOf<String>(
+////            "https://m.media-amazon.com/images/I/71QmKIgj+BL._AC_SL1500_.jpg",
+////            "https://m.media-amazon.com/images/I/71QS1tJQ9IL._AC_SL1500_.jpg",
+////            "https://m.media-amazon.com/images/I/71oofzP5DlL._AC_SL1500_.jpg",
+////            "https://m.media-amazon.com/images/I/61Lt8Th+ZUL._AC_SL1500_.jpg",
+////            "https://m.media-amazon.com/images/I/71lMSVCVnwL._AC_SL1500_.jpg",
+////        ),
+//
+//        specs = mapOf(  // Specifications of the product
+//            "Color" to "Black",
+//            "Storage" to "128GB",
+//            "Battery" to "4000mAh",
+//            "gggggggg" to "hhhhhh",
+//            "jjjjjjjj" to "kkkkkkk",
+//            "llllllll" to "mmmmmmm",
+//        )
+//    )
+//        val productImageUri: Uri? = null // Your product image Uri
+//        val subcategoryId = "1PvzgwRSSpFe2VP7DRMr" // Your subcategory ID
+//        val categoryId = "Electronics" // Your subcategory ID
+//
+//        val addProductResult: LiveData<Boolean> =
+//            productViewModel.addProduct(product, productImageUri, categoryId, subcategoryId)
+//        addProductResult.observe(this, Observer { isSuccess ->
+//            if (isSuccess) {
+//                // Product added successfully
+//                Log.d("productttt","Product added successfully!")
+//            } else {
+//                // Failed to add product
+//                Log.d("productttt","Failed to add product.")
+//            }
+//        })
+////////////////////////////////////////////////////////////////////////////////////
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val navView: BottomNavigationView = binding.navView

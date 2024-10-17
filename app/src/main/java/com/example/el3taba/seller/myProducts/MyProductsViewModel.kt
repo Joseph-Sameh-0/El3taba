@@ -41,7 +41,7 @@ class MyProductsViewModel : ViewModel() {
 
 
     // Function to add a product with image
-    fun addProduct(product: Product, imageUri: Uri?, categoryId: String, subcategoryId: String): LiveData<Boolean> {
+    fun addProduct(product: FinalProduct, imageUri: Uri?, categoryId: String, subcategoryId: String): LiveData<Boolean> {
         return repository.addProduct(product, imageUri, categoryId, subcategoryId)
     }
 

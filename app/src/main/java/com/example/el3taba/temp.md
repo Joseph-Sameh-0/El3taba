@@ -109,3 +109,5 @@
 //            // Log the fetched products
 //            Log.d("MyProductsActivity", "Random Products: $products")
 //        }
+
+

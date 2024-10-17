@@ -28,14 +28,6 @@ class ShopCategoryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentShopCategoryBinding.inflate(inflater, container, false)
-//        lifecycleScope.launch {
-//            productViewModel.getAllCategories().observe(viewLifecycleOwner) { _categories ->
-//                categories = _categories
-//                Log.d("Categories 3", categories.toString())
-//            }
-//            Log.d("Categories 2", categories.toString())
-//        }
-//        Log.d("Categories", categories.toString())
         return binding.root
     }
 

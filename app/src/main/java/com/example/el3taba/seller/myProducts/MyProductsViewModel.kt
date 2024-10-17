@@ -5,6 +5,7 @@ import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.el3taba.core.dataClasses.FinalProduct
 
 class MyProductsViewModel : ViewModel() {
 
@@ -58,10 +59,13 @@ class MyProductsViewModel : ViewModel() {
         return repository.getSubcategoriesByCategoryId(categoryId)
     }
     // Function to retrieve products by subcategory ID
-    fun getProducts(subcategoryId: String, categoryId: String): LiveData<List<Product>> {
+    fun getProducts(subcategoryId: String, categoryId: String): LiveData<List<FinalProduct>> {
         return repository.getProductsBySubcategoryId(subcategoryId, categoryId)
     }
-    fun getRandom10Products(): LiveData<List<Product>> {
+    fun getRandom10Products(): LiveData<List<FinalProduct>> {
         return repository.getRandom10Products()
+    }
+    fun getProductById(productId: String): LiveData<FinalProduct?>{
+        return repository.getProductById(productId)
     }
 }

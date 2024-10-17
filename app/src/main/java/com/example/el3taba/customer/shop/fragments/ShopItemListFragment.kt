@@ -1,17 +1,20 @@
 package com.example.el3taba.customer.shop.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.el3taba.R
-import com.example.el3taba.core.adapters.ShopCategoryAdapter
 import com.example.el3taba.core.adapters.ShopItemAdapter
 import com.example.el3taba.core.dataClasses.Product
 import com.example.el3taba.databinding.FragmentShopItemListBinding
+import com.example.el3taba.seller.myProducts.Category
+import com.example.el3taba.seller.myProducts.MyProductsViewModel
 
 class ShopItemListFragment : Fragment() {
 
@@ -19,18 +22,7 @@ class ShopItemListFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var shopItemAdapter: ShopItemAdapter
-    private lateinit var subCategoryName: String
 
-
-    private val sampleProducts = listOf(
-        Product("Laptop 1", "Joseph","12$", "21$", 1F,R.drawable.phones_image),
-        Product("Laptop 2", "Mohammed","20$", "40$", 2.5F,R.drawable.phones_image),
-        Product("Laptop 3", "aaaaaaaaa", "40$", "60$", 3.5F,R.drawable.phones_image),
-        Product("Laptop 4 Laptop 4 Laptop 4 Laptop 4 Laptop 4 Laptop 4 Laptop 4 Laptop 4 Laptop 4 ", "bbbbbbbb", "14$", "21$", 5F,R.drawable.phones_image),
-        Product("Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 Laptop 5 ", "cccccccc", "14$", "21$", 2.5F,R.drawable.phones_image),
-        Product("Laptop 6", "dddddddddd", "15$", null, 4.5F,R.drawable.phones_image),
-        // Add more products...
-    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,18 +35,23 @@ class ShopItemListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        subCategoryName = arguments?.getString("subCategoryName").orEmpty()
-        binding.subCategoryTitle.text = subCategoryName
+        val category = arguments?.getParcelable<Category>("category") ?: Category()
+        val subCategory = arguments?.getParcelable<Category>("subCategory") ?: Category()
+//        binding.subCategoryTitle.text = subCategoryName
 
-        shopItemAdapter = ShopItemAdapter(sampleProducts) { product ->
-            val action = ShopItemListFragmentDirections
-                .actionItemsToProduct(product.name)
-            findNavController().navigate(action)
-        }
+        val productViewModel: MyProductsViewModel by viewModels()
 
-        binding.shopItemRecyclerView.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = shopItemAdapter
+        productViewModel.getProducts(subCategory.id, category.id).observe(viewLifecycleOwner) { products ->
+            Log.d("products",products.toString())
+            shopItemAdapter = ShopItemAdapter(products) { product ->
+                val action = ShopItemListFragmentDirections
+                    .actionItemsToProduct(product.id)
+                findNavController().navigate(action)
+            }
+            binding.shopItemRecyclerView.apply {
+                layoutManager = LinearLayoutManager(requireContext())
+                adapter = shopItemAdapter
+            }
         }
         binding.backButton.setOnClickListener {
             findNavController().popBackStack()

@@ -4,6 +4,7 @@ import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.el3taba.core.dataClasses.FinalProduct
 import com.example.el3taba.seller.myProducts.Category
 import com.example.el3taba.seller.myProducts.Product
 import com.google.android.gms.tasks.Task
@@ -26,7 +27,13 @@ class FirestoreRepository {
 
         return authResult
     }
-    fun addProduct(product: Product, imageUri: Uri?, categoryId: String, subcategoryId: String): LiveData<Boolean> {
+
+    fun addProduct(
+        product: Product,
+        imageUri: Uri?,
+        categoryId: String,
+        subcategoryId: String
+    ): LiveData<Boolean> {
         val result = MutableLiveData<Boolean>()
 
         if (imageUri != null) {
@@ -38,7 +45,13 @@ class FirestoreRepository {
         return result
     }
 
-    private fun uploadImageAndSaveProduct(product: Product, imageUri: Uri, categoryId: String, subcategoryId: String, result: MutableLiveData<Boolean>) {
+    private fun uploadImageAndSaveProduct(
+        product: Product,
+        imageUri: Uri,
+        categoryId: String,
+        subcategoryId: String,
+        result: MutableLiveData<Boolean>
+    ) {
         val fileReference = storageRef.child("products/${System.currentTimeMillis()}.jpg")
 
         fileReference.putFile(imageUri)
@@ -53,7 +66,12 @@ class FirestoreRepository {
             }
     }
 
-    private fun saveProductToFirestore(product: Product, categoryId: String, subcategoryId: String, result: MutableLiveData<Boolean>) {
+    private fun saveProductToFirestore(
+        product: Product,
+        categoryId: String,
+        subcategoryId: String,
+        result: MutableLiveData<Boolean>
+    ) {
         // Adding the product to the subcategory's products collection
         db.collection("categories")
             .document(categoryId)
@@ -132,7 +150,11 @@ class FirestoreRepository {
         return result
     }
 
-    private fun uploadImageAndSaveCategory(category: Category, imageUri: Uri, result: MutableLiveData<Boolean>) {
+    private fun uploadImageAndSaveCategory(
+        category: Category,
+        imageUri: Uri,
+        result: MutableLiveData<Boolean>
+    ) {
         val fileReference = storageRef.child("categories/${System.currentTimeMillis()}.jpg")
 
         fileReference.putFile(imageUri)
@@ -167,7 +189,11 @@ class FirestoreRepository {
             }
     }
 
-    fun addSubcategory(subcategory: Category, categoryId: String, imageUri: Uri?): LiveData<Boolean> {
+    fun addSubcategory(
+        subcategory: Category,
+        categoryId: String,
+        imageUri: Uri?
+    ): LiveData<Boolean> {
         val result = MutableLiveData<Boolean>()
 
         if (imageUri != null) {
@@ -179,7 +205,12 @@ class FirestoreRepository {
         return result
     }
 
-    private fun uploadImageAndSaveSubcategory(subcategory: Category, categoryId: String, imageUri: Uri, result: MutableLiveData<Boolean>) {
+    private fun uploadImageAndSaveSubcategory(
+        subcategory: Category,
+        categoryId: String,
+        imageUri: Uri,
+        result: MutableLiveData<Boolean>
+    ) {
         val fileReference = storageRef.child("subcategories/${System.currentTimeMillis()}.jpg")
 
         fileReference.putFile(imageUri)
@@ -194,7 +225,11 @@ class FirestoreRepository {
             }
     }
 
-    private fun saveSubcategoryToFirestore(subcategory: Category, categoryId: String, result: MutableLiveData<Boolean>) {
+    private fun saveSubcategoryToFirestore(
+        subcategory: Category,
+        categoryId: String,
+        result: MutableLiveData<Boolean>
+    ) {
         db.collection("categories")
             .document(categoryId)
             .collection("subcategories")
@@ -271,8 +306,12 @@ class FirestoreRepository {
 
         return subcategoryList
     }
-    fun getProductsBySubcategoryId(subcategoryId: String, categoryId: String): LiveData<List<Product>> {
-        val productList = MutableLiveData<List<Product>>()
+
+    fun getProductsBySubcategoryId(
+        subcategoryId: String,
+        categoryId: String
+    ): LiveData<List<FinalProduct>> {
+        val productList = MutableLiveData<List<FinalProduct>>()
 
         db.collection("categories")
             .document(categoryId)
@@ -288,7 +327,7 @@ class FirestoreRepository {
 
                 val products = snapshot?.documents?.map { document ->
                     // Create a Product object from the document
-                    Product(
+                    FinalProduct(
                         id = document.id, // Firestore auto-generated ID
                         name = document.getString("name") ?: "",
                         description = document.getString("description") ?: "",
@@ -304,9 +343,9 @@ class FirestoreRepository {
         return productList
     }
 
-    fun getRandom10Products(): LiveData<List<Product>> {
-        val productList = MutableLiveData<List<Product>>()
-        val allProducts = mutableListOf<Product>()
+    fun getRandom10Products(): LiveData<List<FinalProduct>> {
+        val productList = MutableLiveData<List<FinalProduct>>()
+        val allProducts = mutableListOf<FinalProduct>()
         val tasks = mutableListOf<Task<QuerySnapshot>>()
 
         // Fetch all categories
@@ -343,7 +382,7 @@ class FirestoreRepository {
                                 .addOnSuccessListener { allSnapshots ->
                                     // Collect products from all snapshots
                                     for (snapshot in allSnapshots) {
-                                        val products = snapshot.toObjects(Product::class.java)
+                                        val products = snapshot.toObjects(FinalProduct::class.java)
                                         allProducts.addAll(products)
                                     }
 
@@ -352,7 +391,8 @@ class FirestoreRepository {
                                         allProducts.shuffle()
                                         productList.value = allProducts.take(10)
                                     } else {
-                                        productList.value = allProducts // Return all if fewer than 10
+                                        productList.value =
+                                            allProducts // Return all if fewer than 10
                                     }
                                 }
                         }
@@ -363,6 +403,48 @@ class FirestoreRepository {
             }
 
         return productList
+    }
+
+    fun getProductById(productId: String): MutableLiveData<FinalProduct?> {
+        val productLiveData =
+            MutableLiveData<FinalProduct?>()
+        val db = FirebaseFirestore.getInstance()
+
+        // Start searching for the product in Firestore
+        db.collection("categories").get().addOnSuccessListener { categoriesSnapshot ->
+            for (categoryDoc in categoriesSnapshot.documents) {
+                val subcategoriesRef = categoryDoc.reference.collection("subcategories")
+
+                subcategoriesRef.get().addOnSuccessListener { subcategoriesSnapshot ->
+                    for (subcategoryDoc in subcategoriesSnapshot.documents) {
+                        val productsRef = subcategoryDoc.reference.collection("products")
+
+                        productsRef.get().addOnSuccessListener { productsSnapshot ->
+                            for (productDoc in productsSnapshot.documents) {
+                                Log.d("product", productDoc.toString())
+                                Log.d("product", productDoc.toObject(FinalProduct::class.java).toString())
+                                if (productDoc.id == productId) {
+                                    // Map Firestore document data to FinalProduct
+                                    val product =
+                                        productDoc.toObject(FinalProduct::class.java)?.copy(
+                                            id = productDoc.id, // Ensure product ID is mapped
+                                            category = categoryDoc.id, // Set category from parent document
+                                            subcategory = subcategoryDoc.id // Set subcategory from parent document
+                                        )
+                                    productLiveData.postValue(product)
+                                    return@addOnSuccessListener // Exit the loop when the product is found
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }.addOnFailureListener { exception ->
+            // Handle any errors here
+            productLiveData.postValue(null)
+        }
+
+        return productLiveData
     }
 
     //    // Function to add product
@@ -412,7 +494,7 @@ class FirestoreRepository {
 //
 //        return result
 //    }
-   private val storageRef = FirebaseStorage.getInstance().reference
+    private val storageRef = FirebaseStorage.getInstance().reference
 
 //    // Function to upload the image and save the product
 //    fun addProductWithImage(product: Product, imageUri: Uri?): LiveData<Boolean> {

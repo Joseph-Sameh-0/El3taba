@@ -26,8 +26,11 @@
             android:id="@+id/action_subCategory_to_items"
             app:destination="@id/shopItemListFragment" >
             <argument
-                android:name="subCategoryName"
-                app:argType="string" />
+                android:name="category"
+                app:argType="com.example.el3taba.seller.myProducts.Category" />
+            <argument
+                android:name="subCategory"
+                app:argType="com.example.el3taba.seller.myProducts.Category" />
         </action>
     </fragment>
 
@@ -40,7 +43,7 @@
             android:id="@+id/action_items_to_product"
             app:destination="@id/productItemFragment" >
             <argument
-                android:name="productName"
+                android:name="productID"
                 app:argType="string" />
         </action>
     </fragment>

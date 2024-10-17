@@ -1,20 +1,21 @@
 package com.example.el3taba.customer.shop.fragments
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TableRow
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.viewpager2.widget.ViewPager2
 import com.example.el3taba.R
 import com.example.el3taba.core.adapters.ImagePagerAdapter
 import com.example.el3taba.databinding.FragmentProductItemBinding
-import com.google.firebase.firestore.FirebaseFirestore
-import me.relex.circleindicator.CircleIndicator3
+import com.example.el3taba.seller.myProducts.MyProductsViewModel
 
 
 class ProductItemFragment : Fragment() {
@@ -46,6 +47,7 @@ class ProductItemFragment : Fragment() {
 
         ProductID = arguments?.getString("productID") ?: ""
         val from = arguments?.getString("from") ?: ""
+        Log.d("product ID", ProductID)
 
         // Initialize ViewPager2 and its adapter
         viewPagerAdapter = ImagePagerAdapter(imageUrls)
@@ -54,7 +56,7 @@ class ProductItemFragment : Fragment() {
 
 
         // Load product details from Firebase
-//        loadProductDetails()
+        loadProductDetails(ProductID)
 
         // Handle 'Add to Bag' Button click
         binding.addToBagButton.setOnClickListener {
@@ -63,12 +65,10 @@ class ProductItemFragment : Fragment() {
 
         // Navigate to RatingsReviewsFragment when the reviews button is clicked
         binding.ratingAndReviews.setOnClickListener {
-            if (from == "home")
-            {
-            findNavController().navigate(R.id.ratingsReviewsFragment2)
-            }
-            else
-            findNavController().navigate(R.id.action_product_to_reviews)
+            if (from == "home") {
+                findNavController().navigate(R.id.ratingsReviewsFragment2)
+            } else
+                findNavController().navigate(R.id.action_product_to_reviews)
         }
 
         // Navigate back when the back button is clicked
@@ -78,28 +78,51 @@ class ProductItemFragment : Fragment() {
     }
 
     @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
-    private fun loadProductDetails() {
-        val db = FirebaseFirestore.getInstance()
-        val productId = arguments?.getString("productId") // Get product ID
+    private fun loadProductDetails(ProductID: String) {
+        val productViewModel: MyProductsViewModel by viewModels()
 
-        db.collection("products").document(productId!!)
-            .get()
-            .addOnSuccessListener { document ->
-                if (document != null) {
-                    binding.productTitle.text = document.getString("title")
-                    binding.productDescription.text = document.getString("description")
-                    binding.productPrice.text = "$${document.getDouble("price")}"
+//
+        productViewModel.getProductById(ProductID).observe(viewLifecycleOwner) { product ->
+            if (product != null) {
+                binding.productTitle.text = product.title
+                binding.productDescription.text = product.description
+                binding.productPrice.text = "$${product.price}"
+                binding.sellerName.text = product.sellerName
+                binding.productName.text = product.name
+                binding.mfgDate.text = "Mfg Date: ${product.mfgDate}"
+                binding.expDate.text = "Exp Date: ${product.expDate}"
+                binding.state.text = "State: ${product.state}"
+                binding.productRating.rating = product.avgRating
+                binding.ratingNumber.text = "(${product.numberOfRatings})"
+                binding.availablePieces.text = "Available Pieces: ${product.stock}"
 
-                    // Load image URLs
-                    val images = document.get("images") as List<String>
-                    imageUrls.clear()
-                    imageUrls.addAll(images)
-                    viewPagerAdapter.notifyDataSetChanged()
+                val specsTable = binding.specsTable
+                for ((key, value) in product.specs) {
+                    val row = TableRow(requireContext())
+                    val specNameTextView = TextView(requireContext()).apply {
+                        text = key
+                        setPadding(8, 8, 8, 8)
+                    }
+                    val specValueTextView = TextView(requireContext()).apply {
+                        text = value
+                        setPadding(8, 8, 8, 8)
+                    }
+                    row.addView(specNameTextView)
+                    row.addView(specValueTextView)
+                    specsTable.addView(row)
+
                 }
-            }
-            .addOnFailureListener {
+
+                //            // Load image URLs
+//            val images = product.get("images") as List<String>
+//            imageUrls.clear()
+//            imageUrls.addAll(images)
+//            viewPagerAdapter.notifyDataSetChanged()
+            } else {
+                // Product not found or error occurred
                 Toast.makeText(context, "Error fetching product details", Toast.LENGTH_SHORT).show()
             }
+        }
     }
 
     override fun onDestroyView() {

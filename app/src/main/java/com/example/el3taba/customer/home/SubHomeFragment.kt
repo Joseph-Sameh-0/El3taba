@@ -5,10 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.el3taba.R
 import com.example.el3taba.databinding.FragmentSubHomeBinding
+import com.example.el3taba.seller.myProducts.MyProductsViewModel
 
 class SubHomeFragment : Fragment() {
 
@@ -28,33 +29,41 @@ class SubHomeFragment : Fragment() {
 
     private fun setupRecyclerViews() {
         // Setup Recommended RecyclerView
-        recommendedAdapter = ProductAdapter(10.getDummyProducts()) { product ->
-            val action = SubHomeFragmentDirections
-                .actionSubHomeFragmentToProductItemFragment2(product.id)
-            findNavController().navigate(action)
-        } // 10 items
-        binding.recommendedRecyclerview.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = recommendedAdapter
+        var viewModel = ViewModelProvider(this)[MyProductsViewModel::class.java]
+
+        viewModel.getRandom10Products().observe(viewLifecycleOwner) { products ->
+
+            recommendedAdapter = ProductAdapter(products) { product ->
+                val action = SubHomeFragmentDirections
+                    .actionSubHomeFragmentToProductItemFragment2(product.id)
+                findNavController().navigate(action)
+            } // 10 items
+            binding.recommendedRecyclerview.apply {
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                adapter = recommendedAdapter
+            }
         }
 
-        // Setup New Items RecyclerView
-        newItemsAdapter = ProductAdapter(10.getDummyProducts()) { product ->
-            val action = SubHomeFragmentDirections
-                .actionSubHomeFragmentToProductItemFragment2(product.id)
-            findNavController().navigate(action)
-        } // 10 items
-        binding.newRecyclerview.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = newItemsAdapter
+        viewModel.getRandom10Products().observe(viewLifecycleOwner) { products ->
+            // Setup New Items RecyclerView
+            newItemsAdapter = ProductAdapter(products) { product ->
+                val action = SubHomeFragmentDirections
+                    .actionSubHomeFragmentToProductItemFragment2(product.id)
+                findNavController().navigate(action)
+            } // 10 items
+            binding.newRecyclerview.apply {
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                adapter = newItemsAdapter
+            }
         }
+
     }
 
-    private fun Int.getDummyProducts(): List<Product> {
-        val products = mutableListOf<Product>()
-        for (i in 1..this) {
-            products.add(Product(i.toString(), "Product $i", "$${i * 10}", R.drawable.phones_image))
-        }
-        return products
-    }
+//    private fun Int.getDummyProducts(): List<Product> {
+//        val products = mutableListOf<Product>()
+//        for (i in 1..this) {
+//            products.add(Product(i.toString(), "Product $i", "$${i * 10}", R.drawable.phones_image))
+//        }
+//        return products
+//    }
 }

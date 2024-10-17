@@ -1,6 +1,7 @@
 package com.example.el3taba.customer.profile.fragments
 
 import android.annotation.SuppressLint
+import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +20,7 @@ class SettingsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -39,8 +40,8 @@ class SettingsFragment : Fragment() {
             saveUserSettings()
         }
 
-        binding.backButtonSettings.setOnClickListener{
-        findNavController().navigateUp()
+        binding.backButtonSettings.setOnClickListener {
+            findNavController().navigateUp()
         }
 
         // Get data from Firebase (mock function)
@@ -109,7 +110,8 @@ class SettingsFragment : Fragment() {
 
                 }
             }.addOnFailureListener {
-
+                binding.fullNameInput.setText("Failed to retrieve data")
+                performLogout()
             }
 
     }
@@ -125,6 +127,18 @@ class SettingsFragment : Fragment() {
         //binding.fullNameInput.setText("Sample User")
         binding.passwordInput.setText("********")
         // Load notification preferences...
+    }
+
+    private fun performLogout() {
+        val sharedPreferences =
+            requireActivity().getSharedPreferences("user_session", MODE_PRIVATE)
+        sharedPreferences.edit().clear().apply()
+
+        FirebaseAuth.getInstance().signOut()
+
+        val intent = requireActivity().intent
+        requireActivity().finish()
+        startActivity(intent)
     }
 
 

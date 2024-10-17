@@ -53,9 +53,9 @@ class ShopSubCategoryFragment : Fragment() {
                     Log.d("Subcategory", c.name)
                 }
                 // Setup RecyclerView
-                subCategoryAdapter = ShopCategoryAdapter(subCategories) { category ->
+                subCategoryAdapter = ShopCategoryAdapter(subCategories) { subCategory ->
                     val action = ShopSubCategoryFragmentDirections
-                        .actionSubCategoryToItems(category.name)
+                        .actionSubCategoryToItems(category,subCategory)
                     findNavController().navigate(action)
 //            findNavController().navigate(R.id.action_subCategory_to_items)
 

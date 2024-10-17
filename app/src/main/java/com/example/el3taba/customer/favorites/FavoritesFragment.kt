@@ -5,13 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.el3taba.R
-import com.example.el3taba.customer.home.Product
+import com.example.el3taba.core.dataClasses.FinalProduct
 import com.example.el3taba.customer.home.ProductAdapter
 import com.example.el3taba.customer.home.SubHomeFragmentDirections
 import com.example.el3taba.databinding.CustomerFragmentFavoritesBinding
+import com.example.el3taba.seller.myProducts.MyProductsViewModel
 
 
 class FavoritesFragment : Fragment() {
@@ -33,19 +34,24 @@ class FavoritesFragment : Fragment() {
 
     private fun setupRecyclerView() {
         // Setup RecyclerView with a GridLayoutManager (2 columns)
-        favoritesAdapter = ProductAdapter(getDummyFavorites(10)) { product ->
-            try {
-                val action = SubHomeFragmentDirections
-                    .actionSubHomeFragmentToProductItemFragment2(product.id)
-                findNavController().navigate(action)
-            } catch (e: Exception) {
-                // Log the error if navigation fails
-                e.printStackTrace()
+
+        var viewModel = ViewModelProvider(this)[MyProductsViewModel::class.java]
+
+        viewModel.getRandom10Products().observe(viewLifecycleOwner) { products -> //////////////////////edit
+            favoritesAdapter = ProductAdapter(products) { product ->
+                try {
+                    val action = SubHomeFragmentDirections
+                        .actionSubHomeFragmentToProductItemFragment2(product.id)
+                    findNavController().navigate(action)
+                } catch (e: Exception) {
+                    // Log the error if navigation fails
+                    e.printStackTrace()
+                }
             }
-        }
-        binding.recyclerViewFavorites.apply {
-            layoutManager = GridLayoutManager(context, 2)
-            adapter = favoritesAdapter
+            binding.recyclerViewFavorites.apply {
+                layoutManager = GridLayoutManager(context, 2)
+                adapter = favoritesAdapter
+            }
         }
     }
 
@@ -62,11 +68,4 @@ class FavoritesFragment : Fragment() {
         }
     }
 
-    private fun getDummyFavorites(count: Int): List<Product> {
-        val products = mutableListOf<Product>()
-        for (i in 1..count) {
-            products.add(Product("Product $i", "$${i * 10}","Price $i", R.drawable.ic_bag))
-        }
-        return products
-    }
 }

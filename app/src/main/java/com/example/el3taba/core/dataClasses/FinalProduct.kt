@@ -17,7 +17,8 @@ data class FinalProduct(
     val mfgDate: String = "",        // New field for manufacturing date
     val expDate: String = "",        // New field for expiration date
     val state: String = "",          // New field for state (new/used)
-    val seller: String = "",         // New field for seller name
+    val sellerName: String = "",         // New field for seller name
+    val sellerID: String = "",         // New field for seller name
     val category: String = "",       // New field for product category
     val subcategory: String = "",     // New field for product subcategory
     val imageUrl: String = "",       // Existing field for image URL

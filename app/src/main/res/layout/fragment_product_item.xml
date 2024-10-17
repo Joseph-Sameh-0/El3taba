@@ -291,38 +291,6 @@
                     android:layout_marginTop="8dp"
                     android:stretchColumns="1">
 
-                    <TableRow>
-
-                        <TextView
-                            android:layout_marginStart="8dp"
-                            tools:text="Ram" />
-
-                        <TextView
-                            android:layout_marginStart="8dp"
-                            tools:text="6 GB Ram" />
-                    </TableRow>
-
-                    <TableRow>
-
-                        <TextView
-                            android:layout_marginStart="8dp"
-                            tools:text="Processor" />
-
-                        <TextView
-                            android:layout_marginStart="8dp"
-                            tools:text="Intel Core i5" />
-                    </TableRow>
-
-                    <TableRow>
-
-                        <TextView
-                            android:layout_marginStart="8dp"
-                            tools:text="GPU" />
-
-                        <TextView
-                            android:layout_marginStart="8dp"
-                            tools:text="NVIDIA RTX 3050" />
-                    </TableRow>
                 </TableLayout>
             </LinearLayout>
 

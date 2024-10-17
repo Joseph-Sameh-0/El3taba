@@ -35,7 +35,7 @@ class FavoritesFragment : Fragment() {
     private fun setupRecyclerView() {
         // Setup RecyclerView with a GridLayoutManager (2 columns)
 
-        var viewModel = ViewModelProvider(this)[MyProductsViewModel::class.java]
+        val viewModel = ViewModelProvider(this)[MyProductsViewModel::class.java]
 
         viewModel.getRandom10Products().observe(viewLifecycleOwner) { products -> //////////////////////edit
             favoritesAdapter = ProductAdapter(products) { product ->

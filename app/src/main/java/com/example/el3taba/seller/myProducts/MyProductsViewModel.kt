@@ -61,4 +61,7 @@ class MyProductsViewModel : ViewModel() {
     fun getProducts(subcategoryId: String, categoryId: String): LiveData<List<Product>> {
         return repository.getProductsBySubcategoryId(subcategoryId, categoryId)
     }
+    fun getRandom10Products(): LiveData<List<Product>> {
+        return repository.getRandom10Products()
+    }
 }

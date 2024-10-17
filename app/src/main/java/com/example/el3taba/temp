@@ -100,3 +100,12 @@
 //                Log.d("MainActivity", "Failed to change password")
 //            }
 //        })
+
+
+//get Random 10 Products
+//        var viewModel = ViewModelProvider(this).get(MyProductsViewModel::class.java)
+//
+//        viewModel.getRandom10Products().observe(this) { products ->
+//            // Log the fetched products
+//            Log.d("MyProductsActivity", "Random Products: $products")
+//        }

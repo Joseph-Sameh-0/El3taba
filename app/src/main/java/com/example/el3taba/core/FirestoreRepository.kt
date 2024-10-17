@@ -1,10 +1,13 @@
 package com.example.el3taba.core
 
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.el3taba.seller.myProducts.Category
 import com.example.el3taba.seller.myProducts.Product
+import com.google.android.gms.tasks.Task
+import com.google.android.gms.tasks.Tasks
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.QuerySnapshot
@@ -296,6 +299,67 @@ class FirestoreRepository {
                 } ?: listOf() // Return an empty list if no documents
 
                 productList.value = products
+            }
+
+        return productList
+    }
+
+    fun getRandom10Products(): LiveData<List<Product>> {
+        val productList = MutableLiveData<List<Product>>()
+        val allProducts = mutableListOf<Product>()
+        val tasks = mutableListOf<Task<QuerySnapshot>>()
+
+        // Fetch all categories
+        db.collection("categories")
+            .get()
+            .addOnSuccessListener { categoriesSnapshot ->
+                // Loop through each category
+                for (categoryDoc in categoriesSnapshot.documents) {
+                    val categoryId = categoryDoc.id
+
+                    // Fetch all subcategories for each category
+                    db.collection("categories")
+                        .document(categoryId)
+                        .collection("subcategories")
+                        .get()
+                        .addOnSuccessListener { subcategoriesSnapshot ->
+                            // Loop through each subcategory
+                            for (subcategoryDoc in subcategoriesSnapshot.documents) {
+                                val subcategoryId = subcategoryDoc.id
+
+                                // Fetch all products for each subcategory and add the task to the list
+                                val productTask = db.collection("categories")
+                                    .document(categoryId)
+                                    .collection("subcategories")
+                                    .document(subcategoryId)
+                                    .collection("products")
+                                    .get()
+
+                                tasks.add(productTask)
+                            }
+
+                            // When all tasks are complete
+                            Tasks.whenAllSuccess<QuerySnapshot>(tasks)
+                                .addOnSuccessListener { allSnapshots ->
+                                    // Collect products from all snapshots
+                                    for (snapshot in allSnapshots) {
+                                        val products = snapshot.toObjects(Product::class.java)
+                                        allProducts.addAll(products)
+                                    }
+
+                                    // Shuffle the list and take 10 random products
+                                    if (allProducts.size >= 10) {
+                                        allProducts.shuffle()
+                                        productList.value = allProducts.take(10)
+                                    } else {
+                                        productList.value = allProducts // Return all if fewer than 10
+                                    }
+                                }
+                        }
+                }
+            }
+            .addOnFailureListener {
+                productList.value = emptyList() // Handle any failure
             }
 
         return productList

@@ -428,8 +428,8 @@ class FirestoreRepository {
                                     val product =
                                         productDoc.toObject(FinalProduct::class.java)?.copy(
                                             id = productDoc.id, // Ensure product ID is mapped
-                                            category = categoryDoc.id, // Set category from parent document
-                                            subcategory = subcategoryDoc.id // Set subcategory from parent document
+                                            categoryID = categoryDoc.id, // Set category from parent document
+                                            subcategoryID = subcategoryDoc.id // Set subcategory from parent document
                                         )
                                     productLiveData.postValue(product)
                                     return@addOnSuccessListener // Exit the loop when the product is found
@@ -444,6 +444,37 @@ class FirestoreRepository {
             productLiveData.postValue(null)
         }
 
+        return productLiveData
+    }
+    fun getProductById(categoryId:String,subcategoryId: String,productId: String): MutableLiveData<FinalProduct?> {
+        val productLiveData =
+            MutableLiveData<FinalProduct?>()
+        val db = FirebaseFirestore.getInstance()
+
+        val productRef = db.document("categories/$categoryId/subcategories/$subcategoryId/products/$productId")
+
+        // Fetch the product by its ID
+        productRef.get()
+            .addOnSuccessListener { documentSnapshot ->
+                if (documentSnapshot.exists()) {
+                    // Map Firestore document data to FinalProduct
+                    val product = documentSnapshot.toObject(FinalProduct::class.java)?.copy(
+                        id = productId, // Ensure the product ID is set
+                        categoryID = categoryId, // Set category from known value
+                        subcategoryID = subcategoryId // Set subcategory from known value
+                    )
+                    // Post the product to LiveData
+                    productLiveData.postValue(product)
+                } else {
+                    // Product does not exist
+                    productLiveData.postValue(null)
+                }
+            }
+            .addOnFailureListener { exception ->
+                // Handle any errors here
+                exception.printStackTrace()
+                productLiveData.postValue(null)
+            }
         return productLiveData
     }
 

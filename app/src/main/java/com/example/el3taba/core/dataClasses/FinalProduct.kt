@@ -19,8 +19,8 @@ data class FinalProduct(
     val state: String = "",          // New field for state (new/used)
     val sellerName: String = "",         // New field for seller name
     val sellerID: String = "",         // New field for seller name
-    val category: String = "",       // New field for product category
-    val subcategory: String = "",     // New field for product subcategory
+    val categoryID: String = "",       // New field for product category
+    val subcategoryID: String = "",     // New field for product subcategory
     val imageUrl: String = "",       // Existing field for image URL
     val specs: Map<String, String> = emptyMap() // New field for specifications
 ) : Parcelable

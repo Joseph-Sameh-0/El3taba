@@ -9,9 +9,12 @@ import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.el3taba.R
+import com.example.el3taba.databinding.BottomSheetProfileOptionsBinding
 import com.example.el3taba.databinding.FragmentProfileMainBinding
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.example.el3taba.databinding.BottomSheetProfileOptionsBinding as BottomSheetProfileOptionsBinding1
 
 class ProfileMainFragment : Fragment() {
     //binding
@@ -51,6 +54,10 @@ class ProfileMainFragment : Fragment() {
 
         binding.logoutButton.setOnClickListener {
             performLogout()
+        }
+        binding.profileImage.setOnClickListener{
+            //show bottom sheet
+            showBottomSheetDialog()
         }
     }
 
@@ -133,6 +140,25 @@ class ProfileMainFragment : Fragment() {
         val intent = requireActivity().intent
         requireActivity().finish()
         startActivity(intent)
+    }
+
+    private fun showBottomSheetDialog() {
+        val bottomSheetBinding = BottomSheetProfileOptionsBinding.inflate(layoutInflater)
+        val bottomSheetDialog = BottomSheetDialog(requireContext())
+
+        // Set click listeners for Edit and Delete options
+        bottomSheetBinding.tvEdit.setOnClickListener {
+            // Handle Edit action
+            bottomSheetDialog.dismiss()
+        }
+
+        bottomSheetBinding.tvDelete.setOnClickListener {
+            // Handle Delete action
+            bottomSheetDialog.dismiss()
+        }
+
+        bottomSheetDialog.setContentView(bottomSheetBinding.root)
+        bottomSheetDialog.show()
     }
 
     override fun onDestroyView() {

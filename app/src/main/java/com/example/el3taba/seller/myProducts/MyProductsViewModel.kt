@@ -71,4 +71,7 @@ class MyProductsViewModel : ViewModel() {
     fun getProductById(categoryId:String,subcategoryId: String,productId: String): LiveData<FinalProduct?>{
         return repository.getProductById(categoryId,subcategoryId,productId)
     }
+    fun getFavProducts():LiveData<List<FinalProduct>>{
+        return repository.getFavProducts()
+    }
 }

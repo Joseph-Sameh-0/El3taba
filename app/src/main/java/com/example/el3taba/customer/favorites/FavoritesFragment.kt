@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.el3taba.core.dataClasses.FinalProduct
 import com.example.el3taba.customer.home.ProductAdapter
 import com.example.el3taba.customer.home.SubHomeFragmentDirections
 import com.example.el3taba.databinding.CustomerFragmentFavoritesBinding
@@ -37,22 +36,23 @@ class FavoritesFragment : Fragment() {
 
         val viewModel = ViewModelProvider(this)[MyProductsViewModel::class.java]
 
-        viewModel.getRandom10Products().observe(viewLifecycleOwner) { products -> //////////////////////edit
-            favoritesAdapter = ProductAdapter(products) { product ->
-                try {
-                    val action = SubHomeFragmentDirections
-                        .actionSubHomeFragmentToProductItemFragment2(product.id)
-                    findNavController().navigate(action)
-                } catch (e: Exception) {
-                    // Log the error if navigation fails
-                    e.printStackTrace()
+        viewModel.getFavProducts()
+            .observe(viewLifecycleOwner) { products -> //////////////////////edit
+                favoritesAdapter = ProductAdapter(products) { product ->
+                    try {
+                        val action = SubHomeFragmentDirections
+                            .actionSubHomeFragmentToProductItemFragment2(product.id)
+                        findNavController().navigate(action)
+                    } catch (e: Exception) {
+                        // Log the error if navigation fails
+                        e.printStackTrace()
+                    }
+                }
+                binding.recyclerViewFavorites.apply {
+                    layoutManager = GridLayoutManager(context, 2)
+                    adapter = favoritesAdapter
                 }
             }
-            binding.recyclerViewFavorites.apply {
-                layoutManager = GridLayoutManager(context, 2)
-                adapter = favoritesAdapter
-            }
-        }
     }
 
 

@@ -5,44 +5,102 @@
     android:id="@+id/mobile_navigation2"
     app:startDestination="@+id/sellerSplashScreen">
 
+    <!-- Splash Screen Fragment -->
     <fragment
         android:id="@+id/sellerSplashScreen"
         android:name="com.example.el3taba.auth.WelcomeFragment"
         android:label="auth_fragment_welcome"
         tools:layout="@layout/auth_fragment_welcome" />
 
+    <!-- Dashboard Fragment -->
     <fragment
         android:id="@+id/seller_navigation_dashboard"
         android:name="com.example.el3taba.seller.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/seller_fragment_dashboard" />
 
+    <!-- My Products Fragment -->
     <fragment
         android:id="@+id/seller_navigation_my_products"
         android:name="com.example.el3taba.seller.myProducts.MyProductsFragment"
         android:label="@string/my_products"
         tools:layout="@layout/seller_fragment_my_products" />
 
+    <!-- Add Product Fragment -->
     <fragment
         android:id="@+id/seller_navigation_add_product"
         android:name="com.example.el3taba.seller.addProduct.AddProductFragment"
         android:label="@string/add_product"
         tools:layout="@layout/seller_fragment_add_product" />
 
+    <!-- Profile Fragment with Arguments -->
     <fragment
         android:id="@+id/seller_navigation_profile"
         android:name="com.example.el3taba.seller.profile.ProfileFragment"
         android:label="seller_fragment_profile"
-        tools:layout="@layout/seller_fragment_profile" />
+        tools:layout="@layout/seller_fragment_profile">
 
+        <!-- Arguments for ProfileFragment -->
+        <argument
+            android:name="sellerName"
+            app:argType="string"
+            android:defaultValue="Unknown Seller" />
+
+        <argument
+            android:name="sellerRating"
+            app:argType="float"
+            android:defaultValue="0.0" />
+
+        <argument
+            android:name="sellerBio"
+            app:argType="string"
+            android:defaultValue="No bio available" />
+
+        <!-- Action to navigate from ProfileFragment to EditProfileFragment -->
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/seller_navigation_edit_profile" />
+    </fragment>
+
+    <!-- Edit Profile Fragment -->
+    <fragment
+        android:id="@+id/seller_navigation_edit_profile"
+        android:name="com.example.el3taba.seller.profile.EditProfileFragment"
+        android:label="Edit Profile"
+        tools:layout="@layout/fragment_edit_profile">
+
+        <!-- Arguments for EditProfileFragment -->
+        <argument
+            android:name="sellerName"
+            app:argType="string"
+            android:defaultValue="Unknown Seller" />
+
+        <argument
+            android:name="sellerRating"
+            app:argType="float"
+            android:defaultValue="0.0" />
+
+        <argument
+            android:name="sellerBio"
+            app:argType="string"
+            android:defaultValue="No bio available" />
+    </fragment>
+
+    <!-- Action from My Products to Edit Product -->
     <action
         android:id="@+id/action_myProductsFragment_to_editProductFragment"
         app:destination="@id/editProductFragment" />
 
+    <!-- Edit Product Fragment -->
     <fragment
         android:id="@+id/editProductFragment"
         android:name="com.example.el3taba.seller.editProduct.EditProductFragment"
         android:label="Edit Product"
         tools:layout="@layout/seller_fragment_edit_product" />
+
+    <!-- Action to navigate from Dashboard to ProfileFragment -->
+    <action
+        android:id="@+id/action_dashboardFragment_to_profileFragment"
+        app:destination="@id/seller_navigation_profile" />
 
 </navigation>

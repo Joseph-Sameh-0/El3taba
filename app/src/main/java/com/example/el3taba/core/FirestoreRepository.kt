@@ -9,6 +9,8 @@ import com.example.el3taba.seller.myProducts.Category
 import com.example.el3taba.seller.myProducts.Product
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.Tasks
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.QuerySnapshot
@@ -422,7 +424,10 @@ class FirestoreRepository {
                         productsRef.get().addOnSuccessListener { productsSnapshot ->
                             for (productDoc in productsSnapshot.documents) {
                                 Log.d("product", productDoc.toString())
-                                Log.d("product", productDoc.toObject(FinalProduct::class.java).toString())
+                                Log.d(
+                                    "product",
+                                    productDoc.toObject(FinalProduct::class.java).toString()
+                                )
                                 if (productDoc.id == productId) {
                                     // Map Firestore document data to FinalProduct
                                     val product =
@@ -446,12 +451,18 @@ class FirestoreRepository {
 
         return productLiveData
     }
-    fun getProductById(categoryId:String,subcategoryId: String,productId: String): MutableLiveData<FinalProduct?> {
+
+    fun getProductByIds(
+        categoryId: String,
+        subcategoryId: String,
+        productId: String
+    ): MutableLiveData<FinalProduct?> {
         val productLiveData =
             MutableLiveData<FinalProduct?>()
         val db = FirebaseFirestore.getInstance()
 
-        val productRef = db.document("categories/$categoryId/subcategories/$subcategoryId/products/$productId")
+        val productRef =
+            db.document("categories/$categoryId/subcategories/$subcategoryId/products/$productId")
 
         // Fetch the product by its ID
         productRef.get()
@@ -476,6 +487,87 @@ class FirestoreRepository {
                 productLiveData.postValue(null)
             }
         return productLiveData
+    }
+
+    fun getFavProducts(): LiveData<List<FinalProduct>> {
+        val productList = MutableLiveData<List<FinalProduct>>()
+        val favoriteProducts = mutableListOf<FinalProduct>()
+        val auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+
+        if (currentUser != null) {
+            val favoriteProductsRef = db.collection("users/${currentUser.uid}/favorites")
+
+            favoriteProductsRef.get().addOnSuccessListener { querySnapshot ->
+                val productRefs = mutableListOf<DocumentReference>()
+                for (document in querySnapshot.documents) {
+                    val productRef = document.getDocumentReference("productRef")
+                    if (productRef != null) {
+                        productRefs.add(productRef)
+                    }
+                }
+                val productFetchTasks = productRefs.map { productRef ->
+                    productRef.get().addOnSuccessListener { productSnapshot ->
+                        if (productSnapshot.exists()) {
+                            favoriteProducts.add(productSnapshot.toObject(FinalProduct::class.java)!!)
+                        }
+                        if (favoriteProducts.size == productRefs.size) {
+                            productList.value = favoriteProducts
+                        }
+                    }
+                }
+            }
+        }
+        return productList
+    }
+
+    fun addProductToFavorites(
+        categoryId: String,
+        subcategoryId: String,
+        productId: String
+    ): LiveData<Boolean> {
+        val productRef =
+            db.document("categories/$categoryId/subcategories/$subcategoryId/products/$productId")
+        val auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+        val isAdded = MutableLiveData<Boolean>()
+
+        if (currentUser != null) {
+            val favoritesCollection = db.collection("users/${currentUser.uid}/favorites")
+
+            val query = favoritesCollection.whereEqualTo("productRef", productRef)
+            query.get().addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    if (task.result.isEmpty) {
+                        // Product not found in favorites, add it
+                        val favoriteProduct = hashMapOf(
+                            "productRef" to productRef
+                        )
+
+                        favoritesCollection.add(favoriteProduct)
+                            .addOnSuccessListener {
+                                Log.d("Firestore", "Product added to favorites")
+                                isAdded.value = true
+                            }
+                            .addOnFailureListener { e ->
+                                Log.w("Firestore", "Error adding product to favorites", e)
+                            }
+                    } else {
+                        // Product already in favorites
+                        Log.d("Firestore", "Product already in favorites")
+                        isAdded.value = false
+                    }
+                } else {
+                    // Error checking for existing product
+                    Log.w("Firestore", "Error checking for existing product", task.exception)
+                }
+            }
+        } else {
+            // User not logged in
+            Log.w("Firestore", "User not logged in, cannot add to favorites")
+        }
+
+        return isAdded
     }
 
     //    // Function to add product

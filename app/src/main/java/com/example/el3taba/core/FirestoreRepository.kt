@@ -452,7 +452,7 @@ class FirestoreRepository {
         return productLiveData
     }
 
-    fun getProductById(
+    fun getProductByIds(
         categoryId: String,
         subcategoryId: String,
         productId: String
@@ -519,6 +519,55 @@ class FirestoreRepository {
             }
         }
         return productList
+    }
+
+    fun addProductToFavorites(
+        categoryId: String,
+        subcategoryId: String,
+        productId: String
+    ): LiveData<Boolean> {
+        val productRef =
+            db.document("categories/$categoryId/subcategories/$subcategoryId/products/$productId")
+        val auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+        val isAdded = MutableLiveData<Boolean>()
+
+        if (currentUser != null) {
+            val favoritesCollection = db.collection("users/${currentUser.uid}/favorites")
+
+            val query = favoritesCollection.whereEqualTo("productRef", productRef)
+            query.get().addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    if (task.result.isEmpty) {
+                        // Product not found in favorites, add it
+                        val favoriteProduct = hashMapOf(
+                            "productRef" to productRef
+                        )
+
+                        favoritesCollection.add(favoriteProduct)
+                            .addOnSuccessListener {
+                                Log.d("Firestore", "Product added to favorites")
+                                isAdded.value = true
+                            }
+                            .addOnFailureListener { e ->
+                                Log.w("Firestore", "Error adding product to favorites", e)
+                            }
+                    } else {
+                        // Product already in favorites
+                        Log.d("Firestore", "Product already in favorites")
+                        isAdded.value = false
+                    }
+                } else {
+                    // Error checking for existing product
+                    Log.w("Firestore", "Error checking for existing product", task.exception)
+                }
+            }
+        } else {
+            // User not logged in
+            Log.w("Firestore", "User not logged in, cannot add to favorites")
+        }
+
+        return isAdded
     }
 
     //    // Function to add product

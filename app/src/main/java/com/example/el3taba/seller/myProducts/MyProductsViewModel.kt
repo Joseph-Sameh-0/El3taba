@@ -1,10 +1,10 @@
 package com.example.el3taba.seller.myProducts
 
-import com.example.el3taba.core.FirestoreRepository
 import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.el3taba.core.FirestoreRepository
 import com.example.el3taba.core.dataClasses.FinalProduct
 
 class MyProductsViewModel : ViewModel() {
@@ -12,7 +12,6 @@ class MyProductsViewModel : ViewModel() {
     private val _text = MutableLiveData<String>().apply {
         value = ""
     }
-
 
 
     val text: LiveData<String> = _text
@@ -41,7 +40,12 @@ class MyProductsViewModel : ViewModel() {
 
 
     // Function to add a product with image
-    fun addProduct(product: FinalProduct, imageUri: Uri?, categoryId: String, subcategoryId: String): LiveData<Boolean> {
+    fun addProduct(
+        product: FinalProduct,
+        imageUri: Uri?,
+        categoryId: String,
+        subcategoryId: String
+    ): LiveData<Boolean> {
         return repository.addProduct(product, imageUri, categoryId, subcategoryId)
     }
 
@@ -49,29 +53,53 @@ class MyProductsViewModel : ViewModel() {
         return repository.addCategory(category, imageUri)
     }
 
-    fun addSubcategory(subcategory: Category, categoryId: String, imageUri: Uri?): LiveData<Boolean> {
+    fun addSubcategory(
+        subcategory: Category,
+        categoryId: String,
+        imageUri: Uri?
+    ): LiveData<Boolean> {
         return repository.addSubcategory(subcategory, categoryId, imageUri)
     }
+
     fun getAllCategories(): LiveData<List<Category>> {
         return repository.getAllCategories()
     }
+
     fun getSubcategories(categoryId: String): LiveData<List<Category>> {
         return repository.getSubcategoriesByCategoryId(categoryId)
     }
+
     // Function to retrieve products by subcategory ID
     fun getProducts(subcategoryId: String, categoryId: String): LiveData<List<FinalProduct>> {
         return repository.getProductsBySubcategoryId(subcategoryId, categoryId)
     }
+
     fun getRandom10Products(): LiveData<List<FinalProduct>> {
         return repository.getRandom10Products()
     }
-    fun getProductById(productId: String): LiveData<FinalProduct?>{
+
+    fun getProductById(productId: String): LiveData<FinalProduct?> {
         return repository.getProductById(productId)
     }
-    fun getProductById(categoryId:String,subcategoryId: String,productId: String): LiveData<FinalProduct?>{
-        return repository.getProductById(categoryId,subcategoryId,productId)
+
+    fun getProductByIds(
+        categoryId: String,
+        subcategoryId: String,
+        productId: String
+    ): LiveData<FinalProduct?> {
+        return repository.getProductByIds(categoryId, subcategoryId, productId)
     }
-    fun getFavProducts():LiveData<List<FinalProduct>>{
+
+    fun getFavProducts(): LiveData<List<FinalProduct>> {
         return repository.getFavProducts()
     }
+
+    fun addProductToFavorites(
+        categoryId: String,
+        subcategoryId: String,
+        productId: String
+    ): LiveData<Boolean> {
+        return repository.addProductToFavorites(categoryId, subcategoryId, productId)
+    }
+
 }

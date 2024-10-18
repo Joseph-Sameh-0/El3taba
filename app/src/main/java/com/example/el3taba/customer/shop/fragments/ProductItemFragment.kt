@@ -114,7 +114,23 @@ class ProductItemFragment : Fragment() {
                     specsTable.addView(row)
 
                 }
-
+                binding.favoriteButton.setOnClickListener {
+                    productViewModel.addProductToFavorites(
+                        product.categoryID,
+                        product.subcategoryID,
+                        product.id
+                    ).observe(viewLifecycleOwner) { success ->
+                        if (success)
+                            Toast.makeText(
+                                context,
+                                "Product added successfully",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        else
+                            Toast.makeText(context, "Product added already", Toast.LENGTH_SHORT)
+                                .show()
+                    }
+                }
                 //            // Load image URLs
 //            val images = product.get("images") as List<String>
 //            imageUrls.clear()

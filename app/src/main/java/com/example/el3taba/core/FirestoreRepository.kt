@@ -570,6 +570,42 @@ class FirestoreRepository {
         return isAdded
     }
 
+    fun removeProductFromFavorites(
+        categoryId: String,
+        subcategoryId: String,
+        productId: String
+    ) {
+        val productRef =
+            db.document("categories/$categoryId/subcategories/$subcategoryId/products/$productId")
+        val auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+
+        if (currentUser != null) {
+            val favoritesCollection = db.collection("users/${currentUser.uid}/favorites")
+
+            // Query to find the document with the matching productRef
+            val query = favoritesCollection.whereEqualTo("productRef", productRef)
+
+            query.get().addOnSuccessListener { querySnapshot ->
+                for (document in querySnapshot.documents) {
+                    // Delete the document
+                    document.reference.delete()
+                        .addOnSuccessListener {
+                            Log.d("Firestore", "Product removed from favorites")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w("Firestore", "Error removing product from favorites", e)
+                        }
+                }
+            }.addOnFailureListener { e ->
+                Log.w("Firestore", "Error fetching favorite product document", e)
+            }
+        } else {
+            // User not logged in, handle accordingly
+            Log.w("Firestore", "User not logged in, cannot remove from favorites")
+        }
+    }
+
     //    // Function to add product
 //    fun addProduct(product: Product): LiveData<Boolean> {
 //        val result = MutableLiveData<Boolean>()

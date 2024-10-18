@@ -102,4 +102,12 @@ class MyProductsViewModel : ViewModel() {
         return repository.addProductToFavorites(categoryId, subcategoryId, productId)
     }
 
+    fun removeProductFromFavorites(
+        categoryId: String,
+        subcategoryId: String,
+        productId: String
+    ) {
+        repository.removeProductFromFavorites(categoryId, subcategoryId, productId)
+    }
+
 }

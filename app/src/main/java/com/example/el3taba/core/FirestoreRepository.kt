@@ -433,8 +433,8 @@ class FirestoreRepository {
                                     val product =
                                         productDoc.toObject(FinalProduct::class.java)?.copy(
                                             id = productDoc.id, // Ensure product ID is mapped
-                                            categoryID = categoryDoc.id, // Set category from parent document
-                                            subcategoryID = subcategoryDoc.id // Set subcategory from parent document
+                                            category = categoryDoc.id, // Set category from parent document
+                                            subcategory = subcategoryDoc.id // Set subcategory from parent document
                                         )
                                     productLiveData.postValue(product)
                                     return@addOnSuccessListener // Exit the loop when the product is found
@@ -471,8 +471,8 @@ class FirestoreRepository {
                     // Map Firestore document data to FinalProduct
                     val product = documentSnapshot.toObject(FinalProduct::class.java)?.copy(
                         id = productId, // Ensure the product ID is set
-                        categoryID = categoryId, // Set category from known value
-                        subcategoryID = subcategoryId // Set subcategory from known value
+                        category = categoryId, // Set category from known value
+                        subcategory = subcategoryId // Set subcategory from known value
                     )
                     // Post the product to LiveData
                     productLiveData.postValue(product)
@@ -489,8 +489,8 @@ class FirestoreRepository {
         return productLiveData
     }
 
-    fun getFavProducts(): LiveData<List<FinalProduct>> {
-        val productList = MutableLiveData<List<FinalProduct>>()
+    fun getFavProducts(): LiveData<MutableList<FinalProduct>> {
+        val productList = MutableLiveData<MutableList<FinalProduct>>()
         val favoriteProducts = mutableListOf<FinalProduct>()
         val auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser

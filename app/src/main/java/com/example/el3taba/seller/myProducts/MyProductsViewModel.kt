@@ -90,7 +90,7 @@ class MyProductsViewModel : ViewModel() {
         return repository.getProductByIds(categoryId, subcategoryId, productId)
     }
 
-    fun getFavProducts(): LiveData<List<FinalProduct>> {
+    fun getFavProducts(): LiveData<MutableList<FinalProduct>> {
         return repository.getFavProducts()
     }
 

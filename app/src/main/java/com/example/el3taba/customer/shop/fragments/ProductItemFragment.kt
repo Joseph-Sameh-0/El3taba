@@ -116,8 +116,8 @@ class ProductItemFragment : Fragment() {
                 }
                 binding.favoriteButton.setOnClickListener {
                     productViewModel.addProductToFavorites(
-                        product.categoryID,
-                        product.subcategoryID,
+                        product.category,
+                        product.subcategory,
                         product.id
                     ).observe(viewLifecycleOwner) { success ->
                         if (success)

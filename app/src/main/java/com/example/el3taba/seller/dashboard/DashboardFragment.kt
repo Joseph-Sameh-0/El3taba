@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.el3taba.databinding.SellerFragmentDashboardBinding
 import com.example.el3taba.seller.addProduct.db
 
@@ -28,6 +29,18 @@ class DashboardFragment : Fragment() {
 
         // Fetch the product count and update the first box in GridLayout
         fetchProductCount()
+
+        // Handle navigation to ProfileFragment on button click
+        binding.goToProfileButton.setOnClickListener {
+            // Pass the arguments (sellerName, sellerRating, sellerBio)
+            val action = DashboardFragmentDirections.actionDashboardFragmentToProfileFragment(
+                sellerName = "John Doe",   // Replace with actual seller name
+                sellerRating = 4.5f,       // Replace with actual seller rating
+                sellerBio = "Top-rated seller with years of experience."  // Replace with actual bio
+            )
+            // Navigate to ProfileFragment with the passed arguments
+            findNavController().navigate(action)
+        }
 
         return root
     }

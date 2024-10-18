@@ -1,52 +1,62 @@
 package com.example.el3taba.seller.profile
 
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.example.el3taba.databinding.SellerFragmentProfileBinding
-import com.example.el3taba.seller.profile.ProfileViewModel
 
 class ProfileFragment : Fragment() {
 
     private var _binding: SellerFragmentProfileBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
+    // Retrieve the navigation arguments
+    private val args: ProfileFragmentArgs by navArgs()
+
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        val profileViewModel =
-            ViewModelProvider(this).get(ProfileViewModel::class.java)
-
         _binding = SellerFragmentProfileBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        val textView: TextView = binding.textProfile
-        profileViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
-        return root
+        return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.logoutButton.setOnClickListener{
-            val sharedPreferences = requireActivity().getSharedPreferences("user_session", MODE_PRIVATE)
-            sharedPreferences.edit().clear().apply()
 
-            val intent = requireActivity().intent
+        val sellerName = args.sellerName
+        val sellerRating = args.sellerRating
+        val sellerBio = args.sellerBio
+
+        // Set these values to the respective views
+        binding.sellerName.text = sellerName
+        binding.sellerRatingBar.rating = sellerRating
+        binding.sellerBio.text = sellerBio
+
+        // Logout functionality
+        binding.logoutButton.setOnClickListener {
+            val sharedPreferences = requireActivity().getSharedPreferences("user_session", AppCompatActivity.MODE_PRIVATE)
+            sharedPreferences.edit().clear().apply()
             requireActivity().finish()
-            startActivity(intent)
+            startActivity(requireActivity().intent)
+        }
+
+        // Set the listener for the edit button
+        binding.editProfileButton.setOnClickListener {
+            // Ensure that the navigation action is correct
+            val action = ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment(
+                sellerName = sellerName,
+                sellerRating = sellerRating,
+                sellerBio = sellerBio
+            )
+            findNavController().navigate(action)
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

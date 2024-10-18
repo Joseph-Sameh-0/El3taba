@@ -67,6 +67,8 @@ class ProductItemFragment : Fragment() {
         binding.ratingAndReviews.setOnClickListener {
             if (from == "home") {
                 findNavController().navigate(R.id.ratingsReviewsFragment2)
+            } else if (from == "fav") {
+                findNavController().navigate(R.id.ratingsReviewsFragment3)
             } else
                 findNavController().navigate(R.id.action_product_to_reviews)
         }

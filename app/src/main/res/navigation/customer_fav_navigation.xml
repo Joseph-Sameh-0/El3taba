@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/customer_fav_navigation"
+    app:startDestination="@id/favoritesMainFragment">
+
+    <fragment
+        android:id="@+id/favoritesMainFragment"
+        android:name="com.example.el3taba.customer.favorites.FavoritesMainFragment"
+        android:label="fragment_favorites_main"
+        tools:layout="@layout/fragment_favorites_main" >
+        <action
+            android:id="@+id/action_favoritesMainFragment_to_productItemFragment3"
+            app:destination="@id/productItemFragment3">
+            <argument
+                android:name="productID"
+                app:argType="string" />
+            <argument
+                android:name="from"
+                android:defaultValue="fav"
+                app:argType="string" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/productItemFragment3"
+        android:name="com.example.el3taba.customer.shop.fragments.ProductItemFragment"
+        android:label="fragment_product_item"
+        tools:layout="@layout/fragment_product_item" />
+    <fragment
+        android:id="@+id/ratingsReviewsFragment3"
+        android:name="com.example.el3taba.customer.shop.fragments.RatingsReviewsFragment"
+        android:label="fragment_ratings_reviews"
+        tools:layout="@layout/fragment_ratings_reviews" />
+</navigation>

@@ -64,6 +64,7 @@ class ChangePasswordBottomSheet : BottomSheetDialogFragment() {
                         binding.oldPasswordLayout.error = "The old password is incorrect"
                         Log.d("MainActivity", "Failed to change password")
                     }
+
                 }
         }
 

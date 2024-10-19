@@ -42,11 +42,11 @@ class MyProductsViewModel : ViewModel() {
     // Function to add a product with image
     fun addProduct(
         product: FinalProduct,
-        imageUri: Uri?,
+        imageUris: List<Uri>?,  // Accept a list of image URIs
         categoryId: String,
         subcategoryId: String
     ): LiveData<Boolean> {
-        return repository.addProduct(product, imageUri, categoryId, subcategoryId)
+        return repository.addProduct(product, imageUris, categoryId, subcategoryId)
     }
 
     fun addCategory(category: Category, imageUri: Uri?): LiveData<Boolean> {

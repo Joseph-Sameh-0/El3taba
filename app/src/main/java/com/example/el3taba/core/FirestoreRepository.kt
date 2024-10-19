@@ -15,6 +15,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.storage.FirebaseStorage
+import java.util.UUID
 
 class FirestoreRepository {
 
@@ -32,14 +33,14 @@ class FirestoreRepository {
 
     fun addProduct(
         product: FinalProduct,
-        imageUri: Uri?,
+        imageUris: List<Uri>?,  // Accept a list of image URIs
         categoryId: String,
         subcategoryId: String
     ): LiveData<Boolean> {
         val result = MutableLiveData<Boolean>()
 
-        if (imageUri != null) {
-            uploadImageAndSaveProduct(product, imageUri, categoryId, subcategoryId, result)
+        if (imageUris != null && imageUris.isNotEmpty()) {
+            uploadImagesAndSaveProduct(product, imageUris, categoryId, subcategoryId, result)
         } else {
             saveProductToFirestore(product.copy(), categoryId, subcategoryId, result)
         }
@@ -47,25 +48,47 @@ class FirestoreRepository {
         return result
     }
 
-    private fun uploadImageAndSaveProduct(
+
+    private fun uploadImagesAndSaveProduct(
         product: FinalProduct,
-        imageUri: Uri,
+        imageUris: List<Uri>,  // List of image URIs to upload
         categoryId: String,
         subcategoryId: String,
         result: MutableLiveData<Boolean>
     ) {
-        val fileReference = storageRef.child("products/${System.currentTimeMillis()}.jpg")
+        val uploadedImageUrls = mutableListOf<String>() // To store uploaded image URLs
+        val totalImages = imageUris.size // Total number of images to upload
 
-        fileReference.putFile(imageUri)
-            .addOnSuccessListener {
-                fileReference.downloadUrl.addOnSuccessListener { uri ->
-                    val productWithImage = product.copy(imageUrl = uri.toString())
-                    saveProductToFirestore(productWithImage, categoryId, subcategoryId, result)
+        if (totalImages == 0) {
+            // If no images, save the product with an empty list of image URLs
+            saveProductToFirestore(product.copy(imageUrls = emptyList()), categoryId, subcategoryId, result)
+            return
+        }
+
+        // Iterate through each image URI
+        for (imageUri in imageUris) {
+            val imageRef = FirebaseStorage.getInstance().reference.child("products/${UUID.randomUUID()}.jpg")
+
+            // Upload the image
+            imageRef.putFile(imageUri).addOnSuccessListener { taskSnapshot ->
+                // Get the download URL after a successful upload
+                imageRef.downloadUrl.addOnSuccessListener { uri ->
+                    uploadedImageUrls.add(uri.toString()) // Add the URL to the list
+
+                    // Check if all images have been uploaded
+                    if (uploadedImageUrls.size == totalImages) {
+                        // Save the product with the list of uploaded image URLs
+                        saveProductToFirestore(product.copy(imageUrls = uploadedImageUrls), categoryId, subcategoryId, result)
+                    }
+                }.addOnFailureListener {
+                    // Handle failure to get download URL
+                    result.value = false
                 }
-            }
-            .addOnFailureListener {
+            }.addOnFailureListener {
+                // Handle failure to upload image
                 result.value = false
             }
+        }
     }
 
     private fun saveProductToFirestore(
@@ -335,7 +358,7 @@ class FirestoreRepository {
                         description = document.getString("description") ?: "",
                         stock = document.getLong("stock")?.toInt() ?: 0,
                         price = document.getDouble("price") ?: 0.0,
-                        imageUrl = document.getString("imageUrl") ?: ""
+                        imageUrls = listOf(document.getString("imageUrl") ?: "")
                     )
                 } ?: listOf() // Return an empty list if no documents
 
@@ -606,108 +629,7 @@ class FirestoreRepository {
         }
     }
 
-    //    // Function to add product
-//    fun addProduct(product: Product): LiveData<Boolean> {
-//        val result = MutableLiveData<Boolean>()
-//
-//        // Add product to Firestore without id to let Firestore auto-generate the ID
-//        db.collection("products")
-//            .add(product)
-//            .addOnSuccessListener { documentReference ->
-//                // Get the auto-generated ID
-//                val generatedId = documentReference.id
-//
-//                // Update the product's id field with the generated ID
-//                val updatedProduct = product.copy(id = generatedId)
-//
-//                // Now update the document with the new ID field
-//                db.collection("products").document(generatedId)
-//                    .set(updatedProduct)
-//                    .addOnSuccessListener {
-//                        result.value = true
-//                    }
-//                    .addOnFailureListener {
-//                        result.value = false
-//                    }
-//            }
-//            .addOnFailureListener {
-//                result.value = false
-//            }
-//
-//        return result
-//    }
-//
-//    // Function to delete a product
-//    fun deleteProduct(productId: String): LiveData<Boolean> {
-//        val result = MutableLiveData<Boolean>()
-//
-//        db.collection("products")
-//            .document(productId)
-//            .delete()
-//            .addOnSuccessListener {
-//                result.value = true
-//            }
-//            .addOnFailureListener {
-//                result.value = false
-//            }
-//
-//        return result
-//    }
+
     private val storageRef = FirebaseStorage.getInstance().reference
 
-//    // Function to upload the image and save the product
-//    fun addProductWithImage(product: Product, imageUri: Uri?): LiveData<Boolean> {
-//        val result = MutableLiveData<Boolean>()
-//
-//        if (imageUri != null) {
-//            // Upload image to Firebase Storage
-//            val fileReference = storageRef.child("products/" + System.currentTimeMillis() + ".jpg")
-//
-//            fileReference.putFile(imageUri)
-//                .addOnSuccessListener {
-//                    // Get the download URL of the uploaded image
-//                    fileReference.downloadUrl.addOnSuccessListener { uri ->
-//                        val imageUrl = uri.toString()
-//
-//                        // After uploading the image, save the product with the image URL
-//                        val productWithImage = product.copy(imageUrl = imageUrl)
-//                        saveProductToFirestore(productWithImage, result)
-//                    }
-//                }
-//                .addOnFailureListener {
-//                    // Handle failure in uploading image
-//                    result.value = false
-//                }
-//        } else {
-//            // If no image is provided, just save the product
-//            saveProductToFirestore(product, result)
-//        }
-//
-//        return result
-//    }
-//
-//    // Function to save product to Firestore
-//    private fun saveProductToFirestore(product: Product, result: MutableLiveData<Boolean>) {
-//        // Add product to Firestore without ID, Firestore auto-generates ID
-//        db.collection("products")
-//            .add(product)
-//            .addOnSuccessListener { documentReference ->
-//                // Get the auto-generated ID and update the product's ID field
-//                val generatedId = documentReference.id
-//                val updatedProduct = product.copy(id = generatedId)
-//
-//                // Update the product document with the new ID
-//                db.collection("products").document(generatedId)
-//                    .set(updatedProduct)
-//                    .addOnSuccessListener {
-//                        result.value = true
-//                    }
-//                    .addOnFailureListener {
-//                        result.value = false
-//                    }
-//            }
-//            .addOnFailureListener {
-//                result.value = false
-//            }
-//    }
 }

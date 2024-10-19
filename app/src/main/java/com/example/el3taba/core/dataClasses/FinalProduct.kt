@@ -6,22 +6,22 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class FinalProduct(
     val id: String = "",
-    val title: String = "",         // New field for product title
+    val title: String = "",
     val name: String = "",
     val description: String = "",
     val stock: Int = 0,
     val price: Double = 0.0,
-    val avgRating: Float = 0.0f,    // New field for average rating
-    val numberOfRatings: Int = 0,   // New field for number of ratings
-    val reviews: List<Review> = emptyList(), // New field for list of reviews
-    val mfgDate: String = "",        // New field for manufacturing date
-    val expDate: String = "",        // New field for expiration date
-    val state: String = "",          // New field for state (new/used)
-    val sellerName: String = "",         // New field for seller name
-    val sellerID: String = "",         // New field for seller name
-    val category: String = "",       // New field for product category
-    val subcategory: String = "",     // New field for product subcategory
-    val imageUrl: String = "",       // Existing field for image URL
-    val specs: Map<String, String> = emptyMap() // New field for specifications
+    val avgRating: Float = 0.0f,
+    val numberOfRatings: Int = 0,
+    val reviews: List<Review> = emptyList(),
+    val mfgDate: String = "",
+    val expDate: String = "",
+    val state: String = "",
+    val sellerName: String = "",
+    val sellerID: String = "",
+    val category: String = "",
+    val subcategory: String = "",
+    val imageUrls: List<String> = emptyList(),
+    val specs: Map<String, String> = emptyMap()
 ) : Parcelable
 

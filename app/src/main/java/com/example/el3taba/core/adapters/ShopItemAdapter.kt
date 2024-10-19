@@ -26,7 +26,7 @@ class ShopItemAdapter(
             binding.productPrice.text = product.price.toString()
             binding.productRating.rating = product.avgRating
 //            binding.productImage.setImageResource(product.imageResId)
-            productImg = product.imageUrl
+            productImg = product.imageUrls[0]
 //            val textView = binding.productOldPrice
 //            textView.paintFlags = textView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             binding.root.setOnClickListener {

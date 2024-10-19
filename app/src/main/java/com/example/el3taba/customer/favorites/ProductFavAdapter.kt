@@ -32,7 +32,7 @@ class ProductFavAdapter(
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         holder.bind(productList[position])
         Glide.with(holder.itemView.context)
-            .load(productList[position].imageUrl)
+            .load(productList[position].imageUrls[0])
             .into(holder.binding.productImage)
     }
 

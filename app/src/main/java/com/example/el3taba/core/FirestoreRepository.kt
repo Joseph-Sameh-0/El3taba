@@ -358,7 +358,7 @@ class FirestoreRepository {
                         description = document.getString("description") ?: "",
                         stock = document.getLong("stock")?.toInt() ?: 0,
                         price = document.getDouble("price") ?: 0.0,
-                        imageUrls = listOf(document.getString("imageUrl") ?: "")
+                        imageUrls = document.get("imageUrls") as List<String>
                     )
                 } ?: listOf() // Return an empty list if no documents
 

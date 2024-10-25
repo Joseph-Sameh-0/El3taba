@@ -49,11 +49,6 @@ class ProductItemFragment : Fragment() {
         val from = arguments?.getString("from") ?: ""
         Log.d("product ID", ProductID)
 
-        // Initialize ViewPager2 and its adapter
-        viewPagerAdapter = ImagePagerAdapter(imageUrls)
-        binding.productImagePager.adapter = viewPagerAdapter
-        binding.indicator.setViewPager(binding.productImagePager)
-
 
         // Load product details from Firebase
         loadProductDetails(ProductID)
@@ -97,6 +92,11 @@ class ProductItemFragment : Fragment() {
                 binding.productRating.rating = product.avgRating
                 binding.ratingNumber.text = "(${product.numberOfRatings})"
                 binding.availablePieces.text = "Available Pieces: ${product.stock}"
+
+                // Initialize ViewPager2 and its adapter
+                viewPagerAdapter = ImagePagerAdapter(product.imageUrls)
+                binding.productImagePager.adapter = viewPagerAdapter
+                binding.indicator.setViewPager(binding.productImagePager)
 
                 val specsTable = binding.specsTable
                 for ((key, value) in product.specs) {

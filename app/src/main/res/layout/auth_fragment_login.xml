@@ -159,8 +159,8 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginEnd="20dp"
-            android:src="@drawable/ic_google_signin"
-            android:contentDescription="@string/sign_in_with_google" />
+            android:contentDescription="@string/sign_in_with_google"
+            android:src="@drawable/ic_google_signin" />
 
         <!-- Microsoft Sign-in Icon -->
         <ImageView
@@ -168,16 +168,16 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginEnd="20dp"
-            android:src="@drawable/ic_microsoft_signin"
-            android:contentDescription="@string/sign_in_with_microsoft" />
+            android:contentDescription="@string/sign_in_with_microsoft"
+            android:src="@drawable/ic_microsoft_signin" />
 
         <!-- Facebook Sign-in Icon -->
         <ImageView
             android:id="@+id/Facebooklebtn"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@drawable/ic_facebook_signin"
-            android:contentDescription="@string/sign_in_with_facebook" />
+            android:contentDescription="@string/sign_in_with_facebook"
+            android:src="@drawable/ic_facebook_signin" />
     </LinearLayout>
 
 

@@ -110,4 +110,24 @@ class MyProductsViewModel : ViewModel() {
         repository.removeProductFromFavorites(categoryId, subcategoryId, productId)
     }
 
+    fun addProductToBag(
+        categoryId: String,
+        subcategoryId: String,
+        productId: String
+    ): LiveData<Boolean> {
+        return repository.addProductToBag(categoryId, subcategoryId, productId)
+    }
+
+    fun removeProductFromBag(
+        categoryId: String,
+        subcategoryId: String,
+        productId: String
+    ) {
+        repository.removeProductFromBag(categoryId, subcategoryId, productId)
+    }
+
+    fun getBagProducts(): LiveData<MutableList<Map<FinalProduct,Int>>> {
+        return repository.getBagProducts()
+    }
+
 }

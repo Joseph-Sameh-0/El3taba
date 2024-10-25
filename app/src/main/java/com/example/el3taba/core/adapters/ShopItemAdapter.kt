@@ -15,7 +15,6 @@ class ShopItemAdapter(
     private val onItemClick: (FinalProduct) -> Unit
 ) : RecyclerView.Adapter<ShopItemAdapter.ShopItemViewHolder>() {
 
-    var productImg: String? = null
 
     inner class ShopItemViewHolder(val binding: ItemShopProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -26,7 +25,8 @@ class ShopItemAdapter(
             binding.productPrice.text = product.price.toString()
             binding.productRating.rating = product.avgRating
 //            binding.productImage.setImageResource(product.imageResId)
-            productImg = product.imageUrls[0]
+            Glide.with(binding.productImage.context).load(product.imageUrls[0]).into(binding.productImage)
+//            productImg = product.imageUrls[0]
 //            val textView = binding.productOldPrice
 //            textView.paintFlags = textView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             binding.root.setOnClickListener {
@@ -50,10 +50,6 @@ class ShopItemAdapter(
 
     override fun onBindViewHolder(holder: ShopItemViewHolder, position: Int) {
         holder.bind(products[position])
-
-        Glide.with(holder.itemView.context)
-            .load(productImg)
-            .into(holder.binding.productImage)
     }
 
     override fun getItemCount(): Int = products.size

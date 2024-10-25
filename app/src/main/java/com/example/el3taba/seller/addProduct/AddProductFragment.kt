@@ -43,8 +43,6 @@ class AddProductFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val addProductViewModel =
-            ViewModelProvider(this).get(AddProductViewModel::class.java)
 
         _binding = SellerFragmentAddProductBinding.inflate(inflater, container, false)
         storage = FirebaseStorage.getInstance().reference
@@ -52,6 +50,8 @@ class AddProductFragment : Fragment() {
         val root: View = binding.root
 
         val categories = listOf("Electronics", "Clothing", "Food", "Books", "Pets", "Home Appliances")
+
+
         val adapter = ArrayAdapter(requireContext(), R.layout.simple_spinner_dropdown_item, categories)
         binding.categorySpinner.adapter = adapter
 
@@ -87,11 +87,6 @@ class AddProductFragment : Fragment() {
             }
         }
 
-
-        val textView: TextView = binding.textAddProduct
-        addProductViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
         return root
     }
 

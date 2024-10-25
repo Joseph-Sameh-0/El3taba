@@ -61,13 +61,19 @@ class FirestoreRepository {
 
         if (totalImages == 0) {
             // If no images, save the product with an empty list of image URLs
-            saveProductToFirestore(product.copy(imageUrls = emptyList()), categoryId, subcategoryId, result)
+            saveProductToFirestore(
+                product.copy(imageUrls = emptyList()),
+                categoryId,
+                subcategoryId,
+                result
+            )
             return
         }
 
         // Iterate through each image URI
         for (imageUri in imageUris) {
-            val imageRef = FirebaseStorage.getInstance().reference.child("products/${UUID.randomUUID()}.jpg")
+            val imageRef =
+                FirebaseStorage.getInstance().reference.child("products/${UUID.randomUUID()}.jpg")
 
             // Upload the image
             imageRef.putFile(imageUri).addOnSuccessListener { taskSnapshot ->
@@ -78,7 +84,12 @@ class FirestoreRepository {
                     // Check if all images have been uploaded
                     if (uploadedImageUrls.size == totalImages) {
                         // Save the product with the list of uploaded image URLs
-                        saveProductToFirestore(product.copy(imageUrls = uploadedImageUrls), categoryId, subcategoryId, result)
+                        saveProductToFirestore(
+                            product.copy(imageUrls = uploadedImageUrls),
+                            categoryId,
+                            subcategoryId,
+                            result
+                        )
                     }
                 }.addOnFailureListener {
                     // Handle failure to get download URL
@@ -626,6 +637,125 @@ class FirestoreRepository {
         } else {
             // User not logged in, handle accordingly
             Log.w("Firestore", "User not logged in, cannot remove from favorites")
+        }
+    }
+
+    fun getBagProducts(): LiveData<MutableList<Map<FinalProduct,Int>>> {
+        val productList = MutableLiveData<MutableList<Map<FinalProduct,Int>>>()
+        val favoriteProducts = mutableListOf<Map<FinalProduct,Int>>()
+        val auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+
+        if (currentUser != null) {
+            val favoriteProductsRef = db.collection("users/${currentUser.uid}/bag")
+
+            favoriteProductsRef.get().addOnSuccessListener { querySnapshot ->
+                val productRefs = mutableMapOf<DocumentReference,Int>()
+                for (document in querySnapshot.documents) {
+                    val productRef = document.getDocumentReference("productRef")
+                    val count = document.get("count") as Long
+                    if (productRef != null) {
+                        productRefs[productRef] = count.toInt()
+                    }
+                }
+                val productFetchTasks = productRefs.map { productRef ->
+                    productRef.key.get().addOnSuccessListener { productSnapshot ->
+                        if (productSnapshot.exists()) {
+                            favoriteProducts.add(mapOf(productSnapshot.toObject(FinalProduct::class.java)!! to productRef.value))
+                        }
+                        if (favoriteProducts.size == productRefs.size) {
+                            productList.value = favoriteProducts
+                        }
+                    }
+                }
+            }
+        }
+        return productList
+    }
+
+    fun addProductToBag(
+        categoryId: String,
+        subcategoryId: String,
+        productId: String
+    ): LiveData<Boolean> {
+        val productRef =
+            db.document("categories/$categoryId/subcategories/$subcategoryId/products/$productId")
+        val auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+        val isAdded = MutableLiveData<Boolean>()
+
+        if (currentUser != null) {
+            val bagCollection = db.collection("users/${currentUser.uid}/bag")
+
+            val query = bagCollection.whereEqualTo("productRef", productRef)
+            query.get().addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    if (task.result.isEmpty) {
+                        // Product not found in bag, add it
+                        val favoriteProduct = hashMapOf(
+                            "productRef" to productRef,
+                            "count" to 1
+                        )
+
+                        bagCollection.add(favoriteProduct)
+                            .addOnSuccessListener {
+                                Log.d("Firestore", "Product added to bag")
+                                isAdded.value = true
+                            }
+                            .addOnFailureListener { e ->
+                                Log.w("Firestore", "Error adding product to bag", e)
+                            }
+                    } else {
+                        // Product already in bag
+                        Log.d("Firestore", "Product already in bag")
+                        isAdded.value = false
+                    }
+                } else {
+                    // Error checking for existing product
+                    Log.w("Firestore", "Error checking for existing product", task.exception)
+                }
+            }
+        } else {
+            // User not logged in
+            Log.w("Firestore", "User not logged in, cannot add to bag")
+        }
+
+        return isAdded
+    }
+
+    fun removeProductFromBag(
+        categoryId: String,
+        subcategoryId: String,
+        productId: String
+    ) {
+        val productRef =
+            db.document("categories/$categoryId/subcategories/$subcategoryId/products/$productId")
+        val auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+
+        if (currentUser != null) {
+            val bagCollection = db.collection("users/${currentUser.uid}/bag")
+
+            // Query to find the document with the matching productRef
+            val query = bagCollection.whereEqualTo("productRef", productRef)
+
+            query.get().addOnSuccessListener { querySnapshot ->
+                for (document in querySnapshot.documents) {
+                    // Delete the document
+                    document.reference.delete()
+                        .addOnSuccessListener {
+                            Log.d("Firestore", "Product removed from bag")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w("Firestore", "Error removing product from bag", e)
+                        }
+                }
+            }.addOnFailureListener { e ->
+                Log.w("Firestore", "Error fetching favorite product document", e)
+            }
+        } else {
+            // User not logged in, handle accordingly
+            Log.w("Firestore", "User not logged in, cannot remove from bag")
         }
     }
 

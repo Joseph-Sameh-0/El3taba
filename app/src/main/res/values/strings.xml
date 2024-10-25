@@ -100,5 +100,14 @@
     <string name="phone_number">Phone Number</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
+    <string name="check_out">CHECK OUT</string>
+    <string name="total_amount">Total amount:</string>
+    <string name="my_bag">My Bag</string>
+    <string name="add_to_favorites">Add to favorites</string>
+    <string name="delete_from_the_list">Delete from the list</string>
+    <string name="decrease_quantity">Decrease quantity</string>
+    <string name="increase_quantity">Increase quantity</string>
+    <string name="more_options">More options</string>
+    <string name="_1">1</string>
 
 </resources>

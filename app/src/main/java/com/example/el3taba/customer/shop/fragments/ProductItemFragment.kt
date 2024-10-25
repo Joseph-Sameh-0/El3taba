@@ -24,13 +24,13 @@ class ProductItemFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var ProductID: String
     private lateinit var viewPagerAdapter: ImagePagerAdapter
-    private val imageUrls = mutableListOf<String>(
-        "https://m.media-amazon.com/images/I/71QmKIgj+BL._AC_SL1500_.jpg",
-        "https://m.media-amazon.com/images/I/71QS1tJQ9IL._AC_SL1500_.jpg",
-        "https://m.media-amazon.com/images/I/71oofzP5DlL._AC_SL1500_.jpg",
-        "https://m.media-amazon.com/images/I/61Lt8Th+ZUL._AC_SL1500_.jpg",
-        "https://m.media-amazon.com/images/I/71lMSVCVnwL._AC_SL1500_.jpg",
-    ) // List to hold image URLs
+//    private val imageUrls = mutableListOf<String>(
+//        "https://m.media-amazon.com/images/I/71QmKIgj+BL._AC_SL1500_.jpg",
+//        "https://m.media-amazon.com/images/I/71QS1tJQ9IL._AC_SL1500_.jpg",
+//        "https://m.media-amazon.com/images/I/71oofzP5DlL._AC_SL1500_.jpg",
+//        "https://m.media-amazon.com/images/I/61Lt8Th+ZUL._AC_SL1500_.jpg",
+//        "https://m.media-amazon.com/images/I/71lMSVCVnwL._AC_SL1500_.jpg",
+//    ) // List to hold image URLs
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,9 +54,6 @@ class ProductItemFragment : Fragment() {
         loadProductDetails(ProductID)
 
         // Handle 'Add to Bag' Button click
-        binding.addToBagButton.setOnClickListener {
-            // Logic to add the product to the shopping bag
-        }
 
         // Navigate to RatingsReviewsFragment when the reviews button is clicked
         binding.ratingAndReviews.setOnClickListener {
@@ -116,6 +113,24 @@ class ProductItemFragment : Fragment() {
                 }
                 binding.favoriteButton.setOnClickListener {
                     productViewModel.addProductToFavorites(
+                        product.category,
+                        product.subcategory,
+                        product.id
+                    ).observe(viewLifecycleOwner) { success ->
+                        if (success)
+                            Toast.makeText(
+                                context,
+                                "Product added successfully",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        else
+                            Toast.makeText(context, "Product added already", Toast.LENGTH_SHORT)
+                                .show()
+                    }
+                }
+                binding.addToBagButton.setOnClickListener {
+                    // Logic to add the product to the shopping bag
+                    productViewModel.addProductToBag(
                         product.category,
                         product.subcategory,
                         product.id
